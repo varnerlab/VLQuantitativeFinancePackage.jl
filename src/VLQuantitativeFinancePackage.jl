@@ -15,7 +15,7 @@ module VLQuantitativeFinancePackage
     export MyCRRLatticeNodeModel, MyGeometricBrownianMotionEquityModel, MyAdjacencyBasedCRREquityPriceTree, MyLongstaffSchwartzContractPricingModel, MyBlackScholesContractPricingModel
     export MyEuropeanCallContractModel, MyEuropeanPutContractModel, MyAmericanPutContractModel, MyAmericanCallContractModel, MyEquityModel
     export MyUSTreasuryZeroCouponBondModel, MyUSTreasuryCouponSecurityModel, DiscreteCompoundingModel, ContinuousCompoundingModel
-    export MySymmetricBinaryInterestRateLatticeModel, MyLocalExpectationRegressionModel
+    export MySymmetricBinaryInterestRateLatticeModel, MyBinaryInterestRateLatticeNodeModel
 
     # export functions/methods
     export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve
