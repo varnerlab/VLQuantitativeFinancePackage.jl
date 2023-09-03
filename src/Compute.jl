@@ -98,6 +98,7 @@ function _price_continuous_compounding(model::MyUSTreasuryCouponSecurityModel)
     T = model.T;
     rate = model.rate
     coupon = model.coupon
+    Vₚ = model.par
 
     # derived values
     N = round(Int,λ*T); # the number of steps we take
