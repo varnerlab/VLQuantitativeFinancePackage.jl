@@ -1,4 +1,4 @@
-function _build(modeltype::Type{T}, data::NamedTuple) where T <: AbstractAssetModel
+function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractAssetModel, AbstractTreasuryDebtSecurity}
     
     # build an empty model
     model = modeltype();
