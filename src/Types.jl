@@ -168,6 +168,7 @@ mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     rate::Union{Nothing, Float64}                   # Annual interest rate
     T::Union{Nothing,Float64}                       # Duration in years, measured as a 365 day or a 52 week year
     price::Union{Nothing, Float64}                  # Price of the bond or note
+    n::Int                                          # Number of compounding periods per year (typically 2)
     cashflow::Union{Nothing, Dict{Int,Float64}}     # Cashflow
     
     # constructor -

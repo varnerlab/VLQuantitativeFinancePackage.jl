@@ -220,9 +220,10 @@ function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
     T = model.T;
     rate = model.rate
     Vₚ = model.par
+    n = model.n
 
     # compute the discount factor -
-    𝒟 = (1+rate)^(T)
+    𝒟 = (1+(rate/n))^(n*T)
 
     # compute the price -
     price = (1/𝒟)*Vₚ
