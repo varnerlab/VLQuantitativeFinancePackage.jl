@@ -218,21 +218,29 @@ end
 
 function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
     
+    # initialize -
+    cashflow = Dict{Int,Float64}()
+
     # get data from the model -
     T = model.T;
     rate = model.rate
     Vₚ = model.par
     n = model.n
-
+    
     # compute the discount factor -
     𝒟 = (1+(rate/n))^(n*T)
 
     # compute the price -
     price = (1/𝒟)*Vₚ
+   
+    # casflow -
+    cashflow[0] = -1*price;
+    cashflow[1] = price;
 
     # update the model -
     model.price = price;
-
+    model.cashflow = cashflow;
+   
     # return -
     return model
 end
