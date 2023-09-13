@@ -92,6 +92,7 @@ function _price_continuous_compounding(model::MyUSTreasuryCouponSecurityModel)
 
     # initialize -
     cashflow = Dict{Int,Float64}()
+    discount = Dict{Int,Float64}()
 
     # get data from the model -
     λ = model.λ  # per year
@@ -104,6 +105,7 @@ function _price_continuous_compounding(model::MyUSTreasuryCouponSecurityModel)
     N = round(Int,λ*T); # the number of steps we take
     Cᵢ = (coupon/λ)*Vₚ;
     rᵢ = rate;
+    discount[0] = 1.0;
 
     # internal timescale -
     Δ = 1/λ;
@@ -116,6 +118,7 @@ function _price_continuous_compounding(model::MyUSTreasuryCouponSecurityModel)
 
         # build the discount rate -
         𝒟ᵢ = exp(τ*rᵢ);
+        discount[i] = 𝒟ᵢ;
 
         # compute the coupon payments -
         payment =  (1/𝒟ᵢ)*Cᵢ;
@@ -137,6 +140,7 @@ function _price_continuous_compounding(model::MyUSTreasuryCouponSecurityModel)
     # add stuff to model -
     model.cashflow = cashflow;
     model.price = abs(cashflow[0]);
+    model.discount = discount;
 
     # return the updated model -
     return model
@@ -146,6 +150,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     
     # initialize -
     cashflow = Dict{Int,Float64}()
+    discount = Dict{Int,Float64}()
 
     # get data from the model -
     λ = model.λ  # per year
@@ -158,6 +163,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     N = round(Int,λ*T); # the number of steps we take
     Cᵢ = (coupon/λ)*Vₚ;
     rᵢ = (rate/λ);
+    discount[0] = 1.0;
 
     # internal timescale -
     Δ = 1/λ;
@@ -170,6 +176,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
 
         # build the discount rate -
         𝒟ᵢ = (1+rᵢ)^i
+        discount[i] = 𝒟ᵢ;
         
         # compute the coupon payments -
         payment =  (1/𝒟ᵢ)*Cᵢ;
@@ -191,12 +198,17 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     # add stuff to model -
     model.cashflow = cashflow;
     model.price = abs(cashflow[0]);
+    model.discount = discount;
 
     # return the updated model -
     return model
 end
 
 function _price_continuous_compounding(model::MyUSTreasuryZeroCouponBondModel)
+
+    # initialize -
+    discount = Dict{Int,Float64}()
+    cashflow = Dict{Int,Float64}()
 
     # get data from the model -
     T = model.T;
@@ -205,12 +217,18 @@ function _price_continuous_compounding(model::MyUSTreasuryZeroCouponBondModel)
 
     # compute the discount factor -
     𝒟 = exp(rate*T);
+    discount[0] = 1.0;
+    discount[1] = 𝒟;
 
     # compute the price -
     price = (1/𝒟)*Vₚ
+    cashflow[0] = -1*price;
+    cashflow[1] = price;
 
     # update the model -
     model.price = price;
+    model.discount = discount;
+    model.cashflow = cashflow;
 
     # return the updated model -
     return model
@@ -220,6 +238,7 @@ function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
     
     # initialize -
     cashflow = Dict{Int,Float64}()
+    discount = Dict{Int,Float64}()
 
     # get data from the model -
     T = model.T;
@@ -236,6 +255,10 @@ function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
     # casflow -
     cashflow[0] = -1*price;
     cashflow[1] = price;
+
+    # discount -
+    discount[0] = 1.0;
+    discount[1] = 𝒟;
 
     # update the model -
     model.price = price;

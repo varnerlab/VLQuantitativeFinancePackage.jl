@@ -170,6 +170,7 @@ mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     price::Union{Nothing, Float64}                  # Price of the bond or note
     n::Int                                          # Number of compounding periods per year (typically 2)
     cashflow::Union{Nothing, Dict{Int,Float64}}     # Cashflow
+    discount::Union{Nothing, Dict{Int,Float64}}     # discount factors
     
     # constructor -
     MyUSTreasuryZeroCouponBondModel() = new()
@@ -188,6 +189,7 @@ mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
     λ::Int                                          # Number of coupon payments per year (typcially 2)
     price::Union{Nothing, Float64}                  # Price of the bond or note
     cashflow::Union{Nothing, Dict{Int,Float64}}     # Cashflow
+    discount::Union{Nothing, Dict{Int,Float64}}     # discount factors
 
     # consturctor -
     MyUSTreasuryCouponSecurityModel() = new();
