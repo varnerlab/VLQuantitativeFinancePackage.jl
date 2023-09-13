@@ -263,6 +263,7 @@ function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
     # update the model -
     model.price = price;
     model.cashflow = cashflow;
+    model.discount = discount;
    
     # return -
     return model
