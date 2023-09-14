@@ -8,6 +8,8 @@ using LinearAlgebra
 using DataFrames
 using JLD2
 using CSV
+using MadNLP
+using JuMP
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
