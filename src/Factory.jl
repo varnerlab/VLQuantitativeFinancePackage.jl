@@ -1,4 +1,4 @@
-function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractAssetModel, AbstractTreasuryDebtSecurity}
+function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem}
     
     # build an empty model
     model = modeltype();
@@ -151,3 +151,5 @@ build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple):
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);
 build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreasuryCouponSecurityModel = _build(model, data);
 build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreasuryZeroCouponBondModel = _build(model, data);
+build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
+build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);

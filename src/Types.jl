@@ -4,6 +4,7 @@ abstract type AbstractInterestRateTreeModel <: AbstractAssetModel end
 abstract type AbstractContractModel <: AbstractAssetModel end
 abstract type AbstractTreasuryDebtSecurity end
 abstract type AbstractCompoundingModel end
+abstract type AbstractStochasticChoiceProblem end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -238,5 +239,32 @@ mutable struct MySymmetricBinaryInterestRateLatticeModel <: AbstractInterestRate
 
     # constructor -
     MySymmetricBinaryInterestRateLatticeModel() = new()
+end
+
+mutable struct MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+
+    # data -
+    Σ::Array{Float64,2}
+    μ::Array{Float64,1}
+    bounds::Array{Float64,2}
+    R::Float64
+    initial::Array{Float64,1}
+
+    # constructor
+    MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem() = new();
+end
+
+mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+
+    # data -
+    Σ::Array{Float64,2}
+    μ::Array{Float64,1}
+    bounds::Array{Float64,2}
+    R::Float64
+    initial::Array{Float64,1}
+    risk_free_rate::Float64
+
+    # constructor -
+    MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem() = new();
 end
 # -------------------------------------------------------------------------------------------- #

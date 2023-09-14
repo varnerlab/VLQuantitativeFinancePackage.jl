@@ -14,3 +14,5 @@ include(joinpath(_PATH_TO_SRC, "Types.jl"));
 include(joinpath(_PATH_TO_SRC, "Factory.jl"));
 include(joinpath(_PATH_TO_SRC, "Compute.jl"));
 include(joinpath(_PATH_TO_SRC, "Longstaff.jl"));
+include(joinpath(_PATH_TO_SRC, "Solve.jl"));
+include(joinpath(_PATH_TO_SRC, "Greeks.jl"));
