@@ -18,6 +18,7 @@ CSV = "^0"
 DataFrames = "1"
 Distributions = "0.25"
 JLD2 = "0.4"
+MadNLP = "0.7"
 julia = "1"
 
 [extras]
