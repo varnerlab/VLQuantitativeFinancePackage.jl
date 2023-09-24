@@ -91,66 +91,6 @@ function _build_connectivity_dictionary(h::Int)::Dict{Int64, Array{Int64,1}}
     return connectivity
 end
 
-function build(modeltype::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree
-
-   
-    # by the end of this method, these data will be populated -
-    # connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}
-    # levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}
-    # u::Float64
-    # d::Float64
-    # p::Float64
-    # data::Union{Nothing, Dict{Int64, MyBiomialLatticeEquityNodeModel}} # holds 
-
-    # get data from the named tuple -
-    u = data.u;
-    d = data.d;
-    p = data.p;
-    h = data.h;
-    Sₒ = data.Sₒ;
-
-    # initialize -
-    model = MyBinomialEquityPriceTree(); # this model is empty
-    nodes_dictionary = Dict{Int, MyBiomialLatticeEquityNodeModel}()
-
-    # main loop -
-    counter = 0;
-    for t ∈ 0:h
-        
-        # prices -
-        for k ∈ 0:t
-            
-            t′ = big(t)
-            k′ = big(k)
-
-            # compute the prices and P for this level
-            price = Sₒ*(u^(t-k))*(d^(k));
-            P = binomial(t′,k′)*(p^(t-k))*(1-p)^(k);
-
-            # create a NamedTuple that holds values
-            node = MyBiomialLatticeEquityNodeModel()
-            node.price = price
-            node.probability = P
-          
-            # push this into the array -
-            nodes_dictionary[counter] = node;
-            counter += 1
-        end
-    end
-
-    # update the model -
-    model.data = nodes_dictionary;
-    model.levels = _build_nodes_level_dictionary(h);
-    model.connectivity = _build_connectivity_dictionary(h);
-    model.u = u;
-    model.d = d;
-    model.p = p;
-        
-    # return -
-    return model;
-end
-
-
 function build(modeltype::Type{MyAdjacencyBasedCRREquityPriceTree}; 
     h::Int = 1, μ::Float64 = 0.01, σ::Float64 = 0.1, T::Float64 = (1.0/365.0), Sₒ::Float64 = 1.0)::MyAdjacencyBasedCRREquityPriceTree
      
@@ -256,3 +196,4 @@ build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreas
 build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreasuryZeroCouponBondModel = _build(model, data);
 build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
 build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
+build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);

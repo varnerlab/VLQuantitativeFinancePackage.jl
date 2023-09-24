@@ -647,6 +647,54 @@ function populate(model::MySymmetricBinaryInterestRateLatticeModel )
     return model;
 end
 
+
+"""
+    populate(model::MyCRRPriceLatticeModel, Sₒ::Float64, T::Int) -> Dict{Int,Array{NamedTuple,1}}
+"""
+function populate(model::MyBinomialEquityPriceTree; 
+    Sₒ::Float64 = 100.0, h::Int = 1)::MyBinomialEquityPriceTree
+
+    # initialize -
+    u = model.u;
+    p = model.p;
+    d = model.d;
+    nodes_dictionary = Dict{Int, MyBiomialLatticeEquityNodeModel}()
+
+    # main loop -
+    counter = 0;
+    for t ∈ 0:h
+        
+        # prices -
+        for k ∈ 0:t
+            
+            t′ = big(t)
+            k′ = big(k)
+
+            # compute the prices and P for this level
+            price = Sₒ*(u^(t-k))*(d^(k));
+            P = binomial(t′,k′)*(p^(t-k))*(1-p)^(k);
+
+            # create a NamedTuple that holds values
+            node = MyBiomialLatticeEquityNodeModel()
+            node.price = price
+            node.probability = P
+          
+            
+            # push this into the array -
+            nodes_dictionary[counter] = node;
+            counter += 1
+        end
+    end
+
+    # update the model -
+    model.data = nodes_dictionary;
+    model.levels = _build_nodes_level_dictionary(h);
+    model.connectivity = _build_connectivity_dictionary(h);
+
+    # return -
+    return model
+end
+
 # Shortcut methods that map to a 
 (compounding::DiscreteCompoundingModel)(model::MyUSTreasuryCouponSecurityModel) = _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
 (compounding::ContinuousCompoundingModel)(model::MyUSTreasuryCouponSecurityModel) = _price_continuous_compounding(model::MyUSTreasuryCouponSecurityModel)
