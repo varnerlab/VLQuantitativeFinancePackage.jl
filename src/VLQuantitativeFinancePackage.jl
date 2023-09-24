@@ -18,6 +18,7 @@ module VLQuantitativeFinancePackage
     export MyUSTreasuryZeroCouponBondModel, MyUSTreasuryCouponSecurityModel, DiscreteCompoundingModel, ContinuousCompoundingModel
     export MySymmetricBinaryInterestRateLatticeModel, MyBinaryInterestRateLatticeNodeModel
     export MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem, MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
+    export MyBiomialLatticeEquityNodeModel, MyBinomialEquityPriceTree
 
     # export functions/methods
     export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve
