@@ -3,6 +3,8 @@ _payoff(contract::Union{MyEuropeanCallContractModel, MyAmericanCallContractModel
 _payoff(contract::Union{MyEuropeanPutContractModel, MyAmericanPutContractModel}, S::Float64) = max(0.0, contract.K - S)
 _rational(a, b) = max(a, b)
 _encode(array,value) = findfirst(x->x>=value, array)
+_U(x,λ) = x^λ
+_IU(x,λ) = x^(1/λ);
 
 # compute the intrinsic value 
 function _intrinsic(model::T, underlying::Array{Float64,1})::Array{Float64,1} where {T<:AbstractAssetModel}
@@ -437,6 +439,7 @@ function premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree;
     # get stuff from the model -
     p = model.p
     μ = model.μ
+    #ΔT = model.T
     ΔT = model.ΔT
     dfactor = exp(-μ * ΔT)
 
@@ -463,6 +466,55 @@ function premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree;
 
             # compute the future_payback, and current payback
             current_payback = data[i].intrinsic
+            future_payback = dfactor*((p*data[up_node_index].extrinsic)+(1-p)*(data[down_node_index].extrinsic))
+            node_price = choice(current_payback, future_payback) # encode the choice
+            data[i].extrinsic = node_price;
+        end
+    end
+
+    # # return -
+    return data[0].extrinsic
+end
+
+function premium(contract::T, model::MyBinomialEquityPriceTree; 
+    choice::Function=_rational)::Float64 where {T<:AbstractContractModel}
+
+    # initialize -
+    data = model.data
+    connectivity = model.connectivity
+    levels = model.levels
+    
+    # get stuff from the model -
+    p = model.p
+    μ = model.μ
+    ΔT = model.ΔT
+    dfactor = exp(-μ * ΔT)
+
+   
+
+    # Step 1: compute the intrinsic value
+    for (_, node) ∈ data
+          
+        # grab the price -
+        price = node.price
+        node.intrinsic = _intrinsic(contract, price)
+        node.extrinsic = _intrinsic(contract, price)
+    end
+
+    # get the levels that are going to process -
+    list_of_levels = sort(keys(levels) |> collect,rev=true);
+    for level ∈ list_of_levels[2:end]
+        
+        # get nodes on this level -
+        parent_node_index = levels[level];
+        for i ∈ parent_node_index
+            
+            children_nodes = connectivity[i];
+            up_node_index = children_nodes[1];
+            down_node_index = children_nodes[2];
+
+            # compute the future_payback, and current payback
+            current_payback = data[i].intrinsic;
             future_payback = dfactor*((p*data[up_node_index].extrinsic)+(1-p)*(data[down_node_index].extrinsic))
             node_price = choice(current_payback, future_payback) # encode the choice
             data[i].extrinsic = node_price;
@@ -655,10 +707,24 @@ function populate(model::MyBinomialEquityPriceTree;
     Sₒ::Float64 = 100.0, h::Int = 1)::MyBinomialEquityPriceTree
 
     # initialize -
-    u = model.u;
-    p = model.p;
-    d = model.d;
     nodes_dictionary = Dict{Int, MyBiomialLatticeEquityNodeModel}()
+
+    # get stuff from the model -
+    ū = model.u;
+    d̄ = model.d;
+    p̄ = model.p;
+    T = model.T;
+
+    # we need this so that we can use the same type to compute option premiums
+    if (isnothing(T) == true)
+        T = h;
+    end
+
+    # compute u, d and p
+    ΔT = T / h
+    u = ū
+    d = d̄
+    p = p̄
 
     # main loop -
     counter = 0;
@@ -690,6 +756,64 @@ function populate(model::MyBinomialEquityPriceTree;
     model.data = nodes_dictionary;
     model.levels = _build_nodes_level_dictionary(h);
     model.connectivity = _build_connectivity_dictionary(h);
+    model.ΔT = ΔT;
+
+    # return -
+    return model
+end
+
+function populate(model::MyAdjacencyBasedCRREquityPriceTree; 
+    Sₒ::Float64 = 100.0, h::Int64 = 1)::MyAdjacencyBasedCRREquityPriceTree
+
+    # initialize -
+    nodes_dictionary = Dict{Int, MyCRRLatticeNodeModel}()
+
+    T = model.T;
+    μ = model.μ;
+    σ = model.σ;
+
+    # compute u, d and p
+    ΔT = T / h
+    u = exp(σ * sqrt(ΔT))
+    d = 1.0/u;
+    p = (exp(µ * ΔT) - d) / (u - d)
+
+    # compute the price and probability, and store in the nodes dictionary
+    counter = 0;
+    for t ∈ 0:h
+
+        # prices -
+        for k ∈ 0:t
+            
+            t′ = big(t)
+            k′ = big(k)
+
+            # compute the prices and P for this level
+            price = Sₒ*(u^(t-k))*(d^(k));
+            P = binomial(t′,k′)*(p^(t-k))*(1-p)^(k);
+
+            # create a node model -
+            node = MyCRRLatticeNodeModel();
+            node.price = price
+            node.probability = P;
+            node.intrinsic = 0.0; # intrinsic value gets updated later, for now -> 0.0
+            node.extrinsic = 0.0; # extrinsic value gets updated later, for now -> 0.0
+            
+            # push this into the array -
+            nodes_dictionary[counter] = node;
+            counter += 1
+        end
+    end
+
+    # set the data, and connectivity for the model -
+    model.data = nodes_dictionary;
+    model.connectivity = _build_connectivity_dictionary(h)
+    model.levels = _build_nodes_level_dictionary(h)
+    model.p = p;
+    model.u = u;
+    model.ΔT = ΔT
+    model.μ = μ
+    model.d = d
 
     # return -
     return model

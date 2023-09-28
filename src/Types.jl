@@ -46,15 +46,19 @@ end
 mutable struct MyAdjacencyBasedCRREquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -
+    μ::Float64
+    σ::Float64
+    T::Float64
+
+    # we compute these values -
+    ΔT::Union{Nothing,Float64}
+    u::Union{Nothing,Float64}
+    d::Union{Nothing,Float64}
+    p::Union{Nothing,Float64}
     data::Union{Nothing, Dict{Int, MyCRRLatticeNodeModel}}
     connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}
     levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}
-    u::Float64
-    d::Float64
-    p::Float64
-    ΔT::Float64
-    μ::Float64
-
+   
     # constructor 
     MyAdjacencyBasedCRREquityPriceTree() = new()
 end
@@ -274,6 +278,8 @@ mutable struct MyBiomialLatticeEquityNodeModel
     # data -
     price::Float64
     probability::Float64
+    intrinsic::Union{Nothing,Float64} # these are needed *only* for option pricing
+    extrinsic::Union{Nothing,Float64} # these are needed *only* for option pricing
 
     # constructor -
     MyBiomialLatticeEquityNodeModel() = new();
@@ -285,11 +291,16 @@ MyBinomialEquityPriceTree
 mutable struct MyBinomialEquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -
-    connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}
-    levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}
     u::Float64
     d::Float64
     p::Float64
+    μ::Union{Nothing,Float64} # this is needed *only* for option pricing
+    T::Union{Nothing,Float64}
+
+    # we compute these values -
+    connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}
+    levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}
+    ΔT::Union{Nothing,Float64}
     data::Union{Nothing, Dict{Int64, MyBiomialLatticeEquityNodeModel}} # holds data in the tree
     
     # constructor 

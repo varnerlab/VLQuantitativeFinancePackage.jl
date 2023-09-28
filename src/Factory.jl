@@ -91,8 +91,11 @@ function _build_connectivity_dictionary(h::Int)::Dict{Int64, Array{Int64,1}}
     return connectivity
 end
 
+# Old IMPL that works - do not delete, just in case .... switched to two phase impl, *seems* to be ok??
+# However, we need this here for backward compatibility
 function build(modeltype::Type{MyAdjacencyBasedCRREquityPriceTree}; 
-    h::Int = 1, μ::Float64 = 0.01, σ::Float64 = 0.1, T::Float64 = (1.0/365.0), Sₒ::Float64 = 1.0)::MyAdjacencyBasedCRREquityPriceTree
+    h::Int = 1, μ::Float64 = 0.01, σ::Float64 = 0.1, T::Float64 = (1.0/365.0), 
+    Sₒ::Float64 = 1.0)::MyAdjacencyBasedCRREquityPriceTree
      
     # initialize -
     model = MyAdjacencyBasedCRREquityPriceTree(); # this model is empty
@@ -103,38 +106,40 @@ function build(modeltype::Type{MyAdjacencyBasedCRREquityPriceTree};
     u = exp(σ * sqrt(ΔT))
     d = 1.0/u;
     p = (exp(µ * ΔT) - d) / (u - d)
+
+    @show (ΔT,u,d,p)
   
-    # compute connectivity - 
-    number_items_per_level = [i for i = 1:(h+1)]
-    tmp_array = Array{Int64,1}()
-    theta = 0
-    for value in number_items_per_level
-        for _ = 1:value
-            push!(tmp_array, theta)
-        end
-        theta = theta + 1
-    end
+    # # compute connectivity - 
+    # number_items_per_level = [i for i = 1:(h+1)]
+    # tmp_array = Array{Int64,1}()
+    # theta = 0
+    # for value in number_items_per_level
+    #     for _ = 1:value
+    #         push!(tmp_array, theta)
+    #     end
+    #     theta = theta + 1
+    # end
 
-    N = sum(number_items_per_level[1:(h)])
-    connectivity_index_array = Array{Int64,2}(undef, N, 3)
-    for row_index = 1:N
+    # N = sum(number_items_per_level[1:(h)])
+    # connectivity_index_array = Array{Int64,2}(undef, N, 3)
+    # for row_index = 1:N
 
-        # index_array[row_index,1] = tmp_array[row_index]
-        connectivity_index_array[row_index, 1] = row_index
-        connectivity_index_array[row_index, 2] = row_index + 1 + tmp_array[row_index]
-        connectivity_index_array[row_index, 3] = row_index + 2 + tmp_array[row_index]
-    end
+    #     # index_array[row_index,1] = tmp_array[row_index]
+    #     connectivity_index_array[row_index, 1] = row_index
+    #     connectivity_index_array[row_index, 2] = row_index + 1 + tmp_array[row_index]
+    #     connectivity_index_array[row_index, 3] = row_index + 2 + tmp_array[row_index]
+    # end
     
-    # adjust for zero base -
-    zero_based_array = connectivity_index_array .- 1;
+    # # adjust for zero base -
+    # zero_based_array = connectivity_index_array .- 1;
 
-    # build connectivity dictionary -
-    N = sum(number_items_per_level[1:end-1])
-    connectivity = Dict{Int64, Array{Int64,1}}()
-    for i ∈ 0:(N-1)
-        # grab the connectivity -
-        connectivity[i] = reverse(zero_based_array[i+1,2:end])
-    end
+    # # build connectivity dictionary -
+    # N = sum(number_items_per_level[1:end-1])
+    # connectivity = Dict{Int64, Array{Int64,1}}()
+    # for i ∈ 0:(N-1)
+    #     # grab the connectivity -
+    #     connectivity[i] = reverse(zero_based_array[i+1,2:end])
+    # end
 
     # compute the price and probability, and store in the nodes dictionary
     counter = 0;
@@ -163,20 +168,23 @@ function build(modeltype::Type{MyAdjacencyBasedCRREquityPriceTree};
         end
     end
 
-    # put it back in order -
-    for i ∈ 0:(N-1)
-        # grab the connectivity -
-        connectivity[i] = zero_based_array[i+1,2:end]
-    end
+    # # put it back in order -
+    # for i ∈ 0:(N-1)
+    #     # grab the connectivity -
+    #     connectivity[i] = zero_based_array[i+1,2:end]
+    # end
 
     # # set the data, and connectivity for the model -
     model.data = nodes_dictionary;
-    model.connectivity = connectivity;
+    # model.connectivity = connectivity;
+    model.connectivity = _build_connectivity_dictionary(h)
     model.levels = _build_nodes_level_dictionary(h)
     model.p = p;
     model.u = u;
     model.ΔT = ΔT
     model.μ = μ
+    model.d = d
+    model.T = T
 
     # return -
     return model
@@ -196,4 +204,5 @@ build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreas
 build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreasuryZeroCouponBondModel = _build(model, data);
 build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
 build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
+build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
