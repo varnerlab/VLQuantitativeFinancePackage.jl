@@ -490,8 +490,6 @@ function premium(contract::T, model::MyBinomialEquityPriceTree;
     ΔT = model.ΔT
     dfactor = exp(-μ * ΔT)
 
-   
-
     # Step 1: compute the intrinsic value
     for (_, node) ∈ data
           
@@ -722,8 +720,8 @@ function populate(model::MyBinomialEquityPriceTree;
 
     # compute u, d and p
     ΔT = T / h
-    u = ū
-    d = d̄
+    u = ū*ΔT
+    d = d̄*ΔT
     p = p̄
 
     # main loop -
