@@ -720,8 +720,8 @@ function populate(model::MyBinomialEquityPriceTree;
 
     # compute u, d and p
     ΔT = T / h
-    u = ū*ΔT
-    d = d̄*ΔT
+    u = ū
+    d = d̄
     p = p̄
 
     # main loop -
