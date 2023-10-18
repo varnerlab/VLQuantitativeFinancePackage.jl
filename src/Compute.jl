@@ -538,7 +538,7 @@ function premium(contract::MyEuropeanCallContractModel,
     # compute the premium -
     d₊ = (1/(σ*sqrt(T)))*(log(Sₒ/K)+(r+(σ^2)/2)*T);
     d₋ = d₊ - σ*sqrt(T);
-    premium = (cdf(Normal(0,1), d₊)*Sₒ - cdf(Normal(0,1), d₋)*K*(1/𝒟(r̄,T))) |> x-> round(x, sigdigits = sigdigits)
+    premium = (cdf(Normal(0,1), d₊)*Sₒ - cdf(Normal(0,1), d₋)*K*(1/𝒟(r,T))) |> x-> round(x, sigdigits = sigdigits)
 
     # return -
     return premium
@@ -559,7 +559,7 @@ function premium(contract::MyEuropeanPutContractModel,
     # compute the premium -
     d₊ = (1/(σ*sqrt(T)))*(log(Sₒ/K)+(r+(σ^2)/2)*T);
     d₋ = d₊ - σ*sqrt(T);
-    premium = cdf(Normal(0,1), -d₋)*K*(1/𝒟(r̄,T)) - cdf(Normal(0,1), -d₊)*Sₒ |> x-> round(x,sigdigits=sigdigits)
+    premium = cdf(Normal(0,1), -d₋)*K*(1/𝒟(r,T)) - cdf(Normal(0,1), -d₊)*Sₒ |> x-> round(x,sigdigits=sigdigits)
 
     # return -
     return premium
