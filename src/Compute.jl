@@ -338,7 +338,7 @@ function sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple;
 	# main simulation loop -
 	for p ∈ 1:number_of_paths
 		for t ∈ 1:number_of_time_steps-1
-			X[t+1,p+1] = X[t,p+1]*exp((μ - σ^2/2)*Δt + σ*(sqrt(Δt))*ZM[t,p])
+			X[t+1,p+1] = X[t,p+1]*exp((μ - (σ^2)/2)*Δt + σ*(sqrt(Δt))*ZM[t,p])
 		end
 	end
 
