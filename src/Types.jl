@@ -13,11 +13,9 @@ struct MyLocalExpectationRegressionModel
     a0::Float64
     a1::Float64
     a2::Float64
-    a3::Float64
-    a4::Float64
 
-    function MyLocalExpectationRegressionModel(a0,a1,a2,a3,a4)
-        this = new(a0,a1,a2,a3,a4)
+    function MyLocalExpectationRegressionModel(a0,a1,a2)
+        this = new(a0,a1,a2)
     end
 end
 
