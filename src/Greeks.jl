@@ -61,9 +61,11 @@ function delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     # advance base price by 1 -
     S₁ = Sₒ + 1
 
-    # build models -
-    mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ)
-    m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=S₁, h=h, σ=σ, T=T, μ=μ)
+    mₒ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = r̄, T = T, σ = σ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
+
+    m₁ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = r̄, T = T, σ = σ)) |> (x-> populate(x, Sₒ = S₁, h = h));
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
