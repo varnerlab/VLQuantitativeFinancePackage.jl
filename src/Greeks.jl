@@ -30,7 +30,7 @@ function theta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         (μ = μ, T = Tₒ, σ = σ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
 
     m₁ = build(MyAdjacencyBasedCRREquityPriceTree, 
-        (μ = μ, T = T₁, σ = σ)) |> (x-> populate(x, Sₒ = S₁, h = h));
+        (μ = μ, T = T₁, σ = σ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
