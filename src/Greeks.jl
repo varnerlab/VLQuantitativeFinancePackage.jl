@@ -172,7 +172,7 @@ function rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
 
     # setup mu -
     μₒ = μ
-    μ₁ = μ + 0.001
+    μ₁ = μ + 0.01
 
     # build models -
     # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μₒ)
