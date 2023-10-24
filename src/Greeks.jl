@@ -86,15 +86,15 @@ end
 # ================================================================================================================================================== #
 
 # == GAMMA ========================================================================================================================================= #
-function gamma(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 
     # advance base price by 1 -
     S₁ = Sₒ + 1
 
     # compute -
-    δₒ = delta(contract; number_of_levels=number_of_levels, T=T, σ=σ, Sₒ=Sₒ, μ=μ, choice=choice)
-    δ₁ = delta(contract; number_of_levels=number_of_levels, T=T, σ=σ, Sₒ=S₁, μ=μ, choice=choice)
+    δₒ = delta(contract; h=h, T=T, σ=σ, Sₒ=Sₒ, μ=μ, choice=choice)
+    δ₁ = delta(contract; h=h, T=T, σ=σ, Sₒ=S₁, μ=μ, choice=choice)
 
     # compute γ -
     γ_value = (δ₁ - δₒ)
@@ -103,7 +103,7 @@ function gamma(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ:
     return γ_value
 end
 
-function gamma(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function gamma(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 
     # initialize -
@@ -111,7 +111,7 @@ function gamma(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 /
 
     # compute -
     for contract ∈ contracts
-        value = gamma(contract; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ, choice=choice)
+        value = gamma(contract; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ, choice=choice)
         push!(value_array, value)
     end
 
@@ -121,7 +121,7 @@ end
 # ================================================================================================================================================== #
 
 # == VEGA ========================================================================================================================================== #
-function vega(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function vega(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 
     # initialize -
@@ -129,7 +129,7 @@ function vega(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 
 
     # compute -
     for contract ∈ contracts
-        value = vega(contract; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ, choice=choice)
+        value = vega(contract; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ, choice=choice)
         push!(value_array, value)
     end
 
@@ -137,7 +137,7 @@ function vega(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 
     return value_array
 end
 
-function vega(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 
     # setup the calculation -
@@ -145,8 +145,14 @@ function vega(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::
     σ₁ = σ + 0.01
 
     # build models -
-    mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σₒ, T=T, μ=μ)
-    m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ₁, T=T, μ=μ)
+    # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σₒ, T=T, μ=μ)
+    # m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ₁, T=T, μ=μ)
+
+    mₒ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = μ, T = T, σ = σₒ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
+
+    m₁ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = μ, T = T, σ = σ₁)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
@@ -161,7 +167,7 @@ end
 # ================================================================================================================================================== #
 
 # == RHO =========================================================================================================================================== #
-function rho(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 
     # setup mu -
@@ -169,8 +175,14 @@ function rho(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::F
     μ₁ = μ + 0.001
 
     # build models -
-    mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μₒ)
-    m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ₁)
+    # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μₒ)
+    # m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ₁)
+
+    mₒ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = μₒ, T = T, σ = σₒ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
+
+    m₁ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = μ₁, T = T, σ = σ₁)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
@@ -183,7 +195,7 @@ function rho(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::F
     return ρ_value
 end
 
-function rho(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function rho(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 
     # initialize -
@@ -191,7 +203,7 @@ function rho(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 3
 
     # compute -
     for contract ∈ contracts
-        value = rho(contract; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ, choice=choice)
+        value = rho(contract; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ, choice=choice)
         push!(value_array, value)
     end
 
