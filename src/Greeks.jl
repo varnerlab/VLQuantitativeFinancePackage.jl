@@ -55,15 +55,15 @@ function delta(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 /
     return value_array
 end
 
-function delta(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
     # advance base price by 1 -
     S₁ = Sₒ + 1
 
     # build models -
-    mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ)
-    m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=S₁, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ)
+    mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ)
+    m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=S₁, h=h, σ=σ, T=T, μ=μ)
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
