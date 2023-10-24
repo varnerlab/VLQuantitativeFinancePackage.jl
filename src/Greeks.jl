@@ -1,5 +1,5 @@
 # == THETA ========================================================================================================================================= #
-function theta(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 365),
+function theta(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365),
     σ::Float64=0.15, Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Array{Float64,1} where {Y<:AbstractContractModel}
 
     # value array -
@@ -7,7 +7,7 @@ function theta(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 /
 
     # compute -
     for contract ∈ contracts
-        value = theta(contract; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ, choice=choice)
+        value = theta(contract; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ, choice=choice)
         push!(value_array, value)
     end
 
@@ -15,7 +15,7 @@ function theta(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 /
     return value_array
 end
 
-function theta(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function theta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
     # θ : 1 day diff 
@@ -23,8 +23,14 @@ function theta(contract::Y; number_of_levels::Int64=2, T::Float64=(1 / 365), σ:
     T₁ = Tₒ - (1 / 365)
 
     # build a binary tree with N levels -
-    mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=Tₒ, μ=μ)
-    m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T₁, μ=μ)
+    # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, h=h, σ=σ, T=Tₒ, μ=μ)
+    # m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, h=h, σ=σ, T=T₁, μ=μ)
+
+    mₒ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = μ, T = Tₒ, σ = σ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
+
+    m₁ = build(MyAdjacencyBasedCRREquityPriceTree, 
+        (μ = μ, T = T₁, σ = σ)) |> (x-> populate(x, Sₒ = S₁, h = h));
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
@@ -39,7 +45,7 @@ end
 # ================================================================================================================================================== #
 
 # == DELTA ========================================================================================================================================= #
-function delta(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+function delta(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Array{Float64,1} where {Y<:AbstractContractModel}
 
     # value array -
@@ -47,7 +53,7 @@ function delta(contracts::Array{Y,1}; number_of_levels::Int64=2, T::Float64=(1 /
 
     # compute -
     for contract ∈ contracts
-        value = delta(contract; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ, choice=choice)
+        value = delta(contract; Sₒ=Sₒ, h=h, σ=σ, T=T, μ=μ, choice=choice)
         push!(value_array, value)
     end
 
