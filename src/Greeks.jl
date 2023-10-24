@@ -179,10 +179,10 @@ function rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     # m₁ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μ₁)
 
     mₒ = build(MyAdjacencyBasedCRREquityPriceTree, 
-        (μ = μₒ, T = T, σ = σₒ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
+        (μ = μₒ, T = T, σ = σ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
 
     m₁ = build(MyAdjacencyBasedCRREquityPriceTree, 
-        (μ = μ₁, T = T, σ = σ₁)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
+        (μ = μ₁, T = T, σ = σ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
 
     # compute -
     Pₒ = premium(contract, mₒ; choice=choice)
