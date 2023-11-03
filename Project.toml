@@ -20,6 +20,7 @@ DataFrames = "1"
 Distributions = "0.25"
 JLD2 = "0.4"
 JuMP = "1"
+LsqFit = "0.15"
 MadNLP = "0.7"
 julia = "1"
 
