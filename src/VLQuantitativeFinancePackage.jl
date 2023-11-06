@@ -19,6 +19,7 @@ module VLQuantitativeFinancePackage
     export MySymmetricBinaryInterestRateLatticeModel, MyBinaryInterestRateLatticeNodeModel
     export MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem, MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
     export MyBiomialLatticeEquityNodeModel, MyBinomialEquityPriceTree
+    export MySingleIndexModel, AbstractReturnModel
 
     # export functions/methods
     export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve

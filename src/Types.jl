@@ -5,6 +5,7 @@ abstract type AbstractContractModel <: AbstractAssetModel end
 abstract type AbstractTreasuryDebtSecurity end
 abstract type AbstractCompoundingModel end
 abstract type AbstractStochasticChoiceProblem end
+abstract type AbstractReturnModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -155,6 +156,18 @@ mutable struct MyEquityModel <: AbstractAssetModel
 
     # constructor -
     MyEquityModel() = new()
+end
+
+mutable struct MySingleIndexModel <: AbstractReturnModel
+
+    # model -
+    α::Float64          # firm specific unexplained return
+    β::Float64          # relationship between the firm and the market
+    r::Float64          # risk free rate of return 
+    ϵ::Distribution     # random shocks 
+
+    # constructor -
+    SingleIndexModel() = new()
 end
 # -------------------------------------------------------------------------------------------- #
 
