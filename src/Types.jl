@@ -167,7 +167,7 @@ mutable struct MySingleIndexModel <: AbstractReturnModel
     ϵ::Distribution     # random shocks 
 
     # constructor -
-    SingleIndexModel() = new()
+    MySingleIndexModel() = new()
 end
 # -------------------------------------------------------------------------------------------- #
 
