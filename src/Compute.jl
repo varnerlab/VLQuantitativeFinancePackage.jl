@@ -162,7 +162,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     Vₚ = model.par
 
     # derived values
-    N = round(Int,λ*T); # the number of steps we take
+    N = round(Int,λ*T) + 1; # the number of steps we take
     Cᵢ = (coupon/λ)*Vₚ;
     rᵢ = (rate/λ);
     discount[0] = 1.0;
