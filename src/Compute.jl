@@ -276,6 +276,72 @@ end
 𝒟(r,T) = exp(r*T);
 
 
+function _analyze_real_world_single_asset(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0))::Tuple{Float64,Float64,Float64}
+    
+    # initialize -
+    u,d,p = 0.0, 0.0, 0.0;
+    darray = Array{Float64,1}();
+    uarray = Array{Float64,1}();
+    N₊ = 0;
+
+    # up -
+    # compute the up moves, and estimate the average u value -
+    index_up_moves = findall(x->x>0, R);
+    for index ∈ index_up_moves
+        R[index] |> (μ -> push!(uarray, exp(μ*Δt)))
+    end
+    u = mean(uarray);
+
+    # down -
+    # compute the down moves, and estimate the average d value -
+    index_down_moves = findall(x->x<0, R);
+    for index ∈ index_down_moves
+        R[index] |> (μ -> push!(darray, exp(μ*Δt)))
+    end
+    d = mean(darray);
+
+    # probability -
+    N₊ = length(index_up_moves);
+    p = N₊/length(R);
+
+    # return -
+    return (u,d,p);
+end
+
+function _analyze_real_world_multiple_asset(R::Array{Float64,2}, tikers::Array{String,1};  
+    Δt::Float64 = (1.0/252.0))::Dict{String,Tuple{Float64,Float64,Float64}}
+    
+    # initialize -
+    real_world_measure = Dict{String, Tuple{Float64,Float64,Float64}}()
+
+    # main loop -
+    for i ∈ eachindex(tikers)
+        
+        # get the tiker -
+        tiker = tikers[i];
+
+        # get the returns -
+        returns = R[:,i];
+
+        # analyze -
+        (u,d,p) = _analyze_real_world_single_asset(returns, Δt=Δt);
+
+        # store -
+        real_world_measure[tiker] = (u,d,p);
+    end
+    
+    # return -
+    return real_world_measure;
+end
+
+(m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0))::Tuple{Float64,Float64,Float64} = _analyze_real_world_single_asset(R, Δt=Δt)
+(m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0))::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_real_world_multiple_asset(R, tickers, Δt=Δt)
+
+"""
+    analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}
+"""
+
+
 function sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
     number_of_paths::Int64 = 100)::Array{Float64,1}
 

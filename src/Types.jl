@@ -6,6 +6,7 @@ abstract type AbstractTreasuryDebtSecurity end
 abstract type AbstractCompoundingModel end
 abstract type AbstractStochasticChoiceProblem end
 abstract type AbstractReturnModel end
+abstract type AbstractProbabilityMeasure end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -224,6 +225,14 @@ end
 """
 struct ContinuousCompoundingModel <: AbstractCompoundingModel 
     ContinuousCompoundingModel() = new()
+end
+
+struct RealWorldBinomialProbabilityMeasure <: AbstractProbabilityMeasure
+    RealWorldBinomialProbabilityMeasure() = new()
+end
+
+struct RiskNeutralBinomialProbabilityMeasure <: AbstractProbabilityMeasure
+    RiskNeutralBinomialProbabilityMeasure() = new()
 end
 
 # nodes
