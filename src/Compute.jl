@@ -276,6 +276,64 @@ end
 𝒟(r,T) = exp(r*T);
 
 
+function _analyze_risk_neutral_single_asset(R::Array{Float64,1};  
+    Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Tuple{Float64,Float64,Float64}
+
+    # initialize -
+    u,d,p = 0.0, 0.0, 0.0;
+    darray = Array{Float64,1}();
+    uarray = Array{Float64,1}();
+    N₊ = 0;
+
+    # up -
+    # compute the up moves, and estimate the average u value -
+    index_up_moves = findall(x->x>0, R);
+    for index ∈ index_up_moves
+        R[index] |> (μ -> push!(uarray, exp(μ*Δt)))
+    end
+    u = mean(uarray);
+
+    # down -
+    # compute the down moves, and estimate the average d value -
+    index_down_moves = findall(x->x<0, R);
+    for index ∈ index_down_moves
+        R[index] |> (μ -> push!(darray, exp(μ*Δt)))
+    end
+    d = mean(darray);
+
+    # risk-neutral probability -
+    p = exp(risk_free_rate*Δt) - d/(u-d);
+
+    # return -
+    return (u,d,p);
+end
+
+function _analyze_risk_neutral_multiple_asset(R::Array{Float64,2}, tikers::Array{String,1};  
+    Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Dict{String,Tuple{Float64,Float64,Float64}}
+    
+    # initialize -
+    risk_neutral_measure = Dict{String, Tuple{Float64,Float64,Float64}}()
+
+    # main loop -
+    for i ∈ eachindex(tikers)
+        
+        # get the tiker -
+        tiker = tikers[i];
+
+        # get the returns -
+        returns = R[:,i];
+
+        # analyze -
+        (u,d,p) = _analyze_risk_neutral_single_asset(returns, Δt=Δt, risk_free_rate = risk_free_rate);
+
+        # store -
+        risk_neutral_measure[tiker] = (u,d,p);
+    end
+    
+    # return -
+    return risk_neutral_measure;
+end
+
 function _analyze_real_world_single_asset(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0))::Tuple{Float64,Float64,Float64}
     
     # initialize -
@@ -336,6 +394,8 @@ end
 
 (m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0))::Tuple{Float64,Float64,Float64} = _analyze_real_world_single_asset(R, Δt=Δt)
 (m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0))::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_real_world_multiple_asset(R, tickers, Δt=Δt)
+(m::RiskNeutralBinomialProbabilityMeasure)(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Tuple{Float64,Float64,Float64} = _analyze_risk_neutral_single_asset(R, Δt = Δt, risk_free_rate = risk_free_rate)
+(m::RiskNeutralBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_risk_neutral_multiple_asset(R, tickers, Δt = Δt, risk_free_rate = risk_free_rate)
 
 """
     analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}
