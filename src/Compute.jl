@@ -270,11 +270,6 @@ function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
     # return -
     return model
 end
-# === PRIVATE ABOVE HERE ============================================================================================= #
-
-# === PUBLIC METHODS BELOW HERE ====================================================================================== #
-𝒟(r,T) = exp(r*T);
-
 
 function _analyze_risk_neutral_single_asset(R::Array{Float64,1};  
     Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Tuple{Float64,Float64,Float64}
@@ -391,6 +386,11 @@ function _analyze_real_world_multiple_asset(R::Array{Float64,2}, tikers::Array{S
     # return -
     return real_world_measure;
 end
+# === PRIVATE ABOVE HERE ============================================================================================= #
+
+# === PUBLIC METHODS BELOW HERE ====================================================================================== #
+𝒟(r,T) = exp(r*T);
+
 
 (m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0))::Tuple{Float64,Float64,Float64} = _analyze_real_world_single_asset(R, Δt=Δt)
 (m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0))::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_real_world_multiple_asset(R, tickers, Δt=Δt)
