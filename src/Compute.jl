@@ -302,7 +302,7 @@ function _analyze_risk_neutral_single_asset(R::Array{Float64,1};
     d = mean(darray);
 
     # risk-neutral probability -
-    p = exp(risk_free_rate*Δt) - d/(u-d);
+    p = (exp(risk_free_rate*Δt) - d)/(u-d);
 
     # return -
     return (u,d,p);
