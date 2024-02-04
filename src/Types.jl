@@ -47,7 +47,7 @@ mutable struct MyMultipleAssetGeometricBrownianMotionEquityModel <: AbstractAsse
 
     # data -
     μ::Array{Float64,1}
-    Σ::Array{Float64,2}
+    A::Array{Float64,2}
 
     # constructor -
     MyMultipleAssetGeometricBrownianMotionEquityModel() = new()

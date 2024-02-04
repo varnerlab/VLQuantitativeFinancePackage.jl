@@ -478,7 +478,8 @@ function sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::
 
     # get information from the model and data -
     μ̂ = model.μ
-    Σ̂ = model.Σ
+    A = model.A
+    Ā = diagm(0 => diag(A));
     T₁ = data[:T₁]
     T₂ = data[:T₂]
     Δt = data[:Δt]
@@ -513,7 +514,7 @@ function sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::
                 end
             
                 # compute the next share price -
-                simulation_array[i,j+1] = simulation_array[i-1,j+1]*exp((μ̂[j] - Σ̂[j,j]/2)*Δt + (sqrt(Δt))*noise_term);
+                simulation_array[i,j+1] = simulation_array[i-1,j+1]*exp((μ̂[j] -  Ā[j,j]/2)*Δt + (sqrt(Δt))*noise_term);
             end
         end
         simulation_dictionary[trial_index] = simulation_array;
