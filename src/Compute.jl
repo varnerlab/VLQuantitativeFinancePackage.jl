@@ -473,6 +473,56 @@ function sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple;
 	return X
 end
 
+function sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::NamedTuple; 
+    number_of_paths::Int64 = 100)::Dict{Int64, Array{Float64,2}}
+
+    # get information from the model and data -
+    μ̂ = model.μ
+    Σ̂ = model.Σ
+    T₁ = data[:T₁]
+    T₂ = data[:T₂]
+    Δt = data[:Δt]
+    Sₒ = data[:Sₒ]
+    number_of_states = length(Sₒ);
+    time_array = range(T₁, stop=T₂, step=Δt) |> collect
+    number_of_steps = length(time_array)
+
+    # main simulation loop -
+    simulation_dictionary = Dict{Int64,Array{Float64,2}}(); # this is our dictionary of simulations (what gets rerturned)
+    Z = Normal(0,1); # this is our noise model -
+    for trial_index ∈ 1:number_of_paths
+        simulation_array = Array{Float64,2}(undef, number_of_steps, number_of_states + 1);
+    
+        # add initial condition to the array -
+        simulation_array[1,1] = 0.0;
+        for i ∈ 1:number_of_states
+            simulation_array[1,i+1] = Sₒ[i];
+        end
+    
+        # forward simulation -
+        for i ∈ 2:number_of_steps
+            t = time_array[i];
+            simulation_array[i,1] = t;
+
+            for j ∈ 1:number_of_states
+            
+                # compute the noise term for this state -
+                noise_term = 0.0;
+                for k ∈ 1:number_of_states
+                    noise_term += A[j,k]*rand(Z)
+                end
+            
+                # compute the next share price -
+                simulation_array[i,j+1] = simulation_array[i-1,j+1]*exp((μ̂[j] - Σ̂[j,j]/2)*Δt + (sqrt(Δt))*noise_term);
+            end
+        end
+        simulation_dictionary[trial_index] = simulation_array;
+    end
+
+    # return the sim dictionary -
+    return simulation_dictionary;
+end
+
 function payoff(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} where T <: AbstractContractModel
 
     # initialize - 

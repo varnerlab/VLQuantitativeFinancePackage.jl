@@ -197,6 +197,7 @@ build(model::Type{MyAmericanPutContractModel}, data::NamedTuple)::MyAmericanPutC
 build(model::Type{MyAmericanCallContractModel}, data::NamedTuple)::MyAmericanCallContractModel = _build(model, data)
 build(model::Type{MyLongstaffSchwartzContractPricingModel}, data::NamedTuple)::MyLongstaffSchwartzContractPricingModel = _build(model, data)
 build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyGeometricBrownianMotionEquityModel = _build(model, data)
+build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyMultipleAssetGeometricBrownianMotionEquityModel = _build(model, data)
 build(model::Type{MyBlackScholesContractPricingModel}, data::NamedTuple)::MyBlackScholesContractPricingModel = _build(model, data)
 build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)::MySymmetricBinaryInterestRateLatticeModel = _build(model, data);
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);

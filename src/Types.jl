@@ -43,6 +43,16 @@ mutable struct MyGeometricBrownianMotionEquityModel <: AbstractAssetModel
     MyGeometricBrownianMotionEquityModel() = new()
 end
 
+mutable struct MyMultipleAssetGeometricBrownianMotionEquityModel <: AbstractAssetModel
+
+    # data -
+    μ::Array{Float64,1}
+    Σ::Array{Float64,2}
+
+    # constructor -
+    MyMultipleAssetGeometricBrownianMotionEquityModel() = new()
+end
+
 mutable struct MyAdjacencyBasedCRREquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -
