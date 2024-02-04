@@ -495,7 +495,7 @@ function sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::
         simulation_array = Array{Float64,2}(undef, number_of_steps, number_of_states + 1);
     
         # add initial condition to the array -
-        simulation_array[1,1] = 0.0;
+        simulation_array[1,1] = T₁;
         for i ∈ 1:number_of_states
             simulation_array[1,i+1] = Sₒ[i];
         end
