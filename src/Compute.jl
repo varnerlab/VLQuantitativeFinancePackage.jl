@@ -607,7 +607,7 @@ end
         choice::Function=_rational) -> Float64 where {T<:AbstractDerivativeContractModel}
 """
 function premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
-    choice::Function=_rational)::Float64 where {T<:AbstractContractModel}
+    choice::Function=_rational, sigdigits::Int64 = 4)::Float64 where {T<:AbstractContractModel}
 
     # initialize -
     data = model.data
@@ -651,7 +651,7 @@ function premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree;
     end
 
     # # return -
-    return data[0].extrinsic
+    return (data[0].extrinsic) |> x-> round(x, sigdigits = sigdigits)
 end
 
 function premium(contract::T, model::MyBinomialEquityPriceTree; 
