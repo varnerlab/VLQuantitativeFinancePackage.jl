@@ -1049,7 +1049,7 @@ function strip(model::MyUSTreasuryCouponSecurityModel)::Dict{Int, MyUSTreasuryZe
 
         # build a zero-coupon bond -
         zero_model = build(MyUSTreasuryZeroCouponBondModel, (
-            par = Cᵢ, T = T′
+            par = Cᵢ, T = T′, n = λ
         ))
 
         # store -
@@ -1058,7 +1058,7 @@ function strip(model::MyUSTreasuryCouponSecurityModel)::Dict{Int, MyUSTreasuryZe
 
     # add a final zero coupon bond model that returns the face value -
     final_zero_model = build(MyUSTreasuryZeroCouponBondModel, (
-        par = Vₚ, T = T
+        par = Vₚ, T = T, n = λ
     ))
 
     strips_dictionary[N+1] = final_zero_model;
