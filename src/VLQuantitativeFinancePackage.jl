@@ -23,7 +23,7 @@ module VLQuantitativeFinancePackage
     export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, AbstractProbabilityMeasure
 
     # export functions/methods
-    export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve
+    export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve, YTM
     
     # export the greeks -
     export theta, delta, gamma, vega, rho
