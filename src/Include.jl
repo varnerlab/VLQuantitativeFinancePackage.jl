@@ -21,3 +21,4 @@ include(joinpath(_PATH_TO_SRC, "Longstaff.jl"));
 include(joinpath(_PATH_TO_SRC, "Solve.jl"));
 include(joinpath(_PATH_TO_SRC, "Greeks.jl"));
 include(joinpath(_PATH_TO_SRC, "YTM.jl"));
+include(joinpath(_PATH_TO_SRC, "Volatility.jl"));
