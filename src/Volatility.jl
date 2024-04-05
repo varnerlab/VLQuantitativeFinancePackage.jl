@@ -4,34 +4,35 @@ function _iv_objective_function(p, contract::T, Sₒ::Float64, h::Int64, r̄::Fl
     # set the volatility -
     IVᵢ = p[1]
     DTE = contract.DTE; # this is measured in years
-    premium = contract.premium;
+    observed_premium = contract.premium;
 
     # build a lattice model with the current parameters, populate it and compute the premium -
     treemodel = build(MyAdjacencyBasedCRREquityPriceTree, 
         (μ = r̄, T = DTE, σ = IVᵢ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
     
     # compute the premium -
-    𝒫 = premium(contract, treemodel);
+    computed_premium = premium(contract, treemodel);
 
     # compute the error -
-    error_term = (𝒫 - premium)^2;
+    error_term = (computed_premium - observed_premium)^2;
     
     # return -
     return error_term;
 end
 
 
-function IV(contract::T; Sₒ::Float64 = 100.0, h::Int64 = 1, r̄::Float64 = 0.05)::Float64 where {T<:AbstractContractModel}
+function estimate_implied_volatility(contract::T; 
+    Sₒ::Float64 = 100.0, h::Int64 = 1, r̄::Float64 = 0.05)::Float64 where {T<:AbstractContractModel}
     
     # initialize -
-    IV₀ = contract.IV;
-    p = [IV₀]; # initial guess for the implied volatility
+    IVₒ = contract.IV;
+    p = [IVₒ]; # initial guess for the implied volatility
 
     # setup the objective function -
-    OF(p) = _iv_objective_function(p, contract, Sₒ, h, r̄);
+    loss(p) = _iv_objective_function(p, contract, Sₒ, h, r̄);
 
     # call the optimizer -
-    opt_result = Optim.optimize(OF, IVₒ, BFGS())
+    opt_result = Optim.optimize(loss, IVₒ, BFGS())
 
     # return the result -
     return Optim.minimizer(opt_result)[1]
