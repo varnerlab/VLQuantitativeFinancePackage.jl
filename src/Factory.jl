@@ -207,4 +207,6 @@ build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::Named
 build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
 build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
-build(model::Type{ MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
+build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
+build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(model, data);
+build(model::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyOrnsteinUhlenbeckModel = _build(model, data);

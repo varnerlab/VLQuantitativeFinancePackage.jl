@@ -7,6 +7,7 @@ abstract type AbstractCompoundingModel end
 abstract type AbstractStochasticChoiceProblem end
 abstract type AbstractReturnModel end
 abstract type AbstractProbabilityMeasure end
+abstract type AbstractStochasticSolverModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -92,6 +93,36 @@ mutable struct MyBlackScholesContractPricingModel <: AbstractAssetModel
 
     # constructor -
     MyBlackScholesContractPricingModel() = new();
+end
+
+mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
+    
+    # data -
+    μ::Float64
+    σ::Float64
+    θ::Float64
+    N::Int64
+
+    # constructor -
+    MyOrnsteinUhlenbeckModel() = new();
+end
+
+mutable struct MyHestonModel <: AbstractAssetModel
+    
+    # data -
+    μ::Float64
+    κ::Float64
+    θ::Float64
+    ξ::Float64
+    Σ::Array{Float64,2}
+    N::Int64
+
+    # constructor -
+    MyHestonModel() = new();
+end
+
+# tagging type -
+struct EulerMaruyamaMethod <: AbstractStochasticSolverModel
 end
 # ------------------------------------------------------------------------------------------- #
 
