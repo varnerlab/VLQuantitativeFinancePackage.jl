@@ -16,7 +16,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     Xₒ = initialconditions;
 
     # build the time array -
-    tₒ = tsapn.start;
+    tₒ = tspan.start;
     tₙ = tspan.stop;
     dt = tspan.step;
     T = range(tₒ, step=dt, stop=tₙ) |> collect
