@@ -24,7 +24,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     X = Array{Float64,2}(undef, M, N) # initialize an empty array to store the price paths
 
     # fill in the first row, this is the initial price
-    foreach(p -> X[1,p] = Xₒ, 1:N)
+    foreach(p -> X[1,p] = Xₒ[1], 1:N)
 
     # pre generate the noise matrix -
     ZM = Normal(0,1) |> d->rand(d, M-1, N)
