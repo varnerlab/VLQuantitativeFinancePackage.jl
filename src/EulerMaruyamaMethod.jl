@@ -27,7 +27,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     foreach(p -> X[1,p] = Xₒ[1], 1:N)
 
     # pre generate the noise matrix -
-    ZM = Normal(0,1) |> d->rand(d, M-1, N)
+    ZM = Normal(0,1) |> d->rand(d, M, N)
     
     # update the state array -
     for p ∈ 1:N
