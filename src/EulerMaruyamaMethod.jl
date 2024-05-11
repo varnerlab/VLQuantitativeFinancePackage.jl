@@ -1,12 +1,12 @@
 
-function _solve(model::MyHestonModel, tspan::NamedTuple{Float64, Float64, Float64},
+function _solve(model::MyHestonModel, tspan::NamedTuple,
     initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
     
     return (0,0);
 end
 
 
-function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple{Float64, Float64, Float64},
+function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
 
     # initialize -
@@ -40,7 +40,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple{Float64, Floa
     return (T, X);
 end
 
-function solve(model::AbstractAssetModel, tspan::NamedTuple{Float64, Float64, Float64},
+function solve(model::AbstractAssetModel, tspan::NamedTuple,
     initialconditions::AbstractArray; method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), 
     N::Int64 = 100)::Tuple
     return _solve(model, tspan, initialconditions, N, method);
