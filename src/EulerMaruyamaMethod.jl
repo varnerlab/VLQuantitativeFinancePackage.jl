@@ -1,19 +1,18 @@
 
-function _solve(model::MyHestonModel, tspan::Tuple{Float64, Float64, Float64},
-    initialconditions::AbstractArray, method::EulerMaruyamaMethod)::Tuple
+function _solve(model::MyHestonModel, tspan::Tuple{Float64, Float64, Float64}
+    initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
     
     return (0,0);
 end
 
 
 function _solve(model::MyOrnsteinUhlenbeckModel, tspan::Tuple{Float64, Float64, Float64},
-    initialconditions::AbstractArray, method::EulerMaruyamaMethod)::Tuple
+    initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
 
     # initialize -
     μ = model.μ
     σ = model.σ
     θ = model.θ
-    N = model.N
     Xₒ = initialconditions;
 
     # build the time array -
@@ -42,6 +41,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::Tuple{Float64, Float64, 
 end
 
 function solve(model::AbstractAssetModel, tspan::Tuple{Float64, Float64, Float64},
-    initialconditions::AbstractArray; method::AbstractStochasticSolverModel = EulerMaruyamaMethod())::Tuple
-    return _solve(model, tspan, initialconditions, method);
+    initialconditions::AbstractArray; method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), 
+    N::Int64 = 100)::Tuple
+    return _solve(model, tspan, initialconditions, N, method);
 end
