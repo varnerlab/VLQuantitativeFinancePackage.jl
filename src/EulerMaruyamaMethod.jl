@@ -1,12 +1,12 @@
 
-function _solve(model::MyHestonModel, tspan::Tuple{Float64, Float64, Float64},
+function _solve(model::MyHestonModel, tspan::NamedTuple{Float64, Float64, Float64},
     initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
     
     return (0,0);
 end
 
 
-function _solve(model::MyOrnsteinUhlenbeckModel, tspan::Tuple{Float64, Float64, Float64},
+function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple{Float64, Float64, Float64},
     initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
 
     # initialize -
@@ -16,9 +16,9 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::Tuple{Float64, Float64, 
     Xₒ = initialconditions;
 
     # build the time array -
-    tₒ = tspan[1]
-    tₙ = tspan[2]
-    dt = tspan[3]
+    tₒ = tsapn.start;
+    tₙ = tspan.stop;
+    dt = tspan.step;
     T = range(tₒ, step=dt, stop=tₙ) |> collect
     M = length(T) # how many time steps do we have?
     X = Array{Float64,2}(undef, M, N) # initialize an empty array to store the price paths
@@ -40,7 +40,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::Tuple{Float64, Float64, 
     return (T, X);
 end
 
-function solve(model::AbstractAssetModel, tspan::Tuple{Float64, Float64, Float64},
+function solve(model::AbstractAssetModel, tspan::NamedTuple{Float64, Float64, Float64},
     initialconditions::AbstractArray; method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), 
     N::Int64 = 100)::Tuple
     return _solve(model, tspan, initialconditions, N, method);
