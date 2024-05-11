@@ -1,5 +1,5 @@
 
-function _solve(model::MyHestonModel, tspan::Tuple{Float64, Float64, Float64}
+function _solve(model::MyHestonModel, tspan::Tuple{Float64, Float64, Float64},
     initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
     
     return (0,0);
