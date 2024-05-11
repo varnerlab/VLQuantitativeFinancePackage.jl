@@ -21,6 +21,7 @@ module VLQuantitativeFinancePackage
     export MyBiomialLatticeEquityNodeModel, MyBinomialEquityPriceTree
     export MySingleIndexModel, AbstractReturnModel
     export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, AbstractProbabilityMeasure
+    export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
 
     # export functions/methods
     export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve, YTM
