@@ -33,7 +33,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     for p ∈ 1:N
         for i ∈ 2:M
 
-            μ = f(X[i-1,p],i) # drift
+            μ = f(X[i-1,p],T[i]) # drift
             X[i,p] = X[i-1,p] + θ*(μ - X[i-1,p])*dt + σ*sqrt(dt)*ZM[i,p] # update
         end
     end
