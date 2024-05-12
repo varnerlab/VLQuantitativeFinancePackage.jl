@@ -99,8 +99,8 @@ mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
     
     # data -
     μ::Function
-    σ::Float64
-    θ::Float64
+    σ::Function
+    θ::Function
 
     # constructor -
     MyOrnsteinUhlenbeckModel() = new();
@@ -109,10 +109,10 @@ end
 mutable struct MyHestonModel <: AbstractAssetModel
     
     # data -
-    μ::Float64
-    κ::Float64
-    θ::Float64
-    ξ::Float64
+    μ::Function
+    κ::Function
+    θ::Function
+    ξ::Function
     Σ::Array{Float64,2}
 
     # constructor -
