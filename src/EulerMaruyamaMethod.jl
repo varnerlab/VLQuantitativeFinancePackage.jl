@@ -11,8 +11,8 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
 
     # initialize -
     f = model.μ
-    σ = model.σ
-    θ = model.θ
+    g = model.σ
+    h = model.θ
     Xₒ = initialconditions;
 
     # build the time array -
@@ -33,8 +33,13 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     for p ∈ 1:N
         for i ∈ 2:M
 
+            # call parameter functions 
             μ = f(X[i-1,p],T[i]) # drift
-            X[i,p] = X[i-1,p] + θ*(μ - X[i-1,p])*dt + σ*sqrt(dt)*ZM[i,p] # update
+            σ = g(X[i-1,p],T[i]) # diffusion
+            θ = h(X[i-1,p],T[i]) # mean reversion
+
+            # update the state -
+            X[i,p] = X[i-1,p] + θ*(μ - X[i-1,p])*dt + σ*sqrt(dt)*ZM[i,p] 
         end
     end
 
