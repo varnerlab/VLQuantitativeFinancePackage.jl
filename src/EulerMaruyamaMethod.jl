@@ -10,7 +10,7 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     initialconditions::AbstractArray, N::Int64, method::EulerMaruyamaMethod)::Tuple
 
     # initialize -
-    μ = model.μ
+    f = model.μ
     σ = model.σ
     θ = model.θ
     Xₒ = initialconditions;
@@ -32,6 +32,8 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     # update the state array -
     for p ∈ 1:N
         for i ∈ 2:M
+
+            μ = f(X[i-1,p],i) # drift
             X[i,p] = X[i-1,p] + θ*(μ - X[i-1,p])*dt + σ*sqrt(dt)*ZM[i,p] # update
         end
     end

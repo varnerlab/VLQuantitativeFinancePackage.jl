@@ -209,4 +209,17 @@ build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdja
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
 build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
 build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(model, data);
-build(model::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyOrnsteinUhlenbeckModel = _build(model, data);
+
+
+function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyOrnsteinUhlenbeckModel
+
+    # initialize -
+    model = modeltype();
+
+    model.μ = data.μ
+    model.σ = data.σ
+    model.θ = data.θ
+
+    # return -
+    return model;
+end

@@ -98,7 +98,7 @@ end
 mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
     
     # data -
-    μ::Float64
+    μ::Function
     σ::Float64
     θ::Float64
 
