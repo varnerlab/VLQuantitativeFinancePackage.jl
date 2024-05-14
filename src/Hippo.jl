@@ -33,10 +33,8 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
     U = zeros(number_of_time_steps);
 
     # main loop -
-    U[1] = signal[1]; # populate the first row of the input array
     for i ∈ 2:number_of_time_steps
-        U[i] = signal[i-1];
-        X[i,:] = Â*X[i-1,:]+B̂*U[i];
+        X[i,:] = Â*X[i-1,:]+B̂*signal[i-1];
         Y[i] = dot(Ĉ, X[i,:]);
     end
 
@@ -53,7 +51,7 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     loss(p) = _hippo_objective_function(p, model, tspan, signal);
  
     # call the optimizer -
-    opt_result = Optim.optimize(loss, p, LBFGS());
+    opt_result = Optim.optimize(loss, p, LBFGS(); autodiff = :forward);
  
     # return the result -
     return Optim.minimizer(opt_result);
