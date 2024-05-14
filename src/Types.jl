@@ -127,6 +127,7 @@ mutable struct MySisoLegSHippoModel <: AbstractAssetModel
     Ĉ::Array{Float64,1}
     D̂::Array{Float64,1}
     n::Int
+    Xₒ::Array{Float64,1}
 
     # constructor -
     MySisoLegSHippoModel() = new();

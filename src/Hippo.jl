@@ -18,6 +18,7 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
     B̂ = model.B̂
     Ĉ = model.Ĉ
     D̂ = model.D̂
+    Xₒ = model.Xₒ
     number_of_hidden_states = model.n;
 
     # build the time array -
@@ -30,7 +31,10 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
     number_of_time_steps = length(T);
     Y = zeros(number_of_time_steps);
     X = zeros(number_of_time_steps, number_of_hidden_states);
-    U = zeros(number_of_time_steps);
+
+    for i ∈ 1:number_of_hidden_states
+        X[1,i] = Xₒ[i];
+    end
 
     # main loop -
     for i ∈ 2:number_of_time_steps
@@ -51,7 +55,7 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     loss(p) = _hippo_objective_function(p, model, tspan, signal);
  
     # call the optimizer -
-    opt_result = Optim.optimize(loss, p, LBFGS(); autodiff = :forward);
+    opt_result = Optim.optimize(loss, p, NelderMead());
  
     # return the result -
     return Optim.minimizer(opt_result);
