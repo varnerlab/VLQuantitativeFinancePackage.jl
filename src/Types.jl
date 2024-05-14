@@ -119,6 +119,19 @@ mutable struct MyHestonModel <: AbstractAssetModel
     MyHestonModel() = new();
 end
 
+mutable struct MySisoLegSHippoModel <: AbstractAssetModel
+
+    # data -
+    Â::Array{Float64,2}
+    B̂::Array{Float64,1}
+    Ĉ::Array{Float64,1}
+    D̂::Array{Float64,1}
+    n::Int
+
+    # constructor -
+    MySisoLegSHippoModel() = new();
+end
+
 # tagging type -
 struct EulerMaruyamaMethod <: AbstractStochasticSolverModel
 end

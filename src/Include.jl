@@ -23,3 +23,4 @@ include(joinpath(_PATH_TO_SRC, "Greeks.jl"));
 include(joinpath(_PATH_TO_SRC, "YTM.jl"));
 include(joinpath(_PATH_TO_SRC, "Volatility.jl"));
 include(joinpath(_PATH_TO_SRC, "EulerMaruyamaMethod.jl"));
+include(joinpath(_PATH_TO_SRC, "Hippo.jl"));

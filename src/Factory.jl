@@ -223,3 +223,56 @@ function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyO
     # return -
     return model;
 end
+
+function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoHippoModel
+
+    # initialize -
+    model = modeltype(); # build an empty model
+
+    # get data -
+    number_of_hidden_states = data.number_of_hidden_states;
+    Δt = data.Δt;
+
+    # A matrix -
+    A = zeros(number_of_hidden_states,number_of_hidden_states);
+    for i ∈ 1:number_of_hidden_states
+        for j ∈ 1:number_of_hidden_states
+        
+            a = -sqrt((2*i+1))*sqrt((2*j+1));
+            b = nothing;
+            if (i > j)
+                b = 1;
+            elseif (i == j)
+                b = (i+1)/(2*i+1);
+            else
+                b = 0
+            end
+            A[i,j] = a*b;
+        end
+    end
+
+    # B matrix -
+    B = zeros(number_of_hidden_states);
+    for i ∈ 1:number_of_hidden_states
+        B[i] = (2*i+1) |> sqrt
+    end
+
+    # C matrix -
+    C = randn(number_of_hidden_states);
+
+    # discretize the arrays using the Bilinear method -
+    Â = inv((I - (Δt/2)*A))*(I + (Δt/2)*A);
+    B̂ = inv((I - (Δt/2)*A))*(Δt)*B;
+    Ĉ = C; # initialize a random C matrix (user can update this later)
+    D̂ = zeros(number_of_hidden_states); # initialize a zero D matrix (user can update this later)
+
+    # set the values -
+    model.Â = Â;
+    model.B̂ = B̂;
+    model.Ĉ = Ĉ;
+    model.D̂ = D̂;
+    model.n = number_of_hidden_states;
+
+    # return -
+    return model;
+end
