@@ -224,7 +224,7 @@ function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyO
     return model;
 end
 
-function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoHippoModel
+function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoLegSHippoModel
 
     # initialize -
     model = modeltype(); # build an empty model
