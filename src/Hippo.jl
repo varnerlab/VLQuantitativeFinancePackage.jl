@@ -7,8 +7,6 @@ function _hippo_objective_function(p, model, tspan, signal)
     # compute the error -
     error_term = sum((signal - Ŷ).^2);
 
-    @show error_term
-
     # return -
     return error_term;
 end
@@ -50,8 +48,6 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     
     # initialize -
     p = model.Ĉ;
-
-    @show p
  
     # setup the objective function -
     loss(p) = _hippo_objective_function(p, model, tspan, signal);
@@ -60,5 +56,5 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     opt_result = Optim.optimize(loss, p, LBFGS());
  
     # return the result -
-    return Optim.minimizer(opt_result)[1]
+    return Optim.minimizer(opt_result);
 end
