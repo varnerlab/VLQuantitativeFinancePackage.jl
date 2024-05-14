@@ -46,7 +46,8 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
     return (T, X, Y);
 end
 
-function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64})
+function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64};
+    method = LBFGS())
     
     # initialize -
     p = model.Ĉ;
@@ -55,7 +56,7 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     loss(p) = _hippo_objective_function(p, model, tspan, signal);
  
     # call the optimizer -
-    opt_result = Optim.optimize(loss, p, NelderMead());
+    opt_result = Optim.optimize(loss, p, method);
  
     # return the result -
     return Optim.minimizer(opt_result);
