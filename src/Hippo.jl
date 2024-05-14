@@ -37,7 +37,7 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
     for i ∈ 2:number_of_time_steps
         U[i] = signal[i-1];
         X[i,:] = Â*X[i-1,:]+B̂*U[i];
-        Y[i] = dot(Ĉ, X[i,:]) + D̂*U[i];
+        Y[i] = dot(Ĉ, X[i,:]);
     end
 
     # return the time and state arrays -
