@@ -233,6 +233,7 @@ function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoL
     number_of_hidden_states = data.number_of_hidden_states;
     Δt = data.Δt;
     uₒ = data.uₒ;
+    C = data.C;
 
     # A matrix -
     A = zeros(number_of_hidden_states,number_of_hidden_states);
@@ -258,8 +259,6 @@ function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoL
         B[i] = (2*i+1) |> sqrt
     end
 
-    # C matrix -
-    C = randn(number_of_hidden_states);
 
     # discretize the arrays using the Bilinear method -
     Â = inv((I - (Δt/2)*A))*(I + (Δt/2)*A);
