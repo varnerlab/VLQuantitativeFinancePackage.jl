@@ -1,6 +1,6 @@
-"""
-    solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
-"""
+# """
+#     solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
+# """
 function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{String,Any}
 
     # initialize -
@@ -42,9 +42,9 @@ function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{
     return results
 end
 
-"""
-    solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
-"""
+# """
+#     solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
+# """
 function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{String,Any}
 
     # initialize -

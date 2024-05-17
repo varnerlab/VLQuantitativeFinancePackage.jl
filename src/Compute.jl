@@ -398,9 +398,9 @@ end
 (m::RiskNeutralBinomialProbabilityMeasure)(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Tuple{Float64,Float64,Float64} = _analyze_risk_neutral_single_asset(R, Δt = Δt, risk_free_rate = risk_free_rate)
 (m::RiskNeutralBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_risk_neutral_multiple_asset(R, tickers, Δt = Δt, risk_free_rate = risk_free_rate)
 
-"""
-    analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}
-"""
+# """
+#     analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}
+# """
 
 
 function sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
@@ -602,10 +602,10 @@ function profit(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} wh
     return profit_array;    
 end
 
-"""
-    premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
-        choice::Function=_rational) -> Float64 where {T<:AbstractDerivativeContractModel}
-"""
+# """
+#     premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
+#         choice::Function=_rational) -> Float64 where {T<:AbstractDerivativeContractModel}
+# """
 function premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
     choice::Function=_rational, sigdigits::Int64 = 4)::Float64 where {T<:AbstractContractModel}
 
@@ -876,9 +876,9 @@ function populate(model::MySymmetricBinaryInterestRateLatticeModel )
 end
 
 
-"""
-    populate(model::MyCRRPriceLatticeModel, Sₒ::Float64, T::Int) -> Dict{Int,Array{NamedTuple,1}}
-"""
+# """
+#     populate(model::MyCRRPriceLatticeModel, Sₒ::Float64, T::Int) -> Dict{Int,Array{NamedTuple,1}}
+# """
 function populate(model::MyBinomialEquityPriceTree; 
     Sₒ::Float64 = 100.0, h::Int = 1)::MyBinomialEquityPriceTree
 
@@ -1002,29 +1002,29 @@ end
 (compounding::ContinuousCompoundingModel)(model::MyUSTreasuryZeroCouponBondModel) = _price_continuous_compounding(model::MyUSTreasuryZeroCouponBondModel)
 
 # == PUBLIC METHODS BELOW HERE ======================================================================================================== #
-"""
-    price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
-"""
+# """
+#     price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
+# """
 function price(model::MyUSTreasuryCouponSecurityModel, compounding::T)::MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
     return compounding(model)
 end
 
-"""
-    price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
-"""
+# """
+#     price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
+# """
 function price(model::MyUSTreasuryZeroCouponBondModel, compounding::T)::MyUSTreasuryZeroCouponBondModel where T <: AbstractCompoundingModel 
     return compounding(model)
 end
 
-"""
-    strip(model::MyUSTreasuryCouponSecurityModel) -> Dict{Int, MyUSTreasuryZeroCouponBondModel}
+# """
+#     strip(model::MyUSTreasuryCouponSecurityModel) -> Dict{Int, MyUSTreasuryZeroCouponBondModel}
 
-Strips the coupon and par value payments from a parent coupon security. 
+# Strips the coupon and par value payments from a parent coupon security. 
 
-The `strip(...)` function takes a `model::MyUSTreasuryCouponSecurityModel` of the security we wish to strip and returns a [Dictionary](https://docs.julialang.org/en/v1/base/collections/#Dictionaries) 
-holding `MyUSTreasuryZeroCouponBondModel` instances created from the parent security. 
-The keys of the dictionary correspond to the temporal index of the created security.
-"""
+# The `strip(...)` function takes a `model::MyUSTreasuryCouponSecurityModel` of the security we wish to strip and returns a [Dictionary](https://docs.julialang.org/en/v1/base/collections/#Dictionaries) 
+# holding `MyUSTreasuryZeroCouponBondModel` instances created from the parent security. 
+# The keys of the dictionary correspond to the temporal index of the created security.
+# """
 function strip(model::MyUSTreasuryCouponSecurityModel)::Dict{Int, MyUSTreasuryZeroCouponBondModel}
 
     # initialize -

@@ -228,9 +228,9 @@ end
 # --- Term structure of interest rates and fixed income types -------------------------------- #
 
 # concrete types -
-"""
-    MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
-"""
+# """
+#     MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
+# """
 mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     
     # data -
@@ -246,9 +246,9 @@ mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     MyUSTreasuryZeroCouponBondModel() = new()
 end
 
-"""
-    MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
-"""
+# """
+#     MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
+# """
 mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
 
     # data -
@@ -266,16 +266,16 @@ mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
 end
 
 
-"""
-    DiscreteCompounding <: AbstractCompoundingModel 
-"""
+# """
+#     DiscreteCompounding <: AbstractCompoundingModel 
+# """
 struct DiscreteCompoundingModel <: AbstractCompoundingModel 
     DiscreteCompoundingModel() = new()
 end
 
-"""
-    ContinuousCompoundingModel <: AbstractCompoundingModel 
-"""
+# """
+#     ContinuousCompoundingModel <: AbstractCompoundingModel 
+# """
 struct ContinuousCompoundingModel <: AbstractCompoundingModel 
     ContinuousCompoundingModel() = new()
 end
@@ -358,9 +358,9 @@ mutable struct MyBiomialLatticeEquityNodeModel
     MyBiomialLatticeEquityNodeModel() = new();
 end
 
-"""
-MyBinomialEquityPriceTree
-"""
+# """
+# MyBinomialEquityPriceTree
+# """
 mutable struct MyBinomialEquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -
