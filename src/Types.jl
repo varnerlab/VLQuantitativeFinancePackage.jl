@@ -265,17 +265,22 @@ mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
     MyUSTreasuryCouponSecurityModel() = new();
 end
 
+"""
+    struct DiscreteCompoundingModel <: AbstractCompoundingModel
 
-# """
-#     DiscreteCompounding <: AbstractCompoundingModel 
-# """
+Immutable type that represents discrete compounding.
+This type has no fields and is passed as an argument to various functions to indicate that discrete compounding should be used in calculations.
+"""
 struct DiscreteCompoundingModel <: AbstractCompoundingModel 
     DiscreteCompoundingModel() = new()
 end
 
-# """
-#     ContinuousCompoundingModel <: AbstractCompoundingModel 
-# """
+"""
+    struct ContinuousCompoundingModel <: AbstractCompoundingModel
+        
+Immutable type that represents continuous compounding. 
+This type has no fields and is passed as an argument to various functions to indicate that continuous compounding should be used in calculations.
+"""
 struct ContinuousCompoundingModel <: AbstractCompoundingModel 
     ContinuousCompoundingModel() = new()
 end
