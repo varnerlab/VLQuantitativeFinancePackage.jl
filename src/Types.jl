@@ -227,10 +227,20 @@ end
 
 # --- Term structure of interest rates and fixed income types -------------------------------- #
 
-# concrete types -
-# """
-#     MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
-# """
+"""
+    mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
+
+A mutable struct that represents a U.S. Treasury zero coupon bond. 
+
+### Fields
+- `par::Float64`: Par value of the bond
+- `rate::Union{Nothing, Float64}`: Annual interest rate
+- `T::Union{Nothing,Float64}`: Duration in years, measured as a 365 day or a 52 week year
+- `price::Union{Nothing, Float64}`: Price of the bond or note
+- `n::Int`: Number of compounding periods per year (typically 2)
+- `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary where the `key` is the period and the `value` is the discounted cashflow in a period
+- `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary where the `key` is the period and the `value` is the discount factor in that period
+"""
 mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     
     # data -
@@ -246,9 +256,22 @@ mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     MyUSTreasuryZeroCouponBondModel() = new()
 end
 
-# """
-#     MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
-# """
+"""
+    mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
+
+A mutable struct that represents a U.S. Treasury coupon bond. 
+This type of security (note or bond) pays the holder of the note (or bond) a fixed interest rate at regular intervals over the life of the instrument.
+
+### Fields
+- `par::Float64`: Par value of the bond
+- `rate::Union{Nothing, Float64}`: Annualized effective discount rate
+- `coupon::Union{Nothing, Float64}`: Coupon interest rate
+- `T::Union{Nothing,Float64}`: Duration in years of the note or bond, measured as a 365 day or a 52 week year
+- `λ::Int`: Number of coupon payments per year (typically 2)
+- `price::Union{Nothing, Float64}`: Price of the bond or note
+- `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary where the `key` is the period and the `value` is the discounted cashflow in a period
+- `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary where the `key` is the period and the `value` is the discount factor in that period
+"""
 mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
 
     # data -

@@ -11,6 +11,16 @@ VLQuantitativeFinancePackage.ContinuousCompoundingModel
 ```
 
 ## Pricing models
+We model [United States Treasury securities](), e.g., [Treasury bills](https://www.treasurydirect.gov/marketable-securities/treasury-bills/), [Treasury notes](https://www.treasurydirect.gov/marketable-securities/treasury-notes/), and [Treasury bonds](https://www.treasurydirect.gov/marketable-securities/treasury-bonds/) using the `MyUSTreasuryZeroCouponBondModel` and `MyUSTreasuryCouponSecurityModel` types, which are subtypes of the `AbstractTreasuryDebtSecurity` abstract type.  
+
+```@docs
+VLQuantitativeFinancePackage.MyUSTreasuryZeroCouponBondModel
+VLQuantitativeFinancePackage.MyUSTreasuryCouponSecurityModel
+```
+
+
+
+
 ```@docs
 VLQuantitativeFinancePackage.price
 VLQuantitativeFinancePackage.strip
