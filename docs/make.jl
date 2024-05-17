@@ -13,3 +13,7 @@ makedocs(
         "Derivatives" => "derivatives.md",
     ]
 )
+
+deploydocs(
+    repo = "github.com/varnerlab/VLQuantitativeFinancePackage.jl.git", branch = "gh-pages", target = "build"
+)
