@@ -23,9 +23,9 @@ function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractE
     return model
 end
 
-"""
-    _build_nodes_level_dictionary(levels::Int64) -> Dict{Int64,Array{Int64,1}}
-"""
+# """
+#     _build_nodes_level_dictionary(levels::Int64) -> Dict{Int64,Array{Int64,1}}
+# """
 function _build_nodes_level_dictionary(levels::Int64)::Dict{Int64,Array{Int64,1}}
 
     # initialize -

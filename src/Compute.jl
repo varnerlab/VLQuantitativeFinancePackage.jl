@@ -1002,16 +1002,35 @@ end
 (compounding::ContinuousCompoundingModel)(model::MyUSTreasuryZeroCouponBondModel) = _price_continuous_compounding(model::MyUSTreasuryZeroCouponBondModel)
 
 # == PUBLIC METHODS BELOW HERE ======================================================================================================== #
-# """
-#     price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
-# """
+"""
+    price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel
+
+The `price(...)` function computes the price of a `MyUSTreasuryCouponSecurityModel` instance using a discrete or continuous compounding model.
+
+### Arguments
+- `model::MyUSTreasuryCouponSecurityModel`: an instance of the `MyUSTreasuryCouponSecurityModel` type.
+- `compounding::T`: an instance of a type that is a subtype of `AbstractCompoundingModel`, i.e., a discrete or continuous compounding model.
+
+### Returns
+- `MyUSTreasuryCouponSecurityModel`: an updated instance of the `MyUSTreasuryCouponSecurityModel` type with the price computed using the compounding model.
+
+"""
 function price(model::MyUSTreasuryCouponSecurityModel, compounding::T)::MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
     return compounding(model)
 end
 
-# """
-#     price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel 
-# """
+"""
+    price(model::MyUSTreasuryZeroCouponBondModel, compounding::T) -> MyUSTreasuryZeroCouponBondModel where T <: AbstractCompoundingModel
+    
+The `price(...)` function computes the price of a `MyUSTreasuryZeroCouponBondModel` instance using a discrete or continuous compounding model.
+
+### Arguments
+- `model::MyUSTreasuryZeroCouponBondModel`: an instance of the `MyUSTreasuryZeroCouponBondModel` type.
+- `compounding::T`: an instance of a type that is a subtype of `AbstractCompoundingModel`, i.e., a discrete or continuous compounding model.
+
+### Returns
+- `MyUSTreasuryZeroCouponBondModel`: an updated instance of the `MyUSTreasuryZeroCouponBondModel` type with the price computed using the compounding model.
+"""
 function price(model::MyUSTreasuryZeroCouponBondModel, compounding::T)::MyUSTreasuryZeroCouponBondModel where T <: AbstractCompoundingModel 
     return compounding(model)
 end
