@@ -13,4 +13,5 @@ VLQuantitativeFinancePackage.ContinuousCompoundingModel
 ## Pricing models
 ```@docs
 VLQuantitativeFinancePackage.price
+VLQuantitativeFinancePackage.strip
 ```

@@ -1035,15 +1035,15 @@ function price(model::MyUSTreasuryZeroCouponBondModel, compounding::T)::MyUSTrea
     return compounding(model)
 end
 
-# """
-#     strip(model::MyUSTreasuryCouponSecurityModel) -> Dict{Int, MyUSTreasuryZeroCouponBondModel}
+"""
+    strip(model::MyUSTreasuryCouponSecurityModel) -> Dict{Int, MyUSTreasuryZeroCouponBondModel}
 
-# Strips the coupon and par value payments from a parent coupon security. 
+Strips the coupon and par value payments from a parent coupon security. 
 
-# The `strip(...)` function takes a `model::MyUSTreasuryCouponSecurityModel` of the security we wish to strip and returns a [Dictionary](https://docs.julialang.org/en/v1/base/collections/#Dictionaries) 
-# holding `MyUSTreasuryZeroCouponBondModel` instances created from the parent security. 
-# The keys of the dictionary correspond to the temporal index of the created security.
-# """
+The `strip(...)` function takes a `model::MyUSTreasuryCouponSecurityModel` of the security we wish to strip and returns a [Dictionary](https://docs.julialang.org/en/v1/base/collections/#Dictionaries) 
+holding `MyUSTreasuryZeroCouponBondModel` instances created from the parent security. 
+The keys of the dictionary correspond to the temporal index of the created security.
+"""
 function strip(model::MyUSTreasuryCouponSecurityModel)::Dict{Int, MyUSTreasuryZeroCouponBondModel}
 
     # initialize -
