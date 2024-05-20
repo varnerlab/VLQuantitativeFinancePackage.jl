@@ -1,8 +1,13 @@
-function _hippo_objective_function(p, model, tspan, signal)
+function _hippo_objective_function(p, signal, hidden);
 
     # run the model -
-    model.Ĉ = p;
-    Ŷ = solve(model, tspan, signal)[3]; # get the predicted signal -
+    (number_of_time_steps, number_of_hidden_states) = size(hidden);
+    Ŷ = zeros(number_of_time_steps);
+    
+    # compute the output -
+    for i ∈ 2:number_of_time_steps
+        Ŷ[i] = dot(p, hidden[i,:]);
+    end
 
     # compute the error -
     error_term = sum((signal - Ŷ).^2);
@@ -52,8 +57,11 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     # initialize -
     p = model.Ĉ;
  
+    # solve the model to get the initial guess -
+    (T, X, Y) = solve(model, tspan, signal);
+
     # setup the objective function -
-    loss(p) = _hippo_objective_function(p, model, tspan, signal);
+    loss(p) = _hippo_objective_function(p,signal,X);
  
     # call the optimizer -
     opt_result = Optim.optimize(loss, p, GradientDescent());
