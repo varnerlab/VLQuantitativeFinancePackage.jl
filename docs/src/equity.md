@@ -1,5 +1,5 @@
 # Equity Securities
-Fill me in
+This should update now.
 
 ```@docs
 VLQuantitativeFinancePackage.EulerMaruyamaMethod
