@@ -11,6 +11,7 @@ makedocs(
         "Fixed Income" => "fixed.md",
         "Equity" => "equity.md",
         "Derivatives" => "derivatives.md",
+        "Factory" => "factory.md",
     ]
 )
 

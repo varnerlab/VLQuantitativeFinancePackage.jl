@@ -210,10 +210,38 @@ build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(mode
 
 
 build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreasuryCouponSecurityModel = _build(model, data);
+
+
+"""
+    build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple) -> MyUSTreasuryZeroCouponBondModel
+
+This `build` method constructs an instance of the `MyUSTreasuryZeroCouponBondModel` type using the data in the `NamedTuple`.
+
+### Arguments
+- `model::Type{MyUSTreasuryZeroCouponBondModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model. The data must contain the following `keys`
+
+The `data` `NamedTuple` must contain the following `keys`
+- `par::Float64`: The face or par value of the bond
+- `rate::Union{Nothing, Float64}`: Effective annual interest rate (discount rate specified as a decimal)
+- `T::Union{Nothing,Float64}`: Duration in years of the instrument, measured as a 365 day or a 52 week year
+- `n::Int`: Number of compounding periods per year (typically 2)
+"""
 build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreasuryZeroCouponBondModel = _build(model, data);
 
 
+"""
+    build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple) -> MyOrnsteinUhlenbeckModel
 
+This method builds an instance of the `MyOrnsteinUhlenbeckModel` type using the data in the `NamedTuple`.
+
+### Arguments
+- `modeltype::Type{MyOrnsteinUhlenbeckModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model. The data must contain the following `keys`
+    - `μ::Float64`: The long-term mean of the process.
+    - `σ::Float64`: The volatility of the process.
+    - `θ::Float64`: The mean reversion rate of the process.
+"""
 function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyOrnsteinUhlenbeckModel
 
     # initialize -
@@ -227,6 +255,21 @@ function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyO
     return model;
 end
 
+"""
+    build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple) -> MySisoLegSHippoModel
+
+This `build` method constructs an instance of the `MySisoLegSHippoModel` type using the data in the `NamedTuple`.
+This implementation uses the bilinear method to discretize the model, where the `A` and `B` matrices are computed
+using the [Leg-S](https://arxiv.org/abs/2008.07669) parameterization.
+
+### Arguments
+- `modeltype::Type{MySisoLegSHippoModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model. The data must contain the following `keys`
+    - `number_of_hidden_states::Int64`: The number of hidden states in the model.
+    - `Δt::Float64`: The time step size used to discretize the model (constant)
+    - `uₒ::Array{Float64,1}`: The initial input to the model.
+    - `C::Array{Float64,1}`: The output matrix of the model.
+"""
 function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoLegSHippoModel
 
     # initialize -
