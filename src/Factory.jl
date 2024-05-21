@@ -206,9 +206,48 @@ build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedT
 build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
 build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
+
+
+
+"""
+    build(model::Type{MyHestonModel}, data::NamedTuple) -> MyHestonModel
+
+This `build` method constructs an instance of the [MyHestonModel](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyHestonModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model. 
+
+The `data::NamedTuple` must contain the following `keys`:
+- `μ::Function`: The long-term mean of the process.
+- `κ::Function`: The mean reversion rate of the process.
+- `θ::Function`: The volatility of the process.
+- `ξ::Function`: The volatility of the volatility of the process.
+- `Σ::Array{Float64,2}`: The Covariance matrix of the process.
+"""
 build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(model, data);
 
 
+"""
+    build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple) -> MyUSTreasuryCouponSecurityModel
+
+This `build` method constructs an instance of the `MyUSTreasuryCouponSecurityModel` type using the data in the `NamedTuple`.
+
+### Arguments
+- `model::Type{MyUSTreasuryCouponSecurityModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model. 
+
+The `data::NamedTuple` must contain the following `keys`:
+- `par::Float64`: Par value of the bond
+- `rate::Union{Nothing, Float64}`: Annualized effective discount rate
+- `coupon::Union{Nothing, Float64}`: Coupon interest rate
+- `T::Union{Nothing,Float64}`: Duration in years of the note or bond, measured as a 365 day or a 52 week year
+- `λ::Int`: Number of coupon payments per year (typically 2)
+
+### Return
+This function returns an instance of the `MyUSTreasuryCouponSecurityModel` type. 
+To populate the model, use the `price` function or a short-cut function involving a compounding model.
+"""
 build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreasuryCouponSecurityModel = _build(model, data);
 
 

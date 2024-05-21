@@ -125,7 +125,7 @@ A mutable struct that represents the [Heston model](https://en.wikipedia.org/wik
 An instance of `MyHestonModel` is configured and constructed using a corresponding `build` method.
 
 ### Fields
-- `μ::Function`: Drift function
+- `μ::Function`: Drift function takes the state matrix `X` and time `t` and returns a scalar, i.e., `\\mu:X\\times{t}\\rightarrow\\mathbb{R}`
 - `κ::Function`: Mean reversion function
 - `θ::Function`: Long-run volatility function
 - `ξ::Function`: Volatility of volatility function
@@ -283,8 +283,8 @@ A mutable struct that represents a [U.S. Treasury zero coupon security](https://
 - `par::Float64`: The face or par value of the bond
 - `rate::Union{Nothing, Float64}`: Effective annual interest rate (discount rate specified as a decimal)
 - `T::Union{Nothing,Float64}`: Duration in years of the instrument, measured as a 365 day or a 52 week year
-- `price::Union{Nothing, Float64}`: Price of the bond or note (computed property)
 - `n::Int`: Number of compounding periods per year (typically 2)
+- `price::Union{Nothing, Float64}`: Price of the bond or note (computed property)
 - `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary (computed property) where the `key` is the period and the `value` is the discounted cashflow in a period
 - `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary (computed property) where the `key` is the period and the `value` is the discount factor in that period
 """
