@@ -64,7 +64,7 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
     loss(p) = _hippo_objective_function(p,signal,X);
  
     # call the optimizer -
-    opt_result = Optim.optimize(loss, p, GradientDescent());
+    opt_result = Optim.optimize(loss, p, method);
  
     # return the result -
     return Optim.minimizer(opt_result);
