@@ -6,17 +6,17 @@ VLQuantitativeFinancePackage.build(model::Type{MyUSTreasuryZeroCouponBondModel},
 ```
 
 ```@docs
-VLQuantitativeFinancePackage.build(::Type{MyUSTreasuryCouponSecurityModel}, ::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)
 ```
 
 ```@docs
-VLQuantitativeFinancePackage.build(::Type{MyOrnsteinUhlenbeckModel}, ::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)
 ```
 
 ```@docs
-VLQuantitativeFinancePackage.build(::Type{MySisoLegSHippoModel}, ::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MySisoLegSHippoModel}, data::NamedTuple)
 ```
 
 ```@docs
-VLQuantitativeFinancePackage.build(::Type{MyHestonModel}, ::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyHestonModel}, data::NamedTuple)
 ```
