@@ -95,6 +95,17 @@ mutable struct MyBlackScholesContractPricingModel <: AbstractAssetModel
     MyBlackScholesContractPricingModel() = new();
 end
 
+"""
+    mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
+
+A mutable struct that represents the `Ornstein-Uhlenbeck` model.
+An instance of `MyOrnsteinUhlenbeckModel` is configured and constructed using a corresponding `build` method.
+
+### Fields
+- `μ::Function`: The price drift function (long term price level)
+- `σ::Function`: The price volatility function
+- `θ::Function`: The mean reversion function. This function determines how quickly the price reverts to the long-term mean.
+"""
 mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
     
     # data -
@@ -106,6 +117,20 @@ mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
     MyOrnsteinUhlenbeckModel() = new();
 end
 
+
+"""
+    mutable struct MyHestonModel <: AbstractAssetModel
+
+A mutable struct that represents the [Heston](https://en.wikipedia.org/wiki/Heston_model) model. 
+An instance of `MyHestonModel` is configured and constructed using a corresponding `build` method.
+
+### Fields
+- `μ::Function`: Drift function
+- `κ::Function`: Mean reversion function
+- `θ::Function`: Long-run volatility function
+- `ξ::Function`: Volatility of volatility function
+- `Σ::Array{Float64,2}`: Covariance matrix between the asset price and the volatility process
+"""
 mutable struct MyHestonModel <: AbstractAssetModel
     
     # data -
@@ -119,6 +144,21 @@ mutable struct MyHestonModel <: AbstractAssetModel
     MyHestonModel() = new();
 end
 
+"""
+    mutable struct MySisoLegSHippoModel <: AbstractAssetModel
+
+A mutable struct that represents a single-input, single-output (SISO) linear time-invariant (LTI) system
+that used the Leg-S parameterization. An instance of `MySisoLegSHippoModel` is configuired and constructed using
+a corresponding `build` method.
+
+### Fields
+- `Â::Array{Float64,2}`: Discretized state matrix of the system `Â ∈ ℝ^(n x n)` where `n` is the number of hidden states
+- `B̂::Array{Float64,1}`: Discretized input matrix of the system `B̂ ∈ ℝ^n x 1`
+- `Ĉ::Array{Float64,1}`: Discretized output matrix of the system `Ĉ ∈ ℝ^1 x n`
+- `D̂::Array{Float64,1}`: Discretized feedforward matrix of the system `D̂ ∈ ℝ^1 x 1`
+- `n::Int`: Number of hidden states in the system
+- `Xₒ::Array{Float64,1}`: Initial conditions of the system
+"""
 mutable struct MySisoLegSHippoModel <: AbstractAssetModel
 
     # data -
@@ -134,6 +174,13 @@ mutable struct MySisoLegSHippoModel <: AbstractAssetModel
 end
 
 # tagging type -
+"""
+    struct EulerMaruyamaMethod <: AbstractStochasticSolverModel
+
+Immutable type that represents the Euler-Maruyama method for solving stochastic differential equations.
+This type is passed to various functions in the `method` argument to indicate that the Euler-Maruyama method 
+should be used in calculations.
+"""
 struct EulerMaruyamaMethod <: AbstractStochasticSolverModel
 end
 # ------------------------------------------------------------------------------------------- #
