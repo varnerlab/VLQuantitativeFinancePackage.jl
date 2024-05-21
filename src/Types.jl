@@ -125,7 +125,7 @@ A mutable struct that represents the [Heston model](https://en.wikipedia.org/wik
 An instance of `MyHestonModel` is configured and constructed using a corresponding `build` method.
 
 ### Fields
-- `μ::Function`: Drift function takes the state matrix `X` and time `t` and returns a scalar, i.e., `\\mu:X\\times{t}\\rightarrow\\mathbb{R}`
+- `μ::Function`: Drift function takes the state matrix `X` and time `t` and returns a scalar, i.e., ``\\mu:X\\times{t}\\rightarrow\\mathbb{R}``
 - `κ::Function`: Mean reversion function
 - `θ::Function`: Long-run volatility function
 - `ξ::Function`: Volatility of volatility function
