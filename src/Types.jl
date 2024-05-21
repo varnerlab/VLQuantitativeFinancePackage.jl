@@ -98,7 +98,7 @@ end
 """
     mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel
 
-A mutable struct that represents the `Ornstein-Uhlenbeck` model.
+A mutable struct that represents a [Ornstein-Uhlenbeck process](https://en.wikipedia.org/wiki/Ornstein–Uhlenbeck_process).
 An instance of `MyOrnsteinUhlenbeckModel` is configured and constructed using a corresponding `build` method.
 
 ### Fields
@@ -121,7 +121,7 @@ end
 """
     mutable struct MyHestonModel <: AbstractAssetModel
 
-A mutable struct that represents the [Heston](https://en.wikipedia.org/wiki/Heston_model) model. 
+A mutable struct that represents the [Heston model](https://en.wikipedia.org/wiki/Heston_model). 
 An instance of `MyHestonModel` is configured and constructed using a corresponding `build` method.
 
 ### Fields
@@ -177,8 +177,8 @@ end
 """
     struct EulerMaruyamaMethod <: AbstractStochasticSolverModel
 
-Immutable type that represents the Euler-Maruyama method for solving stochastic differential equations.
-This type is passed to various functions in the `method` argument to indicate that the Euler-Maruyama method 
+Immutable type that represents the [Euler-Maruyama method](https://en.wikipedia.org/wiki/Euler–Maruyama_method) for solving stochastic differential equations.
+This type is passed to various functions in their `method` argument to indicate that the [Euler-Maruyama method](https://en.wikipedia.org/wiki/Euler–Maruyama_method) 
 should be used in calculations.
 """
 struct EulerMaruyamaMethod <: AbstractStochasticSolverModel
@@ -277,16 +277,16 @@ end
 """
     mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
 
-A mutable struct that represents a U.S. Treasury zero coupon bond. 
+A mutable struct that represents a [U.S. Treasury zero coupon security](https://www.treasurydirect.gov/marketable-securities/treasury-bills/). 
 
 ### Fields
-- `par::Float64`: Par value of the bond
-- `rate::Union{Nothing, Float64}`: Annual interest rate
-- `T::Union{Nothing,Float64}`: Duration in years, measured as a 365 day or a 52 week year
-- `price::Union{Nothing, Float64}`: Price of the bond or note
+- `par::Float64`: The face or par value of the bond
+- `rate::Union{Nothing, Float64}`: Effective annual interest rate (discount rate specified as a decimal)
+- `T::Union{Nothing,Float64}`: Duration in years of the instrument, measured as a 365 day or a 52 week year
+- `price::Union{Nothing, Float64}`: Price of the bond or note (computed property)
 - `n::Int`: Number of compounding periods per year (typically 2)
-- `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary where the `key` is the period and the `value` is the discounted cashflow in a period
-- `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary where the `key` is the period and the `value` is the discount factor in that period
+- `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary (computed property) where the `key` is the period and the `value` is the discounted cashflow in a period
+- `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary (computed property) where the `key` is the period and the `value` is the discount factor in that period
 """
 mutable struct MyUSTreasuryZeroCouponBondModel <: AbstractTreasuryDebtSecurity
     
@@ -306,8 +306,8 @@ end
 """
     mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
 
-A mutable struct that represents a U.S. Treasury coupon bond. 
-This type of security (note or bond) pays the holder of the note (or bond) a fixed interest rate at regular intervals over the life of the instrument.
+A mutable struct that represents a [U.S. Treasury coupon bond](https://www.treasurydirect.gov/marketable-securities/treasury-bonds/). 
+This type of security (note or bond) pays the holder of the instrument a fixed interest rate at regular intervals over the life of the security.
 
 ### Fields
 - `par::Float64`: Par value of the bond
@@ -316,8 +316,8 @@ This type of security (note or bond) pays the holder of the note (or bond) a fix
 - `T::Union{Nothing,Float64}`: Duration in years of the note or bond, measured as a 365 day or a 52 week year
 - `λ::Int`: Number of coupon payments per year (typically 2)
 - `price::Union{Nothing, Float64}`: Price of the bond or note
-- `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary where the `key` is the period and the `value` is the discounted cashflow in a period
-- `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary where the `key` is the period and the `value` is the discount factor in that period
+- `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary (computed property) where the `key` is the period and the `value` is the discounted cashflow in a period
+- `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary(computed property) where the `key` is the period and the `value` is the discount factor in that period
 """
 mutable struct MyUSTreasuryCouponSecurityModel <: AbstractTreasuryDebtSecurity
 

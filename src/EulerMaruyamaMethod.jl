@@ -90,6 +90,25 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
     return (T, X);
 end
 
+"""
+    solve(model::AbstractAssetModel, tspan::NamedTuple, initialconditions::AbstractArray; 
+        method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), N::Int64 = 100)::Tuple
+
+The `solve` function is used to solve a stochastic asset model. 
+The function takes a model, time span, initial conditions, method, and number of paths as input and returns a tuple of time and state arrays. 
+The `method` argument is used to specify the method used to solve the model. The `N` argument is used to specify the number of paths to simulate. 
+The function uses the Euler-Maruyama method as the default method to solve the model.
+
+### Arguments
+- `model::AbstractAssetModel`: The asset model to solve.
+- `tspan::NamedTuple`: The time span to solve the model over. The NamedTuple should have the fields `start`, `stop`, and `step`.
+- `initialconditions::AbstractArray`: The initial conditions for the model.
+- `method::AbstractStochasticSolverModel = EulerMaruyamaMethod()`: The method used to solve the model. Default is [Euler-Maruyama](https://en.wikipedia.org/wiki/Euler–Maruyama_method).
+- `N::Int64 = 100`: The number of paths to simulate. Default is 100 paths.
+
+### Return
+- `Tuple`: A tuple of time and state arrays (more than one with multidimensional models) where the rows are the time steps and the columns are the paths. 
+"""
 function solve(model::AbstractAssetModel, tspan::NamedTuple,
     initialconditions::AbstractArray; method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), 
     N::Int64 = 100)::Tuple
