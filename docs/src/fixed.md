@@ -30,9 +30,6 @@ VLQuantitativeFinancePackage.price
 ## Separating the principal and interest payments
 [Registered Interest and Principal of Securities (STRIPS) bonds](https://en.wikipedia.org/wiki/United_States_Treasury_security#STRIPS) are a unique type of fixed-income investment instrument that provides investors with an alternative way to access the coupon payments of Treasury securities. STRIPS bonds are created by separating a Treasury securities coupon and principal components and trading them as individual  zero-coupon securities. This process allows investors to purchase and trade the coupon or principal components separately, providing greater flexibility in managing their investment portfolios.
 
-For example, a 5-year Treasury note with annual coupon payments of $C$ USD and a face (par) value of $V_{P}$ (USD)
-can be stripped into six separate zero-coupon securities, i.e., five zero-coupon bonds, each with face values of $C$ 
-and maturity of $T$= 1,2,3,4 and 5 years, and a six security with face  (par) value of $V_{P}$ USD with a duration of $T$ = 5 years. In the general case, a treasury note or bond with $N=\lambda{T}$ coupon payments, where $T$ denotes the maturity in years, and $\lambda$ represents the number of coupon payments per year can be stripped into $N+1$ separate zero-coupon securities.
 
 ```@docs
 VLQuantitativeFinancePackage.strip
