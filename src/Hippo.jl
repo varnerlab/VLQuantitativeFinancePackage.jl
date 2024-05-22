@@ -51,6 +51,12 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Floa
         # update the state and output -
         X[i,:] = Â*X[i-1,:]+B̂*u;
         Y[i] = dot(Ĉ, X[i,:]);
+
+        # bound the output -
+        if (abs(Y[i]) > 1.0)
+            Y[i] = 1.0;
+        end
+
     end
 
     # return the time and state arrays -
