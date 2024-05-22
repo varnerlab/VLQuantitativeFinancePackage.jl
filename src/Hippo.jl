@@ -53,7 +53,7 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Floa
         Y[i] = dot(Ĉ, X[i,:]);
 
         # bound the output -
-        if (abs(Y[i]) > 2.0)
+        if (abs(Y[i]) > 0.5)
             Y[i] = signal; # reset the output
         end
 
