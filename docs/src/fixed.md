@@ -21,14 +21,6 @@ VLQuantitativeFinancePackage.MyUSTreasuryCouponSecurityModel
 We construct `MyUSTreasuryZeroCouponBondModel` and `MyUSTreasuryCouponSecurityModel` objects by specifying the maturity date, the face value of the bond the effective annual interest rate and other data that are specific to the bill, note or bond in a `build` function where the data is 
 specified in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple) format. 
 
-For example, let's compute the price and cashflow for a `T = 20-yr` bond, with a coupon rate of `c = 1.750%`, a yield (discount rate) `rate = 1.850%`, two coupon payments per year, i.e., $\lambda = 2$ and a face (par) value of $V_{P}$ = `100 USD`
-
-```julia
-test_bond = build(MyUSTreasuryCouponSecurityModel, (
-    T = 20.0, rate = 0.01850, coupon = 0.01750, λ = 2, par = 100.0
-)) |> discount_model;
-```
-
 
 ```@docs
 VLQuantitativeFinancePackage.price

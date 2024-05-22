@@ -8,9 +8,9 @@ makedocs(
     modules = [VLQuantitativeFinancePackage],
     pages = [
         "Home" => "index.md",
-        "Fixed Income" => "fixed.md",
-        "Equity" => "equity.md",
-        "Derivatives" => "derivatives.md",
+        "Treasury securities" => "fixed.md",
+        "Equity securities" => "equity.md",
+        "Derivative securities" => "derivatives.md",
         "Factory" => "factory.md",
     ]
 )

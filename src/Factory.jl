@@ -247,6 +247,20 @@ The `data::NamedTuple` must contain the following `keys`:
 ### Return
 This function returns an instance of the [`MyUSTreasuryCouponSecurityModel`](@ref) type. 
 To populate the model, use the `price` function or a short-cut function involving a compounding model.
+
+### Example
+Let's build a [`MyUSTreasuryCouponSecurityModel`](@ref) instance and populate the `price`, `cashflow` and `discount` datastructures for a `T = 20-yr` 
+bond, with a coupon rate of `c = 1.750%`, a yield (discount rate) `rate = 1.850%`, two coupon payments per year, i.e., ``\\lambda = 2`` 
+and a face (par) value of ``V_{P}`` = `100 USD`:
+
+```julia
+test_bond = build(MyUSTreasuryCouponSecurityModel, (
+    T = 20.0, rate = 0.01850, coupon = 0.01750, λ = 2, par = 100.0
+)) |> discount_model;
+```
+
+where the `discount_model` refers to either a [`DiscreteCompoundingModel`](@ref) or a [`ContinuousCompoundingModel`](@ref) instance.
+
 """
 build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreasuryCouponSecurityModel = _build(model, data);
 
@@ -254,17 +268,19 @@ build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreas
 """
     build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple) -> MyUSTreasuryZeroCouponBondModel
 
-This `build` method constructs an instance of the [`MyUSTreasuryZeroCouponBondModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+This `build` method constructs an instance of the [`MyUSTreasuryZeroCouponBondModel`](@ref) type using the 
+data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple) argument.
 
 ### Arguments
 - `model::Type{MyUSTreasuryZeroCouponBondModel}`: The type of model to build.
-- `data::NamedTuple`: The data to use to build the model. The data must contain the following `keys`:
+- `data::NamedTuple`: The data to use to build the model. 
 
-The `data::NamedTuple` must contain the following `keys`:
+The `data::NamedTuple` argument must contain the following `keys`:
 - `par::Float64`: The face or par value of the bond
 - `rate::Union{Nothing, Float64}`: Effective annual interest rate (discount rate specified as a decimal)
 - `T::Union{Nothing,Float64}`: Duration in years measured as a 365 day or a 52 week year
 - `n::Int`: Number of compounding periods per year (typically 2)
+
 """
 build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreasuryZeroCouponBondModel = _build(model, data);
 
@@ -278,7 +294,7 @@ This method builds an instance of the [`MyOrnsteinUhlenbeckModel`](@ref) type us
 - `modeltype::Type{MyOrnsteinUhlenbeckModel}`: The type of model to build.
 - `data::NamedTuple`: The data to use to build the model. 
 
-The `data::NamedTuple` must contain the following `keys`:
+The `data::NamedTuple` argument must contain the following `keys`:
 - `μ::Float64`: The long-term mean of the process.
 - `σ::Float64`: The volatility of the process.
 - `θ::Float64`: The mean reversion rate of the process.
