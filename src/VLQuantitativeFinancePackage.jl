@@ -22,7 +22,7 @@ module VLQuantitativeFinancePackage
     export MySingleIndexModel, AbstractReturnModel
     export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, AbstractProbabilityMeasure
     export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
-    export MySisoLegSHippoModel, estimate_hippo_parameters
+    export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
 
     # export functions/methods
     export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve, YTM

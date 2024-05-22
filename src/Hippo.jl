@@ -16,6 +16,47 @@ function _hippo_objective_function(p, signal, hidden);
     return error_term;
 end
 
+function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Float64)::Tuple
+    
+    # initialize -
+    Â = model.Â
+    B̂ = model.B̂
+    Ĉ = model.Ĉ
+    Xₒ = model.Xₒ
+    number_of_hidden_states = model.n;
+
+    # build the time array -
+    tₒ = tspan.start;
+    tₙ = tspan.stop;
+    dt = tspan.step;
+    T = range(tₒ, step=dt, stop=tₙ) |> collect
+
+    # initialize the state and output arrays -
+    number_of_time_steps = length(T);
+    Y = zeros(number_of_time_steps);
+    X = zeros(number_of_time_steps, number_of_hidden_states);
+
+    # update the initial state -
+    for i ∈ 1:number_of_hidden_states
+        X[1,i] = Xₒ[i];
+    end
+
+    # update Y -
+    Y[1] = signal;
+
+    # main loop -
+    for i ∈ 2:number_of_time_steps
+        u = Y[i-1]; # get the input 
+
+        # update the state and output -
+        X[i,:] = Â*X[i-1,:]+B̂*u;
+        Y[i] = dot(Ĉ, X[i,:]);
+    end
+
+    # return the time and state arrays -
+    return (T, X, Y);
+end
+
 function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64})::Tuple
 
     # initialize -
