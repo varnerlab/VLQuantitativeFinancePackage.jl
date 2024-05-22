@@ -212,7 +212,7 @@ build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
 """
     build(model::Type{MyHestonModel}, data::NamedTuple) -> MyHestonModel
 
-This `build` method constructs an instance of the [MyHestonModel](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+This `build` method constructs an instance of the [`MyHestonModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
 ### Arguments
 - `model::Type{MyHestonModel}`: The type of model to build.
@@ -223,7 +223,7 @@ The `data::NamedTuple` must contain the following `keys`:
 - `κ::Function`: The mean reversion rate of the process.
 - `θ::Function`: The volatility of the process.
 - `ξ::Function`: The volatility of the volatility of the process.
-- `Σ::Array{Float64,2}`: The Covariance matrix of the process.
+- `Σ::Array{Float64,2}`: The covariance matrix of the process.
 """
 build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(model, data);
 
@@ -231,7 +231,7 @@ build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(mode
 """
     build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple) -> MyUSTreasuryCouponSecurityModel
 
-This `build` method constructs an instance of the [MyUSTreasuryCouponSecurityModel](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+This `build` method constructs an instance of the [`MyUSTreasuryCouponSecurityModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
 ### Arguments
 - `model::Type{MyUSTreasuryCouponSecurityModel}`: The type of model to build.
@@ -245,7 +245,7 @@ The `data::NamedTuple` must contain the following `keys`:
 - `λ::Int`: Number of coupon payments per year (typically 2)
 
 ### Return
-This function returns an instance of the [MyUSTreasuryCouponSecurityModel](@ref) type. 
+This function returns an instance of the [`MyUSTreasuryCouponSecurityModel`](@ref) type. 
 To populate the model, use the `price` function or a short-cut function involving a compounding model.
 """
 build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreasuryCouponSecurityModel = _build(model, data);
@@ -254,7 +254,7 @@ build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreas
 """
     build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple) -> MyUSTreasuryZeroCouponBondModel
 
-This `build` method constructs an instance of the [MyUSTreasuryZeroCouponBondModel](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+This `build` method constructs an instance of the [`MyUSTreasuryZeroCouponBondModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
 ### Arguments
 - `model::Type{MyUSTreasuryZeroCouponBondModel}`: The type of model to build.
@@ -263,7 +263,7 @@ This `build` method constructs an instance of the [MyUSTreasuryZeroCouponBondMod
 The `data::NamedTuple` must contain the following `keys`:
 - `par::Float64`: The face or par value of the bond
 - `rate::Union{Nothing, Float64}`: Effective annual interest rate (discount rate specified as a decimal)
-- `T::Union{Nothing,Float64}`: Duration in years of the instrument, measured as a 365 day or a 52 week year
+- `T::Union{Nothing,Float64}`: Duration in years measured as a 365 day or a 52 week year
 - `n::Int`: Number of compounding periods per year (typically 2)
 """
 build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreasuryZeroCouponBondModel = _build(model, data);
@@ -272,13 +272,13 @@ build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreas
 """
     build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple) -> MyOrnsteinUhlenbeckModel
 
-This method builds an instance of the [MyOrnsteinUhlenbeckModel](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+This method builds an instance of the [`MyOrnsteinUhlenbeckModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
 ### Arguments
 - `modeltype::Type{MyOrnsteinUhlenbeckModel}`: The type of model to build.
 - `data::NamedTuple`: The data to use to build the model. 
 
-The `data::NamedTuple` must contain the following `keys`
+The `data::NamedTuple` must contain the following `keys`:
 - `μ::Float64`: The long-term mean of the process.
 - `σ::Float64`: The volatility of the process.
 - `θ::Float64`: The mean reversion rate of the process.
@@ -299,7 +299,7 @@ end
 """
     build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple) -> MySisoLegSHippoModel
 
-This `build` method constructs an instance of the [MySisoLegSHippoModel](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+This `build` method constructs an instance of the [`MySisoLegSHippoModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 This implementation uses the bilinear method to discretize the model, where the `A` and `B` matrices are computed
 using the [Leg-S parameterization](https://arxiv.org/abs/2008.07669).
 

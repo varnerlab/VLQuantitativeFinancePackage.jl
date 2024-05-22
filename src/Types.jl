@@ -284,6 +284,8 @@ A mutable struct that represents a [U.S. Treasury zero coupon security](https://
 - `rate::Union{Nothing, Float64}`: Effective annual interest rate (discount rate specified as a decimal)
 - `T::Union{Nothing,Float64}`: Duration in years of the instrument, measured as a 365 day or a 52 week year
 - `n::Int`: Number of compounding periods per year (typically 2)
+
+### Computed Fields
 - `price::Union{Nothing, Float64}`: Price of the bond or note (computed property)
 - `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary (computed property) where the `key` is the period and the `value` is the discounted cashflow in a period
 - `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary (computed property) where the `key` is the period and the `value` is the discount factor in that period
@@ -315,7 +317,9 @@ This type of security (note or bond) pays the holder of the instrument a fixed i
 - `coupon::Union{Nothing, Float64}`: Coupon interest rate
 - `T::Union{Nothing,Float64}`: Duration in years of the note or bond, measured as a 365 day or a 52 week year
 - `λ::Int`: Number of coupon payments per year (typically 2)
-- `price::Union{Nothing, Float64}`: Price of the bond or note
+
+### Computed Fields
+- `price::Union{Nothing, Float64}`: Price of the bond or note (computed property)
 - `cashflow::Union{Nothing, Dict{Int,Float64}}`: Cashflow dictionary (computed property) where the `key` is the period and the `value` is the discounted cashflow in a period
 - `discount::Union{Nothing, Dict{Int,Float64}}`: Discount factor dictionary(computed property) where the `key` is the period and the `value` is the discount factor in that period
 """
