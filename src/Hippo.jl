@@ -42,12 +42,15 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
         X[1,i] = Xₒ[i];
     end
 
+    Y[1] = signal[1];
+
     # main loop -
     for i ∈ 2:number_of_time_steps
         
         # what index in the signal array should we use?
-        j = ((i-2) % L) + 1;
-        u = signal[j]; # get the input 
+        # j = ((i-2) % L) + 1;
+        # u = signal[j]; # get the input 
+        u = Y[i-1]; # get the input
 
         # update the state and output -
         X[i,:] = Â*X[i-1,:]+B̂*u;
