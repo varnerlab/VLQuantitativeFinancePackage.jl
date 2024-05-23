@@ -57,11 +57,11 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
         Y[i] = dot(Ĉ, X[i,:]);
 
         # ok, so we some stability issues here, let's try to fix it -
-        if (abs(Y[i]) ≥ 20.0*(1+0.01*randn()))
+        if (abs(Y[i]) ≥ 20.0*(1+0.5*randn()))
             
             # reset the hidden states -
             for k ∈ 1:number_of_hidden_states
-                X[i,k] = 0.1*X[j,k]*(1+0.01*randn()); # jump back to the last stable state
+                X[i,k] = Xₒ[k]*(1+0.1*randn()); # jump back to the last stable state
             end
         end
     end
