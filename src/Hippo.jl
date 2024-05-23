@@ -52,6 +52,15 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
         # update the state and output -
         X[i,:] = Â*X[i-1,:]+B̂*u;
         Y[i] = dot(Ĉ, X[i,:]);
+
+        # ok, so we some stability issues here, let's try to fix it -
+        if (abs(Y[i]) ≥ 10.0)
+            
+            # reset the hidden states -
+            for k ∈ 1:number_of_hidden_states
+                X[i,k] = Xₒ[k];
+            end
+        end
     end
 
     # return the time and state arrays -
