@@ -136,6 +136,23 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
     return (T, X, Y);
 end
 
+"""
+    estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64};
+        method = LBFGS()) -> Array{Float64}
+
+The `estimate_hippo_parameters` function estimates the `C`-matrix of the single input single output (SISO) 
+Leg-S bilinear discretized HiPPO model. The [Optim.jl package](https://github.com/JuliaNLSolvers/Optim.jl) is used to minimize the [squared error loss between the estimated and observed model output](https://en.wikipedia.org/wiki/Loss_function).
+The function returns the estimated parameters.
+
+### Arguments
+- `model::MySisoLegSHippoModel`: A model struct that defines the HiPPO model, see [MySisoLegSHippoModel](@ref) for details on the model struct.
+- `tspan::NamedTuple`: A named tuple that defines the time span for the simulation. The named tuple should have the fields `start`, `stop` and `step`.
+- `signal::Array{Float64}`: An array of input signals to the model.
+- `method::AbstractOptimizer`: An optimizer to use for the optimization problem. The default optimizer is the [LBFGS routine of the Optim.jl](https://julianlsolvers.github.io/Optim.jl/stable/algo/lbfgs/).
+
+### Returns
+- `Array{Float64}`: An array of estimated parameters for the `C`-matrix of the HiPPO model
+"""
 function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64};
     method = LBFGS())
     
