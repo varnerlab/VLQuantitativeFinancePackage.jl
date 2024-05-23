@@ -58,7 +58,7 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
             
             # reset the hidden states -
             for k ∈ 1:number_of_hidden_states
-                X[i,k] = Xₒ[k];
+                X[i,k] = Xₒ[k]*(1 + 0.25*randn());
             end
         end
     end
