@@ -16,7 +16,8 @@ function _hippo_objective_function(p, signal, hidden);
     return error_term;
 end
 
-function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Float64)::Tuple
+function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64,1};
+    L::Int64 = 10)::Tuple
     
     # initialize -
     Â = model.Â
@@ -41,22 +42,16 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Floa
         X[1,i] = Xₒ[i];
     end
 
-    # update Y -
-    Y[1] = signal;
-
     # main loop -
     for i ∈ 2:number_of_time_steps
-        u = Y[i-1]; # get the input 
+        
+        # what index in the signal array should we use?
+        j = ((i-2) % L) + 1;
+        u = signal[j]; # get the input 
 
         # update the state and output -
         X[i,:] = Â*X[i-1,:]+B̂*u;
         Y[i] = dot(Ĉ, X[i,:]);
-
-        # bound the output -
-        if (abs(Y[i]) > 0.5)
-            Y[i] = signal; # reset the output
-        end
-
     end
 
     # return the time and state arrays -
