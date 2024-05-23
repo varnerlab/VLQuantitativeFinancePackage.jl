@@ -16,8 +16,24 @@ function _hippo_objective_function(p, signal, hidden);
     return error_term;
 end
 
+
+"""
+    prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64,1}; L::Int64 = 10) -> Tuple
+
+The `prediction` function predicts the output of the single input single output (SISO) HiPPO model given a signal vector using the Leg-S parameterization and bilinear discretization. 
+The function returns the time array, the hidden state array and the output array. 
+
+### Arguments
+- `model::MySisoLegSHippoModel`: A model struct that defines the HiPPO model, see [MySisoLegSHippoModel](@ref) for details on the model struct.
+- `tspan::NamedTuple`: A named tuple that defines the time span for the simulation. The named tuple should have the fields `start`, `stop` and `step`.
+- `signal::Array{Float64}`: An array of input signals to the model.
+- `S::Int64`: Circular buffer size used by the prediction function. The default value is 10 steps. After `L` steps, the input signal is reset to the first signal value.
+
+### Returns
+- `Tuple`: A tuple of the time array `T`, hidden state array `X` and the output array `Y`.
+"""
 function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64,1};
-    L::Int64 = 10)::Tuple
+    S::Int64 = 10, B::Float64 = 40.0, α::Float64 = 0.25, β::Float64 = 0.10)::Tuple
     
     # initialize -
     Â = model.Â
@@ -42,13 +58,11 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
         X[1,i] = Xₒ[i];
     end
 
-    # Y[1] = signal[1];
-
     # main loop -
     for i ∈ 2:number_of_time_steps
         
         # what index in the signal array should we use?
-        j = ((i-2) % L) + 1;
+        j = ((i-2) % S) + 1;
         u = signal[j]; # get the input 
         # u = Y[i-1]; # get the input
 
@@ -57,11 +71,11 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
         Y[i] = dot(Ĉ, X[i,:]);
 
         # ok, so we some stability issues here, let's try to fix it -
-        if (abs(Y[i]) ≥ 40.0*(1+0.25*randn()))
+        if (abs(Y[i]) ≥ B*(1+α*randn()))
             
             # reset the hidden states -
             for k ∈ 1:number_of_hidden_states
-                X[i,k] = Xₒ[k]*(1+0.1*randn()); # jump back to the last stable state
+                X[i,k] = Xₒ[k]*(1+β*randn()); # jump back to the last stable state
             end
         end
     end
@@ -70,6 +84,20 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
     return (T, X, Y);
 end
 
+"""
+    solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64}) -> Tuple
+
+The `solve` function solves the single input single output (SISO) HiPPO model using the Leg-S parameterization and 
+bilinear discretization. The function returns the time array, the hidden state array and the output array.
+
+### Arguments
+- `model::MySisoLegSHippoModel`: A model struct that defines the HiPPO model, see [MySisoLegSHippoModel](@ref) for details on the model struct.
+- `tspan::NamedTuple`: A named tuple that defines the time span for the simulation. The named tuple should have the fields `start`, `stop` and `step`.
+- `signal::Array{Float64}`: An array of input signals to the model.
+
+### Returns
+- `Tuple`: A tuple of the time array `T`, hidden state array `X` and the output array `Y`.
+"""
 function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64})::Tuple
 
     # initialize -
