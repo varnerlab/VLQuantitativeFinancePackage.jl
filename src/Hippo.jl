@@ -28,6 +28,9 @@ The function returns the time array, the hidden state array and the output array
 - `tspan::NamedTuple`: A named tuple that defines the time span for the simulation. The named tuple should have the fields `start`, `stop` and `step`.
 - `signal::Array{Float64}`: An array of input signals to the model.
 - `S::Int64`: Circular buffer size used by the prediction function. The default value is 10 steps. After `L` steps, the input signal is reset to the first signal value.
+- `B::Float64`: A threshold value used to reset the hidden states. The default value is 40.0.
+- `α::Float64`: A scaling factor used to check the output value. The default value is 0.25.
+- `β::Float64`: A scaling factor used to reset the hidden states. The default value is 0.10.
 
 ### Returns
 - `Tuple`: A tuple of the time array `T`, hidden state array `X` and the output array `Y`.

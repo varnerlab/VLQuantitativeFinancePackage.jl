@@ -5,6 +5,5 @@ We provide a factory function `build` to construct most of the types used in thi
 VLQuantitativeFinancePackage.build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)
-VLQuantitativeFinancePackage.build(model::Type{MySisoLegSHippoModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MyHestonModel}, data::NamedTuple)
 ```
