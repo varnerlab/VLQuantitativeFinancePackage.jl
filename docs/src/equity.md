@@ -1,6 +1,20 @@
 # Equity Securities
 This should update now.
 
+## Computing returns
+Fill me in.
+
+```@docs
+VLQuantitativeFinancePackage.log_growth_matrix
+```
+
+## Lattice Models
+Fill me in
+
+## Geometric Brownian Motion
+Fill me in
+
+## Advanced Stochastic Differential Equation Models
 ```@docs
 VLQuantitativeFinancePackage.EulerMaruyamaMethod
 VLQuantitativeFinancePackage.MyOrnsteinUhlenbeckModel

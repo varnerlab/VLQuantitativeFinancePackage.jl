@@ -24,6 +24,9 @@ module VLQuantitativeFinancePackage
     export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
 
+    # Base functions -
+    export log_growth_matrix
+
     # export functions/methods
     export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve, YTM
     export estimate_implied_volatility
