@@ -35,6 +35,5 @@ VLQuantitativeFinancePackage.MyCRRLatticeNodeModel
 VLQuantitativeFinancePackage.build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)
 VLQuantitativeFinancePackage.populate(model::MyAdjacencyBasedCRREquityPriceTree; 
     Sₒ::Float64 = 100.0, h::Int64 = 1)
-VLQuantitativeFinancePackage.premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
-    choice::Function=_rational, sigdigits::Int64 = 4) where {T<:AbstractContractModel}
+VLQuantitativeFinancePackage.premium
 ```
