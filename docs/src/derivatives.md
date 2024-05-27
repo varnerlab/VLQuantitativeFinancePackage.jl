@@ -15,8 +15,8 @@ VLQuantitativeFinancePackage.build(model::Type{MyAmericanPutContractModel}, data
 
 ## Payoff and profit of contracts at expiration
 ```@docs
-VLQuantitativeFinancePackage.payoff(contracts::Array{T,1}, S::Array{Float64,1})
-VLQuantitativeFinancePackage.profit(contracts::Array{T,1}, S::Array{Float64,1})
+VLQuantitativeFinancePackage.payoff
+VLQuantitativeFinancePackage.profit
 ```
 
 ## Computing European contract premiums
