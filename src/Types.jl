@@ -69,7 +69,7 @@ The lattice is populated using the [`populate`](@ref) function, and the contract
 - `connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}`: A dictionary that holds the connectivity of the lattice where the `key` is the node index and the `value` is an array of the connected nodes.
 - `levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}`: A dictionary that holds the nodes on each level of the lattice where the `key` is the level index and the `value` is an array of the nodes on that level.
 
-The `optional` fields are computed when the lattice is passed to the [`populate!`](@ref) function.
+The `optional` fields are computed when the lattice is passed to the [`populate`](@ref) function.
 """
 mutable struct MyAdjacencyBasedCRREquityPriceTree <: AbstractEquityPriceTreeModel
 
