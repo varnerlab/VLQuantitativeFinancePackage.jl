@@ -22,6 +22,20 @@ struct MyLocalExpectationRegressionModel
     end
 end
 
+"""
+    mutable struct MyCRRLatticeNodeModel
+
+The `MyCRRLatticeNodeModel` mutable struct represents a node in a [Cox-Ross-Rubinstein (CRR) model](https://en.wikipedia.org/wiki/Binomial_options_pricing_model) for pricing
+American style option contracts.
+
+### Required fields
+- `price::Float64`: The price of the price at the node
+- `probability::Float64`: The probability of reaching the node
+
+### Optional or computed fields
+- `intrinsic::Union{Nothing,Float64}`: The intrinsic value of the option contract at the node
+- `extrinsic::Union{Nothing,Float64}`: The extrinsic value of the option contract at the node
+"""
 mutable struct MyCRRLatticeNodeModel
 
     # data -
@@ -34,6 +48,29 @@ mutable struct MyCRRLatticeNodeModel
     MyCRRLatticeNodeModel() = new();
 end
 
+"""
+    mutable struct MyAdjacencyBasedCRREquityPriceTree <: AbstractEquityPriceTreeModel
+
+The `MyAdjacencyBasedCRREquityPriceTree` mutable struct represents a [Cox-Ross-Rubinstein (CRR) model](https://en.wikipedia.org/wiki/Binomial_options_pricing_model) for pricing
+American style option contracts. The lattice is constructed using an adjacency list to represent the connectivity of the nodes in the lattice.
+The lattice is populated using the [`populate!`](@ref) function, and the contract pricing is performed using the [`price_contract`](@ref) function.
+
+### Required fields
+- `μ::Float64`: The drift rate of the asset price
+- `σ::Float64`: The volatility of the asset price
+- `T::Float64`: The time to expiration of the option contract (measured in units of years)
+
+### Optional or computed fields
+- `ΔT::Union{Nothing,Float64}`: The time step size
+- `u::Union{Nothing,Float64}`: The up-factor for the lattice
+- `d::Union{Nothing,Float64}`: The down-factor for the lattice
+- `p::Union{Nothing,Float64}`: The probability of an up move in the lattice
+- `data::Union{Nothing, Dict{Int, MyCRRLatticeNodeModel}}`: A dictionary that holds the lattice data for each node where nodes are modeled as [`MyCRRLatticeNodeModel`](@ref) instances.
+- `connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}`: A dictionary that holds the connectivity of the lattice where the `key` is the node index and the `value` is an array of the connected nodes.
+- `levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}`: A dictionary that holds the nodes on each level of the lattice where the `key` is the level index and the `value` is an array of the nodes on that level.
+
+The `optional` fields are computed when the lattice is passed to the [`populate!`](@ref) function.
+"""
 mutable struct MyAdjacencyBasedCRREquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -
@@ -65,7 +102,16 @@ mutable struct MyLongstaffSchwartzContractPricingModel <: AbstractEquityPriceTre
     MyLongstaffSchwartzContractPricingModel() = new();
 end
 
+"""
+    mutable struct MyBlackScholesContractPricingModel <: AbstractAssetModel
 
+The `MyBlackScholesContractPricingModel` mutable struct represents a [Black-Scholes model](https://en.wikipedia.org/wiki/Black–Scholes_model) for pricing
+European option contracts. 
+
+### Required fields
+- `r::Float64`: The annual risk-free discount rate
+- `Sₒ::Float64`: The current price of the underlying asset
+"""
 mutable struct MyBlackScholesContractPricingModel <: AbstractAssetModel
 
     # data -
@@ -100,7 +146,7 @@ end
     mutable struct MyMultipleAssetGeometricBrownianMotionEquityModel <: AbstractAssetModel
 
 The `MyMultipleAssetGeometricBrownianMotionEquityModel` mutable struct represents a [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) model for
-multiple equity assets.
+multiple equity assets. 
 
 ### Fields
 - `μ::Array{Float64,1}`: The drift rates of the asset prices
@@ -209,6 +255,25 @@ end
 # ------------------------------------------------------------------------------------------- #
 
 # --- Contract models ----------------------------------------------------------------------- #
+
+"""
+    mutable struct MyEuropeanCallContractModel <: AbstractContractModel
+
+The `MyEuropeanCallContractModel` mutable struct represents a European call option contract.
+A `call` option is a financial contract that gives the holder the right, but not the obligation, to buy an asset at a specified price (the strike price) 
+within a specified time period. For European options, the contract can only be exercised by the buyer at the expiration date.
+    
+### Required fields
+- `K::Float64`: The strike price of the option. 
+
+### Optional fields
+- `sense::Union{Nothing, Int64}`: The sense of the option. A value of `1` indicates a long position, and a value of `-1` indicates a short position.
+- `DTE::Union{Nothing,Float64}`: The days to expiration of the option (measured in units of years).
+- `IV::Union{Nothing, Float64}`: The implied volatility of the option contract.
+- `premium::Union{Nothing, Float64}`: The premium of the option contract. This is the price paid to the seller by the buyer for the option contract.
+- `ticker::Union{Nothing,String}`: The ticker symbol of the underlying asset.
+- `copy::Union{Nothing, Int64}`: Number of contracts purchased or sold.
+"""
 mutable struct MyEuropeanCallContractModel <: AbstractContractModel
 
     # data -
@@ -224,6 +289,24 @@ mutable struct MyEuropeanCallContractModel <: AbstractContractModel
     MyEuropeanCallContractModel() = new()
 end
 
+"""
+    mutable struct MyEuropeanPutContractModel <: AbstractContractModel
+
+The `MyEuropeanPutContractModel` mutable struct represents a European put option contract. 
+A `put` option is a financial contract that gives the holder the right, but not the obligation, to sell an asset at a specified price (the strike price)
+within a specified time period. For European options, the contract can only be exercised by the buyer at the expiration date.
+
+### Required fields
+- `K::Float64`: The strike price of the option.
+
+### Optional fields
+- `sense::Union{Nothing, Int64}`: The sense of the option. A value of `1` indicates a long position, and a value of `-1` indicates a short position.
+- `DTE::Union{Nothing,Float64}`: The days to expiration of the option (measured in units of years).
+- `IV::Union{Nothing, Float64}`: The implied volatility of the option contract.
+- `premium::Union{Nothing, Float64}`: The premium of the option contract. This is the price paid to the seller by the buyer for the option contract.
+- `ticker::Union{Nothing,String}`: The ticker symbol of the underlying asset.
+- `copy::Union{Nothing, Int64}`: Number of contracts purchased or sold.
+"""
 mutable struct MyEuropeanPutContractModel <: AbstractContractModel
 
     # data -
@@ -239,6 +322,24 @@ mutable struct MyEuropeanPutContractModel <: AbstractContractModel
     MyEuropeanPutContractModel() = new()
 end
 
+"""
+    mutable struct MyAmericanCallContractModel <: AbstractContractModel
+
+The `MyAmericanCallContractModel` mutable struct represents an American call option contract. 
+An `American call` option is a financial contract that gives the holder the right, but not the obligation, to buy an asset at a specified price (the strike price).
+American option contracts can be exercised at any time on or before the expiration date.
+
+### Required fields
+- `K::Float64`: The strike price of the option.
+
+### Optional fields
+- `sense::Union{Nothing, Int64}`: The sense of the option. A value of `1` indicates a long position, and a value of `-1` indicates a short position.
+- `DTE::Union{Nothing,Float64}`: The days to expiration of the option (measured in units of years).
+- `IV::Union{Nothing, Float64}`: The implied volatility of the option contract.
+- `premium::Union{Nothing, Float64}`: The premium of the option contract. This is the price paid to the seller by the buyer for the option contract.
+- `ticker::Union{Nothing,String}`: The ticker symbol of the underlying asset.
+- `copy::Union{Nothing, Int64}`: Number of contracts purchased or sold.
+"""
 mutable struct MyAmericanCallContractModel <: AbstractContractModel
 
     # data -
@@ -254,6 +355,24 @@ mutable struct MyAmericanCallContractModel <: AbstractContractModel
     MyAmericanCallContractModel() = new()
 end
 
+"""
+    mutable struct MyAmericanPutContractModel <: AbstractContractModel
+
+The `MyAmericanPutContractModel` mutable struct represents an American put option contract. 
+A `put` option is a financial contract that gives the holder the right, but not the obligation, to sell an asset at a specified price (the strike price).
+For American options, the contract can be exercised at any time on or before the expiration date.
+
+### Required fields
+- `K::Float64`: The strike price of the option.
+
+### Optional fields
+- `sense::Union{Nothing, Int64}`: The sense of the option. A value of `1` indicates a long position, and a value of `-1` indicates a short position.
+- `DTE::Union{Nothing,Float64}`: The days to expiration of the option (measured in units of years).
+- `IV::Union{Nothing, Float64}`: The implied volatility of the option contract.
+- `premium::Union{Nothing, Float64}`: The premium of the option contract. This is the price paid to the seller by the buyer for the option contract.
+- `ticker::Union{Nothing,String}`: The ticker symbol of the underlying asset.
+- `copy::Union{Nothing, Int64}`: Number of contracts purchased or sold.
+"""
 mutable struct MyAmericanPutContractModel <: AbstractContractModel
 
     # data -
@@ -280,18 +399,6 @@ mutable struct MyEquityModel <: AbstractAssetModel
 
     # constructor -
     MyEquityModel() = new()
-end
-
-mutable struct MySingleIndexModel <: AbstractReturnModel
-
-    # model -
-    α::Float64          # firm specific unexplained return
-    β::Float64          # relationship between the firm and the market
-    r::Float64          # risk free rate of return 
-    ϵ::Distribution     # random shocks 
-
-    # constructor -
-    MySingleIndexModel() = new()
 end
 # -------------------------------------------------------------------------------------------- #
 
@@ -445,6 +552,18 @@ mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStocha
 
     # constructor -
     MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem() = new();
+end
+
+mutable struct MySingleIndexModel <: AbstractReturnModel
+
+    # model -
+    α::Float64          # firm specific unexplained return
+    β::Float64          # relationship between the firm and the market
+    r::Float64          # risk free rate of return 
+    ϵ::Distribution     # random shocks 
+
+    # constructor -
+    MySingleIndexModel() = new()
 end
 
 # Lattice model -

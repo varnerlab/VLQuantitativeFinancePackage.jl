@@ -191,20 +191,99 @@ function build(modeltype::Type{MyAdjacencyBasedCRREquityPriceTree};
 end
 
 # short build methods -
-build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple)::MyEuropeanCallContractModel = _build(model, data)
-build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple)::MyEuropeanPutContractModel = _build(model, data)
-build(model::Type{MyAmericanPutContractModel}, data::NamedTuple)::MyAmericanPutContractModel = _build(model, data)
-build(model::Type{MyAmericanCallContractModel}, data::NamedTuple)::MyAmericanCallContractModel = _build(model, data)
 build(model::Type{MyLongstaffSchwartzContractPricingModel}, data::NamedTuple)::MyLongstaffSchwartzContractPricingModel = _build(model, data)
 build(model::Type{MyBlackScholesContractPricingModel}, data::NamedTuple)::MyBlackScholesContractPricingModel = _build(model, data)
 build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)::MySymmetricBinaryInterestRateLatticeModel = _build(model, data);
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);
 build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
 build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
-build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
 build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
 
+"""
+    build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple) -> MyAdjacencyBasedCRREquityPriceTree
+
+This `build` method constructs an instance of the [`MyAdjacencyBasedCRREquityPriceTree`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyAdjacencyBasedCRREquityPriceTree}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `μ::Float64`: The drift rate of the asset price. For a risk-neutral measure, this is the risk-free rate.
+- `σ::Float64`: The volatility of the asset price. This is the implied volatility for a risk-neutral measure.
+- `T::Float64`: The time to expiration of the option contract (measured in units of years)
+"""
+build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
+
+"""
+    build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple) -> MyEuropeanCallContractModel
+
+This `build` method constructs an instance of the [`MyEuropeanCallContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyEuropeanCallContractModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `K::Float64`: The strike price of the contract.
+
+The other fields of the [`MyEuropeanCallContractModel`](@ref) model are set to `nothing` by default. 
+These optional fields can be updated by the user after the model is built, or by passing the values in the `data::NamedTuple` argument.
+"""
+build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple)::MyEuropeanCallContractModel = _build(model, data)
+
+"""
+    build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple) -> MyEuropeanPutContractModel
+
+This `build` method constructs an instance of the [`MyEuropeanPutContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple). 
+
+### Arguments
+- `model::Type{MyEuropeanPutContractModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `K::Float64`: The strike price of the contract.
+
+The other fields of the [`MyEuropeanPutContractModel`](@ref) model are set to `nothing` by default.
+These optional fields can be updated by the user after the model is built, or by passing the values in the `data::NamedTuple` argument.
+"""
+build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple)::MyEuropeanPutContractModel = _build(model, data)
+
+
+"""
+    build(model::Type{MyAmericanPutContractModel}, data::NamedTuple) -> MyAmericanPutContractModel
+
+This `build` method constructs an instance of the [`MyAmericanPutContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyAmericanPutContractModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `K::Float64`: The strike price of the contract.
+
+The other fields of the [`MyAmericanPutContractModel`](@ref) model are set to `nothing` by default. 
+These optional fields can be updated by the user after the model is built, or by passing the values in the `data::NamedTuple` argument.
+"""
+build(model::Type{MyAmericanPutContractModel}, data::NamedTuple)::MyAmericanPutContractModel = _build(model, data)
+
+"""
+    build(model::Type{MyAmericanCallContractModel}, data::NamedTuple) -> MyAmericanCallContractModel
+
+This `build` method constructs an instance of the [`MyAmericanCallContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyAmericanCallContractModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `K::Float64`: The strike price of the contract.
+
+The other fields of the [`MyAmericanCallContractModel`](@ref) model are set to `nothing` by default.
+These optional fields can be updated by the user after the model is built, or by passing the values in the `data::NamedTuple` argument.
+"""
+build(model::Type{MyAmericanCallContractModel}, data::NamedTuple)::MyAmericanCallContractModel = _build(model, data)
 
 """
     build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyGeometricBrownianMotionEquityModel
@@ -220,8 +299,6 @@ The `data::NamedTuple` must contain the following `keys`:
 - `σ::Float64`: The volatility of the process.
 """
 build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyGeometricBrownianMotionEquityModel = _build(model, data)
-
-
 
 """
     build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyMultipleAssetGeometricBrownianMotionEquityModel

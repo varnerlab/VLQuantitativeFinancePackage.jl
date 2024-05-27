@@ -591,7 +591,20 @@ end
 # ------------------------------------------------------------------------------------------------------------------ #
 
 
+"""
+    payoff(contracts::Array{T,1}, S::Array{Float64,1}) -> Array{Float64,2} where T <: AbstractContractModel
 
+The `payoff` function computes the payoff for a set of option contracts at expiration given the underlying prices contained in the `S::Array{Float64,1}` array.
+    
+### Arguments
+- `contracts::Array{T,1}`: An array of option contracts where `T` is a subtype of the `AbstractContractModel` type.
+- `S::Array{Float64,1}`: An array of underlying prices.
+    
+### Returns
+- `Array{Float64,2}`: A matrix of size `(number_of_underlying_prices, number_of_contracts + 2)` where each row represents an underlying price and each column containts the payoff for each contract. 
+The first column contains the underlying price, the second column contains the payoff for the first contract, the third column contains the payoff for the second contract, and so on.
+The last column contains the sum of the payoffs for all contracts.
+"""
 function payoff(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} where T <: AbstractContractModel
 
     # initialize - 
@@ -631,6 +644,21 @@ function payoff(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} wh
     return payoff_array;
 end
 
+"""
+    profit(contracts::Array{T,1}, S::Array{Float64,1}) -> Array{Float64,2} where T <: AbstractContractModel
+
+The `profit` function computes the profit for a set of option contracts at expiration given the underlying prices contained in the `S::Array{Float64,1}` array.
+This function requires the contracts to have the `premium` field set on each contract model.
+    
+### Arguments
+- `contracts::Array{T,1}`: An array of option contracts where `T` is a subtype of the `AbstractContractModel` type. Each contract must have the `premium` field set.
+- `S::Array{Float64,1}`: An array of underlying prices at expiration.
+
+### Returns
+- `Array{Float64,2}`: A matrix of size `(number_of_underlying_prices, number_of_contracts + 2)` where each row represents an underlying price and each column containts the profit for a contract.
+The first column contains the underlying price, the second column contains the profit for the first contract, the third column contains the profit for the second contract, and so on.
+The last column contains the sum of the profits for all contracts.
+"""
 function profit(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} where T <: AbstractContractModel
 
     # initialize - 
@@ -670,10 +698,21 @@ function profit(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} wh
     return profit_array;    
 end
 
-# """
-#     premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
-#         choice::Function=_rational) -> Float64 where {T<:AbstractDerivativeContractModel}
-# """
+"""
+    premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
+        choice::Function=_rational, sigdigits::Int64 = 4) -> Float64 where {T<:AbstractContractModel}
+
+Computes the premium for an American style option contract using the [Cox-Ross-Rubinstein model](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
+
+### Arguments
+- `contract::T`: An instance of the `AbstractContractModel` type which models the option contract. 
+- `model::MyAdjacencyBasedCRREquityPriceTree`: An instance of the [MyAdjacencyBasedCRREquityPriceTree](@ref) type which models the Cox-Ross-Rubinstein model.
+- `choice::Function=_rational`: A function that determines the choice of the option contract. Default value is `_rational`.
+- `sigdigits::Int64 = 4`: The number of significant digits to round the premium to. Default value is `4`.
+
+### Returns
+- `Float64`: The premium for the American style option contract.
+"""
 function premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
     choice::Function=_rational, sigdigits::Int64 = 4)::Float64 where {T<:AbstractContractModel}
 
@@ -769,6 +808,20 @@ function premium(contract::T, model::MyBinomialEquityPriceTree;
     return data[0].extrinsic
 end
 
+"""
+    premium(contract::MyEuropeanCallContractModel, 
+        model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)
+
+The `premium` function computes the premium for a European call option contract using the [Black-Scholes-Merton model](https://en.wikipedia.org/wiki/Black–Scholes_model).
+This function requires the contract to have the `K`, `DTE`, and `IV` fields set on the contract model, and the `Sₒ` and `r` fields set on the pricing `model::MyBlackScholesContractPricingModel` instance.
+
+### Arguments
+- `contract::MyEuropeanCallContractModel`: An instance of the [MyEuropeanCallContractModel](@ref) type which models the European call option contract.
+- `model::MyBlackScholesContractPricingModel`: An instance of the [MyBlackScholesContractPricingModel](@ref) type which models the [Black-Scholes-Merton model calculation](https://en.wikipedia.org/wiki/Black–Scholes_model).
+
+### Returns
+- `Float64`: The premium for the European call option contract.
+"""
 function premium(contract::MyEuropeanCallContractModel, 
     model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)::Float64
 
@@ -790,6 +843,20 @@ function premium(contract::MyEuropeanCallContractModel,
     return premium
 end
 
+"""
+    premium(contract::MyEuropeanPutContractModel, 
+        model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4) -> Float64
+
+The `premium` function computes the premium for a European put option contract using the [Black-Scholes-Merton model](https://en.wikipedia.org/wiki/Black–Scholes_model).
+This function requires the contract to have the `K`, `DTE`, and `IV` fields set on the contract model, and the `Sₒ` and `r` fields set on the pricing `model::MyBlackScholesContractPricingModel` instance.
+
+### Arguments
+- `contract::MyEuropeanPutContractModel`: An instance of the [MyEuropeanPutContractModel](@ref) type which models the European put option contract.
+- `model::MyBlackScholesContractPricingModel`: An instance of the [MyBlackScholesContractPricingModel](@ref) type which models the [Black-Scholes-Merton model calculation](https://en.wikipedia.org/wiki/Black–Scholes_model).
+
+### Returns
+- `Float64`: The premium for the European put option contract.
+"""
 function premium(contract::MyEuropeanPutContractModel, 
     model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)::Float64
 
@@ -1006,6 +1073,21 @@ function populate(model::MyBinomialEquityPriceTree;
     return model
 end
 
+"""
+    populate(model::MyAdjacencyBasedCRREquityPriceTree; 
+        Sₒ::Float64 = 100.0, h::Int64 = 1)
+
+The `populate` function initializes the `MyAdjacencyBasedCRREquityPriceTree` model with share prices and probabilities for each node in the lattice.
+In addition, this methods sets the intrinsic and extrinsic values of each node to `0.0` and computes the connectivity and levels of the lattice.
+
+### Arguments
+- `model::MyAdjacencyBasedCRREquityPriceTree`: An instance of the `MyAdjacencyBasedCRREquityPriceTree` type.
+- `Sₒ::Float64 = 100.0`: The initial price of the equity.
+- `h::Int64 = 1`: The number of time steps in the lattice (the height of the binomial price tree).
+
+### Returns
+- `MyAdjacencyBasedCRREquityPriceTree`: An updated instance of the `MyAdjacencyBasedCRREquityPriceTree` type with the share prices and probabilities computed for each node in the lattice.
+"""
 function populate(model::MyAdjacencyBasedCRREquityPriceTree; 
     Sₒ::Float64 = 100.0, h::Int64 = 1)::MyAdjacencyBasedCRREquityPriceTree
 
