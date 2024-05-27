@@ -53,7 +53,7 @@ end
 
 The `MyAdjacencyBasedCRREquityPriceTree` mutable struct represents a [Cox-Ross-Rubinstein (CRR) model](https://en.wikipedia.org/wiki/Binomial_options_pricing_model) for pricing
 American style option contracts. The lattice is constructed using an adjacency list to represent the connectivity of the nodes in the lattice.
-The lattice is populated using the [`populate!`](@ref) function, and the contract pricing is performed using the [`price_contract`](@ref) function.
+The lattice is populated using the [`populate`](@ref) function, and the contract pricing is performed using the [`premium`](@ref) function.
 
 ### Required fields
 - `μ::Float64`: The drift rate of the asset price

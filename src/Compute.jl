@@ -851,8 +851,8 @@ The `premium` function computes the premium for a European put option contract u
 This function requires the contract to have the `K`, `DTE`, and `IV` fields set on the contract model, and the `Sₒ` and `r` fields set on the pricing `model::MyBlackScholesContractPricingModel` instance.
 
 ### Arguments
-- `contract::MyEuropeanPutContractModel`: An instance of the [MyEuropeanPutContractModel](@ref) type which models the European put option contract.
-- `model::MyBlackScholesContractPricingModel`: An instance of the [MyBlackScholesContractPricingModel](@ref) type which models the [Black-Scholes-Merton model calculation](https://en.wikipedia.org/wiki/Black–Scholes_model).
+- `contract::MyEuropeanPutContractModel`: An instance of the [`MyEuropeanPutContractModel`](@ref) type which models the European put option contract.
+- `model::MyBlackScholesContractPricingModel`: An instance of the [`MyBlackScholesContractPricingModel`](@ref) type which models the [Black-Scholes-Merton model calculation](https://en.wikipedia.org/wiki/Black–Scholes_model).
 
 ### Returns
 - `Float64`: The premium for the European put option contract.
