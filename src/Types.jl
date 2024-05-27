@@ -34,26 +34,6 @@ mutable struct MyCRRLatticeNodeModel
     MyCRRLatticeNodeModel() = new();
 end
 
-mutable struct MyGeometricBrownianMotionEquityModel <: AbstractAssetModel
-
-    # data -
-    μ::Float64
-    σ::Float64
-
-    # constructor -
-    MyGeometricBrownianMotionEquityModel() = new()
-end
-
-mutable struct MyMultipleAssetGeometricBrownianMotionEquityModel <: AbstractAssetModel
-
-    # data -
-    μ::Array{Float64,1}
-    A::Array{Float64,2}
-
-    # constructor -
-    MyMultipleAssetGeometricBrownianMotionEquityModel() = new()
-end
-
 mutable struct MyAdjacencyBasedCRREquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -
@@ -85,6 +65,7 @@ mutable struct MyLongstaffSchwartzContractPricingModel <: AbstractEquityPriceTre
     MyLongstaffSchwartzContractPricingModel() = new();
 end
 
+
 mutable struct MyBlackScholesContractPricingModel <: AbstractAssetModel
 
     # data -
@@ -94,6 +75,48 @@ mutable struct MyBlackScholesContractPricingModel <: AbstractAssetModel
     # constructor -
     MyBlackScholesContractPricingModel() = new();
 end
+
+"""
+    mutable struct MyGeometricBrownianMotionEquityModel <: AbstractAssetModel
+
+The `MyGeometricBrownianMotionEquityModel` mutable struct represents a [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) model for 
+a single equity asset.
+
+### Fields
+- `μ::Float64`: The drift rate of the asset price
+- `σ::Float64`: The volatility of the asset price
+"""
+mutable struct MyGeometricBrownianMotionEquityModel <: AbstractAssetModel
+
+    # data -
+    μ::Float64
+    σ::Float64
+
+    # constructor -
+    MyGeometricBrownianMotionEquityModel() = new()
+end
+
+"""
+    mutable struct MyMultipleAssetGeometricBrownianMotionEquityModel <: AbstractAssetModel
+
+The `MyMultipleAssetGeometricBrownianMotionEquityModel` mutable struct represents a [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion) model for
+multiple equity assets.
+
+### Fields
+- `μ::Array{Float64,1}`: The drift rates of the asset prices
+- `A::Array{Float64,2}`: The [Cholesky decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition) of the covariance matrix between the asset returns.
+"""
+mutable struct MyMultipleAssetGeometricBrownianMotionEquityModel <: AbstractAssetModel
+
+    # data -
+    μ::Array{Float64,1}
+    A::Array{Float64,2}
+
+    # constructor -
+    MyMultipleAssetGeometricBrownianMotionEquityModel() = new()
+end
+
+
 
 """
     mutable struct MyOrnsteinUhlenbeckModel <: AbstractAssetModel

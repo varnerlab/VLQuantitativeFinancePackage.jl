@@ -12,9 +12,20 @@ VLQuantitativeFinancePackage.log_growth_matrix
 Fill me in
 
 ## Geometric Brownian Motion
-Fill me in
+```@docs
+VLQuantitativeFinancePackage.MyGeometricBrownianMotionEquityModel
+VLQuantitativeFinancePackage.MyMultipleAssetGeometricBrownianMotionEquityModel
+VLQuantitativeFinancePackage.build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple)
+VLQuantitativeFinancePackage.sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
+    number_of_paths::Int64 = 100)
+VLQuantitativeFinancePackage.sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::NamedTuple; 
+    number_of_paths::Int64 = 100)
+VLQuantitativeFinancePackage.sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
+    number_of_paths::Int64 = 100)
+```
 
-## Advanced Stochastic Differential Equation Models
+## Advanced Stochastic Pricing and Return Models
 ```@docs
 VLQuantitativeFinancePackage.EulerMaruyamaMethod
 VLQuantitativeFinancePackage.MyOrnsteinUhlenbeckModel

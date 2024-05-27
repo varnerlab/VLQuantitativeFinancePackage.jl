@@ -196,8 +196,6 @@ build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple)::MyEuropeanPutC
 build(model::Type{MyAmericanPutContractModel}, data::NamedTuple)::MyAmericanPutContractModel = _build(model, data)
 build(model::Type{MyAmericanCallContractModel}, data::NamedTuple)::MyAmericanCallContractModel = _build(model, data)
 build(model::Type{MyLongstaffSchwartzContractPricingModel}, data::NamedTuple)::MyLongstaffSchwartzContractPricingModel = _build(model, data)
-build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyGeometricBrownianMotionEquityModel = _build(model, data)
-build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyMultipleAssetGeometricBrownianMotionEquityModel = _build(model, data)
 build(model::Type{MyBlackScholesContractPricingModel}, data::NamedTuple)::MyBlackScholesContractPricingModel = _build(model, data)
 build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)::MySymmetricBinaryInterestRateLatticeModel = _build(model, data);
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);
@@ -207,6 +205,38 @@ build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdja
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
 build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
 
+
+"""
+    build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyGeometricBrownianMotionEquityModel
+
+This `build` method constructs an instance of the [`MyGeometricBrownianMotionEquityModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyGeometricBrownianMotionEquityModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `μ::Float64`: The drift of the process.
+- `σ::Float64`: The volatility of the process.
+"""
+build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyGeometricBrownianMotionEquityModel = _build(model, data)
+
+
+
+"""
+    build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyMultipleAssetGeometricBrownianMotionEquityModel
+
+This `build` method constructs an instance of the [`MyMultipleAssetGeometricBrownianMotionEquityModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `μ::Array{Float64,1}`: Array of drift rates for each asset.
+- `A::Array{Float64,2}`: [Cholesky decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition) of the covariance matrix of the process.
+"""
+build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyMultipleAssetGeometricBrownianMotionEquityModel = _build(model, data)
 
 
 """

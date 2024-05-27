@@ -402,7 +402,28 @@ end
 #     analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}
 # """
 
+# -- GBM Model Methods --------------------------------------------------------------------------------------------- #
 
+"""
+    sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
+        number_of_paths::Int64 = 100) -> Array{Float64,1}
+
+The `sample_endpoint` function simulates the geometric Brownian motion model for a single equity using the analytical solution at time `T`.
+
+### Arguments
+- `model::MyGeometricBrownianMotionEquityModel`: An instance of the [MyGeometricBrownianMotionEquityModel](@ref) type which models the geometric Brownian motion for the equity.
+- `data::NamedTuple`: A named tuple that contains the data for the simulation.
+
+The `data::NamedTuple` must contain the following keys:
+- `T::Float64`: The time at which to sample the equity price.
+- `Sₒ::Float64`: The initial price of the equity at time `0`.
+
+### Returns
+- `Array{Float64,1}`: An array of size `number_of_paths` that contains the equity price at time `T`.
+
+### Optional Arguments
+- `number_of_paths::Int64 = 100`: The number of paths to simulate. Default value is `100` paths.
+"""
 function sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
     number_of_paths::Int64 = 100)::Array{Float64,1}
 
@@ -430,6 +451,31 @@ function sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::Name
 	return X
 end
 
+"""
+    sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
+        number_of_paths::Int64 = 100) -> Array{Float64,2}
+
+The `sample` function simulates the geometric Brownian motion model for a single equity using the analytical solution.
+The model is defined by the parameters `μ` and `σ` which are the drift and volatility of the equity return, respectively.
+The simulation is performed over a time interval `T` and the initial price of the equity is `Sₒ`. 
+The function returns a matrix of size `(number_of_time_steps, number_of_paths + 1)` where each row represents a single path of the equity price over time.
+
+### Arguments
+- `model::MyGeometricBrownianMotionEquityModel`: An instance of the [MyGeometricBrownianMotionEquityModel](@ref) type which models the geometric Brownian motion for the equity.
+- `data::NamedTuple`: A named tuple that contains the data for the simulation. 
+
+The `data::NamedTuple` must contain the following keys:
+- `T₁::Float64`: The start time of the simulation.
+- `T₂::Float64`: The end time of the simulation.
+- `Δt::Float64`: The time increment for the simulation.
+- `Sₒ::Float64`: The initial price of the equity.
+
+### Returns
+- `Array{Float64,2}`: A matrix of size `(number_of_time_steps, number_of_paths + 1)` where each row represents a single path of the equity price over time. The first column contains the time values.
+
+### Optional Arguments
+- `number_of_paths::Int64 = 100`: The number of paths to simulate. Default value is `100` paths.
+"""
 function sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
     number_of_paths::Int64 = 100)::Array{Float64,2}
 
@@ -473,6 +519,25 @@ function sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple;
 	return X
 end
 
+"""
+    sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::NamedTuple; 
+        number_of_paths::Int64 = 100) -> Dict{Int64, Array{Float64,2}}
+
+The `sample` function simulates the geometric Brownian motion model for multiple equities using the analytical solution.
+
+### Arguments
+- `model::MyMultipleAssetGeometricBrownianMotionEquityModel`: An instance of the [MyMultipleAssetGeometricBrownianMotionEquityModel](@ref) type which models the geometric Brownian motion for multiple equities.
+- `data::NamedTuple`: A named tuple that contains the data for the simulation.
+
+The `data::NamedTuple` must contain the following keys:
+- `T₁::Float64`: The start time of the simulation.
+- `T₂::Float64`: The end time of the simulation.
+- `Δt::Float64`: The time increment for the simulation.
+- `Sₒ::Array{Float64,1}`: The initial prices of the equities.
+
+### Returns
+- `Dict{Int64, Array{Float64,2}}`: A dictionary of simulations where the `key` is the path index and the `value` is a matrix of size `(number_of_time_steps, number_of_assets + 1)` where each row represents a time step, and columns represents an asset price. The first column contains the time values.
+"""
 function sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::NamedTuple; 
     number_of_paths::Int64 = 100)::Dict{Int64, Array{Float64,2}}
 
@@ -523,6 +588,9 @@ function sample(model::MyMultipleAssetGeometricBrownianMotionEquityModel, data::
     # return the sim dictionary -
     return simulation_dictionary;
 end
+# ------------------------------------------------------------------------------------------------------------------ #
+
+
 
 function payoff(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} where T <: AbstractContractModel
 
