@@ -16,6 +16,8 @@ the [`MyUSTreasuryZeroCouponBondModel`](@ref) and [`MyUSTreasuryCouponSecurityMo
 ```@docs
 VLQuantitativeFinancePackage.MyUSTreasuryZeroCouponBondModel
 VLQuantitativeFinancePackage.MyUSTreasuryCouponSecurityModel
+VLQuantitativeFinancePackage.build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)
 ```
 
 ## Computing Treasury security prices

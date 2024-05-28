@@ -12,7 +12,6 @@ makedocs(
         "Equity securities" => "equity.md",
         "Derivative securities" => "derivatives.md",
         "Portfolio management" => "portfolio.md",
-        "Factory" => "factory.md",
     ]
 )
 

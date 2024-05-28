@@ -238,6 +238,20 @@ build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::Named
 
 """
     build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple) -> MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
+
+This `build` method constructs an instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `Σ::Array{Float64,2}`: The covariance matrix of the risky asset returns
+- `μ::Array{Float64,1}`: The expected returns of the risky assets
+- `bounds::Array{Float64,2}`: The bounds on the risky asset weights
+- `R::Float64`: The desired return of the portfolio
+- `initial::Array{Float64,1}`: The initial portfolio weights
+- `risk_free_rate::Float64`: The risk-free rate of return
 """
 build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
 
