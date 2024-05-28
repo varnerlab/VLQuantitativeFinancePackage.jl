@@ -195,10 +195,52 @@ build(model::Type{MyLongstaffSchwartzContractPricingModel}, data::NamedTuple)::M
 build(model::Type{MyBlackScholesContractPricingModel}, data::NamedTuple)::MyBlackScholesContractPricingModel = _build(model, data)
 build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)::MySymmetricBinaryInterestRateLatticeModel = _build(model, data);
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);
-build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
-build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
-build(model::Type{MySingleIndexModel}, dataL::NamedTuple) = _build(model, data);
+
+"""
+    build(model::Type{MySingleIndexModel}, data::NamedTuple) -> MySingleIndexModel
+
+This `build` method constructs an instance of the [`MySingleIndexModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MySingleIndexModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `α::Float64`: The firm specific unexplained return
+- `β::Float64`: The relationship between the firm and the market
+- `r::Float64`: The risk-free rate of return
+- `ϵ::Distribution`: The random shocks to the model (unexplained return) 
+
+### Return
+This function returns an instance of the [`MySingleIndexModel`](@ref) type. 
+
+### See also:
+- The unexplained return is modeled as a random variable, and the user can specify the distribution of this variable using the `ϵ::Distribution` argument.
+See the [Distributions.jl package](https://juliastats.org/Distributions.jl/stable/) package for more information on the available distributions.
+"""
+build(model::Type{MySingleIndexModel}, data::NamedTuple) = _build(model, data);
+
+
+"""
+    build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)  -> MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem
+
+This `build` method constructs an instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `μ::Array{Float64,1}`: The drift rates of the assets.
+"""
+build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
+
+"""
+    build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple) -> MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
+"""
+build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem = _build(model, data);
+
 
 """
     build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple) -> MyAdjacencyBasedCRREquityPriceTree

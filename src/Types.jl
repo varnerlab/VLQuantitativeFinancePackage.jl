@@ -527,6 +527,20 @@ mutable struct MySymmetricBinaryInterestRateLatticeModel <: AbstractInterestRate
     MySymmetricBinaryInterestRateLatticeModel() = new()
 end
 
+# --- Portfolio choice models ---------------------------------------------------------------------------------- # 
+
+"""
+    mutable struct MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+
+The `MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem` mutable struct represents a [Minimum Variance portfolio problem](https://en.wikipedia.org/wiki/Modern_portfolio_theory) with risky assets only.
+
+### Required fields
+- `Σ::Array{Float64,2}`: The covariance matrix of the risky asset Returns
+- `μ::Array{Float64,1}`: The expected returns of the risky assets
+- `bounds::Array{Float64,2}`: The bounds on the risky asset weights
+- `R::Float64`: The desired return of the portfolio
+- `initial::Array{Float64,1}`: The initial portfolio weights    
+"""
 mutable struct MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
 
     # data -
@@ -540,6 +554,19 @@ mutable struct MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem <: AbstractStoch
     MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem() = new();
 end
 
+"""
+    mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+
+The `MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem` mutable struct represents a [Minimum Variance portfolio problem](https://en.wikipedia.org/wiki/Modern_portfolio_theory) with a combination of risky and risk-free assets. 
+
+### Required fields
+- `Σ::Array{Float64,2}`: The covariance matrix of the risky asset returns
+- `μ::Array{Float64,1}`: The expected returns of the risky assets
+- `bounds::Array{Float64,2}`: The bounds on the risky asset weights
+- `R::Float64`: The desired return of the portfolio
+- `initial::Array{Float64,1}`: The initial portfolio weights
+- `risk_free_rate::Float64`: The risk-free rate of return
+"""
 mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
 
     # data -
@@ -554,6 +581,17 @@ mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStocha
     MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem() = new();
 end
 
+"""
+    mutable struct MySingleIndexModel <: AbstractReturnModel
+
+The `MySingleIndexModel` mutable struct represents a single index model of risky asset returns.
+
+### Required fields
+- `α::Float64`: The firm specific unexplained return
+- `β::Float64`: The relationship between the firm and the market
+- `r::Float64`: The risk-free rate of return
+- `ϵ::Distribution`: The random shocks to the model (unexplained return)    
+"""
 mutable struct MySingleIndexModel <: AbstractReturnModel
 
     # model -
@@ -565,6 +603,7 @@ mutable struct MySingleIndexModel <: AbstractReturnModel
     # constructor -
     MySingleIndexModel() = new()
 end
+# --------------------------------------------------------------------------------------------------------------- #
 
 # Lattice model -
 mutable struct MyBiomialLatticeEquityNodeModel
