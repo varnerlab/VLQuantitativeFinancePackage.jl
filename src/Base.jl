@@ -45,7 +45,7 @@ function log_growth_matrix(dataset::Dict{String, DataFrame},
         for j ∈ 2:number_of_trading_days
             S₁ = firm_data[j-1, keycol];
             S₂ = firm_data[j, keycol];
-            return_matrix[j-1, i] = (1/Δt)*log(S₂/S₁) - risk_free_rate;
+            return_matrix[j-1, i] = (1/Δt)*(log(S₂/S₁) - risk_free_rate);
         end
     end
 
