@@ -52,7 +52,7 @@ function estimate_implied_volatility(contract::T;
     # call the optimizer -
     opt_result = Optim.optimize(loss, [0], [1], [IVₒ], Fminbox(NelderMead()));
 
-    @show opt_result
+    @show typeof(opt_result)
 
     # return the result -
     return Optim.minimizer(opt_result)[1]
