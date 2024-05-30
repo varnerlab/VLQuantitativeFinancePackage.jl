@@ -22,7 +22,7 @@ function _iv_objective_function(p, contract::T, Sₒ::Float64, h::Int64, r̄::Fl
 end
 
 """
-    estimate_implied_volatility(contract::T; Sₒ::Float64 = 100.0, h::Int64 = 1, r̄::Float64 = 0.05) -> Float64 where {T<:AbstractContractModel}
+    estimate_implied_volatility(contract::T; Sₒ::Float64 = 100.0, h::Int64 = 1, r̄::Float64 = 0.05) -> Tuple{Float64,Float64} where {T<:AbstractContractModel}
 
 The `estimate_implied_volatility` function estimates the implied volatility for a given contract using the [Nelder-Mead optimization algorithm](https://en.wikipedia.org/wiki/Nelder–Mead_method). 
 
@@ -33,14 +33,14 @@ The `estimate_implied_volatility` function estimates the implied volatility for 
 - `r̄::Float64`: The annual risk-free rate used to compute the premium. The default value is `0.05`.  
 
 ### Returns
-- `Float64`: The estimated implied volatility for the given contract.
+- `Tuple{Float64,Float64}`: The likelihood and estimated implied volatility for the given contract.
 
 ### See:
 * We use the [Nelder-Mead optimization algorithm](https://en.wikipedia.org/wiki/Nelder–Mead_method) from the [Optim.jl package](https://github.com/JuliaNLSolvers/Optim.jl) to estimate the implied volatility.
    
 """
 function estimate_implied_volatility(contract::T; 
-    Sₒ::Float64 = 100.0, h::Int64 = 1, r̄::Float64 = 0.05)::Float64 where {T<:AbstractContractModel}
+    Sₒ::Float64 = 100.0, h::Int64 = 1, r̄::Float64 = 0.05)::Tuple{Float64,Float64} where {T<:AbstractContractModel}
     
     # initialize -
     IVₒ = contract.IV;
@@ -52,8 +52,10 @@ function estimate_implied_volatility(contract::T;
     # call the optimizer -
     opt_result = Optim.optimize(loss, [0], [1], [IVₒ], Fminbox(NelderMead()));
 
-    @show Optim.minimum(opt_result), Optim.minimizer(opt_result)
+    # grab the results -
+    likelihood = 1/(Optim.minimum(opt_result));
+    IV = Optim.minimizer(opt_result)[1];
 
     # return the result -
-    return Optim.minimizer(opt_result)[1]
+    return (likelihood, IV);
 end
