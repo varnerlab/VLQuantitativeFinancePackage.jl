@@ -17,8 +17,6 @@ function _iv_objective_function(p, contract::T, Sₒ::Float64, h::Int64, r̄::Fl
     error_term = (computed_premium - observed_premium)^2;
     L = exp(-error_term/2);
     
-    @show L, IVᵢ, computed_premium, observed_premium;
-
     # return -
     return (1/L);
 end
@@ -53,6 +51,8 @@ function estimate_implied_volatility(contract::T;
 
     # call the optimizer -
     opt_result = Optim.optimize(loss, [0], [1], [IVₒ], Fminbox(NelderMead()));
+
+    @show opt_result
 
     # return the result -
     return Optim.minimizer(opt_result)[1]
