@@ -6,10 +6,11 @@
 The `log_growth_matrix` function computes the excess log growth matrix for a given set of firms where we define the log growth as:
 
 ```math
-    \\mu_{t,t-1} = \\frac{1}{\\Delta t} \\log\\left(\\frac{S_{t}}{S_{t-1}}\\right) - r_f
+    \\mu_{t,t-1}(r_{f}) = \\frac{1}{\\Delta t} \\log\\left(\\frac{S_{t}}{S_{t-1}}\\right) - r_f
 ```
 
-where ``S_t`` is the volume weighted average price at time `t`, ``\\Delta t`` is the time increment, and ``r_f`` is the risk-free rate.
+where ``S_t`` is the volume weighted average price (units: USD/share) at time `t`, ``\\Delta t`` is the time increment (in years), and ``r_f`` is the annual risk-free rate (units: 1/years) assuming
+continuous compounding.
 
 ### Arguments
 - `dataset::Dict{String, DataFrame}`: A dictionary of data frames where the keys are the firm ticker symbols and the values are the data frames holding price data. We use the `volume_weighted_average_price` column to compute the log growth by default.
@@ -60,10 +61,11 @@ end
 The `log_growth_matrix` function computes the excess log growth matrix for a given firm where we define the log growth as:
 
 ```math
-    \\mu_{t,t-1} = \\frac{1}{\\Delta t} \\log\\left(\\frac{S_{t}}{S_{t-1}}\\right) - r_f
+    \\mu_{t,t-1}(r_{f}) = \\frac{1}{\\Delta t} \\log\\left(\\frac{S_{t}}{S_{t-1}}\\right) - r_f
 ```
 
-where ``S_t`` is the volume weighted average price at time `t`, ``\\Delta t`` is the time increment, and ``r_f`` is the risk-free rate.
+where ``S_t`` is the volume weighted average price (units: USD/share) at time `t`, ``\\Delta t`` is the time increment (in years), and ``r_f`` is the annual risk-free rate (units: 1/years) assuming
+continuous compounding.
 
 ### Arguments
 - `dataset::Dict{String, DataFrame}`: A dictionary of data frames where the keys are the firm ticker symbols and the values are the data frames holding price data. We use the `volume_weighted_average_price` column to compute the log growth by default.
