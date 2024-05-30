@@ -37,3 +37,8 @@ VLQuantitativeFinancePackage.populate(model::MyAdjacencyBasedCRREquityPriceTree;
     Sₒ::Float64 = 100.0, h::Int64 = 1)
 VLQuantitativeFinancePackage.premium
 ```
+
+## Estimating the Implied Volatility of American contracts
+```@docs
+VLQuantitativeFinancePackage.estimate_implied_volatility
+```
