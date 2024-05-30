@@ -11,7 +11,7 @@ function _iv_objective_function(p, contract::T, Sₒ::Float64, h::Int64, r̄::Fl
         (μ = r̄, T = DTE, σ = IVᵢ)) |> (x-> populate(x, Sₒ = Sₒ, h = h));
     
     # compute the premium -
-    computed_premium = premium(contract, treemodel);
+    computed_premium = premium(contract, treemodel, sigdigits = 6);
 
     # compute the error -
     error_term = (computed_premium - observed_premium)^2;
