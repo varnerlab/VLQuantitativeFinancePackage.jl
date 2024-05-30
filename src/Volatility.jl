@@ -17,6 +17,8 @@ function _iv_objective_function(p, contract::T, Sₒ::Float64, h::Int64, r̄::Fl
     error_term = (computed_premium - observed_premium)^2;
     L = exp(-error_term/2);
     
+    @show L, IVᵢ, computed_premium, observed_premium;
+
     # return -
     return (1/L);
 end
