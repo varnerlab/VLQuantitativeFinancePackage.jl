@@ -1236,3 +1236,8 @@ function strip(model::MyUSTreasuryCouponSecurityModel)::Dict{Int, MyUSTreasuryZe
     return strips_dictionary
 end
 # ------------------------------------------------------------------------------------------------ #
+
+# -- SHORT CUT METHODS BELOW --------------------------------------------------------------------- #
+(contract::MyAmericanCallContractModel)(S::Array{Float64,1}) = payoff([contract], S)
+(contract::MyAmericanPutContractModel)(S::Array{Float64,1}) = payoff([contract], S)
+# -- SHORT CUT METHODS ABOVE --------------------------------------------------------------------- #
