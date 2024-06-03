@@ -1,6 +1,23 @@
-# """
-#     solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
-# """
+"""
+    solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
+
+The `solve` function solves the Markowitz risky asset-only portfolio choice problem for a given instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) problem type.
+The `solve` method checks for the status of the optimization using an assertion, thus, the optimization must be successful for the function to return.
+Wrap the function call in a `try` block to handle exceptions.
+
+
+### Arguments
+- `problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) that defines the problem parameters.
+
+### Returns
+- `Dict{String,Any}`: A dictionary that holds the results of the optimization.
+
+The results dictionary has the following keys:
+- `"reward"`: The reward associated with the optimal portfolio.
+- `"argmax"`: The optimal portfolio weights.
+- `"objective_value"`: The value of the objective function at the optimal solution.
+- `"status"`: The status of the optimization.
+"""
 function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{String,Any}
 
     # initialize -
@@ -31,6 +48,9 @@ function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{
     # run the optimization -
     optimize!(model)
 
+    # check: was the optimization successful?
+    @assert is_solved_and_feasible(model)
+
     # populate -
     w_opt = value.(w);
     results["argmax"] = w_opt
@@ -42,9 +62,25 @@ function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{
     return results
 end
 
-# """
-#     solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
-# """
+"""
+    solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
+
+The `solve` function solves the Markowitz risky and risk-free portfolio choice problem for a given instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) problem type.
+The `solve` method checks for the status of the optimization using an assertion, thus, the optimization must be successful for the function to return.
+Wrap the function call in a `try` block to handle exceptions.
+
+### Arguments
+- `problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) that defines the problem parameters.
+
+### Returns
+- `Dict{String,Any}`: A dictionary that holds the results of the optimization. 
+
+The results dictionary has the following keys:
+- `"reward"`: The reward associated with the optimal portfolio.
+- `"argmax"`: The optimal portfolio weights.
+- `"objective_value"`: The value of the objective function at the optimal solution.
+- `"status"`: The status of the optimization.
+"""
 function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{String,Any}
 
     # initialize -
@@ -74,6 +110,9 @@ function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{S
 
     # run the optimization -
     optimize!(model)
+
+    # check: was the optimization successful?
+    @assert is_solved_and_feasible(model)
 
     # populate -
     w_opt = value.(w);

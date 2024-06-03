@@ -8,4 +8,6 @@ VLQuantitativeFinancePackage.MySingleIndexModel
 VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MySingleIndexModel}, data::NamedTuple)
+VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem, data::NamedTuple)
+VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem, data::NamedTuple)
 ```
