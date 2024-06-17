@@ -103,7 +103,7 @@ function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{S
     # setup the constraints -
     @constraints(model, 
         begin
-            # my turn constraint
+            # my return constraint
             transpose(μ)*w + (1.0 - sum(w))*rfr >= R
         end
     );

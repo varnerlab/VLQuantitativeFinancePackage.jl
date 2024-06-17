@@ -61,6 +61,31 @@ function delta(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Floa
     return value_array
 end
 
+"""
+    delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+        Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
+
+Compute the delta of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
+Delta measures the change in the options premium for a `1 USD` change in the underlying price:
+
+```math
+\\Delta = \\frac{\\partial\\mathcal{P}}{\\partial{S}}
+```
+
+### Arguments
+- `contract::Y`: The contract model for which we compute the delta where `Y` is a subtype of `AbstractContractModel`.
+- `h::Int64=2`: The number of levels in the binomial tree.
+- `T::Float64 = (1 / 365)`: The time to maturity for the options contract measured in years, assume a 365-day year.
+- `σ::Float64 = 0.15`: The implied volatility (IV) for the options contract
+- `Sₒ::Float64 = 1.0`: Initial share price of the underlying at the time contract was purchased
+- `μ::Float64 = 0.0015`: Single-step growth rate. Equals the risk-free rate for risk-neutral options evaluation
+
+### Return
+- `Δ::Float64`: The delta value for this option contract
+
+### See also:
+- [What is Delta?](https://www.investopedia.com/terms/d/delta.asp)|
+"""
 function delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
@@ -86,6 +111,10 @@ end
 # ================================================================================================================================================== #
 
 # == GAMMA ========================================================================================================================================= #
+"""
+
+
+"""
 function gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 

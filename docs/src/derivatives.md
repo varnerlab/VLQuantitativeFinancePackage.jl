@@ -42,3 +42,8 @@ VLQuantitativeFinancePackage.premium
 ```@docs
 VLQuantitativeFinancePackage.estimate_implied_volatility
 ```
+
+## Greeks
+```@docs
+VLQuantitativeFinancePackage.delta
+```
