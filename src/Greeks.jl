@@ -95,7 +95,7 @@ Compute the `delta` of a contract using the [Cox-Ross-Rubinstein binomial tree m
 `Delta` measures the change in the options premium for a `1 USD/share` change in the underlying price, and is defined as:
 
 ```math
-\\Delta\\vert_{\\star} = \\frac{\\partial\\mathcal{P}}{\\partial{S}}\\vert_{\\star}
+\\Delta\\Vert_{\\star} = \\frac{\\partial\\mathcal{P}}{\\partial{S}}\\Vert_{\\star}
 ```
 
 ### Arguments
@@ -243,7 +243,7 @@ function vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
 
     # setup the calculation -
     σₒ = σ
-    σ₁ = σ + 0.01;
+    σ₁ = σ*(1 + 0.01);
 
     # build models -
     # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σₒ, T=T, μ=μ)
@@ -268,12 +268,19 @@ end
 # ================================================================================================================================================== #
 
 # == RHO =========================================================================================================================================== #
+"""
+    rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+        Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
+
+Compute the `rho` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
+`Rho` measures the rate of change in the options premium for a `1%` change in the risk-free rate, and is defined as:
+"""
 function rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
-    Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
+    Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
     # setup mu -
     μₒ = μ
-    μ₁ = μ + 0.01
+    μ₁ = μ*(1 + 0.01)
 
     # build models -
     # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μₒ)
