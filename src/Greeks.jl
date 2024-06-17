@@ -243,7 +243,7 @@ function vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
 
     # setup the calculation -
     σₒ = σ
-    σ₁ = σ*(1 + 0.01);
+    σ₁ = σ + 0.01;
 
     # build models -
     # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σₒ, T=T, μ=μ)
@@ -280,7 +280,7 @@ function rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
 
     # setup mu -
     μₒ = μ
-    μ₁ = μ*(1 + 0.01)
+    μ₁ = μ + 0.01
 
     # build models -
     # mₒ = build(MyAdjacencyBasedCRREquityPriceTree; Sₒ=Sₒ, number_of_levels=number_of_levels, σ=σ, T=T, μ=μₒ)
