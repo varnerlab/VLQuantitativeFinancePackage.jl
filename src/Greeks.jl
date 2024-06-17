@@ -69,7 +69,7 @@ Compute the `delta` of a contract using the [Cox-Ross-Rubinstein binomial tree m
 Delta measures the change in the options premium for a `1 USD/share` change in the underlying price, and is defined as:
 
 ```math
-\\Delta = \\frac{\\partial\\mathcal{P}}{\\partial{S}}
+\\Delta\vert_{\star} = \\frac{\\partial\\mathcal{P}}{\\partial{S}}\vert_{\star}
 ```
 
 ### Arguments
@@ -195,7 +195,7 @@ Compute the `vega` of a contract using the [Cox-Ross-Rubinstein binomial tree me
 `Vega` measures the rate of change in the options premium for a `1%` change in the implied volatility, and is defined as:
 
 ```math
-\\Vega = \\frac{\\partial\\mathcal{P}}{\\partial{\\sigma}}
+V = \\frac{\\partial\\mathcal{P}}{\\partial{\\sigma}}
 ```
 
 ### Arguments
