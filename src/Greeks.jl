@@ -23,7 +23,7 @@ Compute the `theta` of a contract using the [Cox-Ross-Rubinstein binomial tree m
 `Theta` measures the rate of change in the options premium for a `1 day` change in the time to maturity, and is defined as:
 
 ```math
-\\Theta = \\frac{\\partial\\mathcal{P}}{\\partial{T}}
+\\Theta(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{T}}\\Bigr_{\\star}
 ```
 
 ### Arguments
@@ -147,7 +147,7 @@ Compute the `gamma` of a contract using the [Cox-Ross-Rubinstein binomial tree m
 Gamma measures the rate of change in the `delta` for a `1 USD/share` change in the underlying price, and is defined as:
 
 ```math
-\\Gamma(\\star) = \\frac{\\partial^2\\mathcal{P}}{\\partial{S}^2}\Bigr|_{\\star}
+\\Gamma(\\star) = \\frac{\\partial^2\\mathcal{P}}{\\partial{S}^2}\\Bigr|_{\\star}
 ```
 
 where `\\star` is the current state of the system, i.e., the current underlying price, time to maturity, implied volatility, and risk-free rate.
@@ -225,7 +225,7 @@ Compute the `vega` of a contract using the [Cox-Ross-Rubinstein binomial tree me
 `Vega` measures the rate of change in the options premium for a `1%` change in the implied volatility, and is defined as:
 
 ```math
-V(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{\\sigma}}\Bigr|_{\\star}
+V(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{\\sigma}}\\Bigr|_{\\star}
 ```
 
 
@@ -283,7 +283,7 @@ Compute the `rho` of a contract using the [Cox-Ross-Rubinstein binomial tree met
 `Rho` measures the rate of change in the options premium for a `1%` change in the risk-free rate `\\r_{f}`, and is defined as:
 
 ```math
-\\text{rho}(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{r_{f}}}\Bigr|_{\\star}
+\\text{rho}(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{r_{f}}}\\Bigr|_{\\star}
 ```
 
 where `\\star` is the current state of the system, i.e., the current underlying price, time to maturity, implied volatility, and risk-free rate.
