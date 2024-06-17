@@ -95,7 +95,7 @@ Compute the `delta` of a contract using the [Cox-Ross-Rubinstein binomial tree m
 `Delta` measures the change in the options premium for a `1 USD/share` change in the underlying price, and is defined as:
 
 ```math
-\\Delta\\Vert_{\\star} = \\frac{\\partial\\mathcal{P}}{\\partial{S}}\\Vert_{\\star}
+\\Delta\\Bigr|_{\\star} = \\frac{\\partial\\mathcal{P}}{\\partial{S}}\\Bigr|_{\\star}
 ```
 
 ### Arguments
