@@ -66,7 +66,7 @@ end
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
 Compute the `delta` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
-Delta measures the change in the options premium for a `1 USD` change in the underlying price:
+Delta measures the change in the options premium for a `1 USD/share` change in the underlying price, and is defined as:
 
 ```math
 \\Delta = \\frac{\\partial\\mathcal{P}}{\\partial{S}}
@@ -84,7 +84,7 @@ Delta measures the change in the options premium for a `1 USD` change in the und
 - `Δ::Float64`: The delta value for this option contract
 
 ### See also:
-- [What is Delta?](https://www.investopedia.com/terms/d/delta.asp)|
+- [What is Delta?](https://www.investopedia.com/terms/d/delta.asp)
 """
 function delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
@@ -113,10 +113,31 @@ end
 # == GAMMA ========================================================================================================================================= #
 """
     gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
-        Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
+        Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
+
+Compute the `gamma` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
+Gamma measures the rate of change in the `delta` for a `1 USD/share` change in the underlying price, and is defined as:
+
+```math
+\\Gamma = \\frac{\\partial^2\\mathcal{P}}{\\partial{S}^2}
+```
+
+### Arguments
+- `contract::Y`: The contract model for which we compute the delta where `Y` is a subtype of `AbstractContractModel`.
+- `h::Int64=2`: The number of levels in the binomial tree.
+- `T::Float64 = (1 / 365)`: The time to maturity for the options contract measured in years, assume a 365-day year.
+- `σ::Float64 = 0.15`: The implied volatility (IV) for the options contract
+- `Sₒ::Float64 = 1.0`: Initial share price of the underlying at the time contract was purchased
+- `μ::Float64 = 0.0015`: Single-step growth rate. Equals the risk-free rate for risk-neutral options evaluation
+
+### Return
+- `Γ::Float64`: The gamma value for this option contract
+
+### See also:
+- [What is Gamma?](https://www.investopedia.com/terms/g/gamma.asp)
 """
 function gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
-    Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
+    Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
     # advance base price by 1 -
     S₁ = Sₒ + 1
@@ -166,8 +187,33 @@ function vega(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Float
     return value_array
 end
 
+"""
+    vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+        Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
+
+Compute the `vega` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
+`Vega` measures the rate of change in the options premium for a `1%` change in the implied volatility, and is defined as:
+
+```math
+\\Vega = \\frac{\\partial\\mathcal{P}}{\\partial{\\sigma}}
+```
+
+### Arguments
+- `contract::Y`: The contract model for which we compute the delta where `Y` is a subtype of `AbstractContractModel`.
+- `h::Int64=2`: The number of levels in the binomial tree.
+- `T::Float64 = (1 / 365)`: The time to maturity for the options contract measured in years, assume a 365-day year.
+- `σ::Float64 = 0.15`: The implied volatility (IV) for the options contract
+- `Sₒ::Float64 = 1.0`: Initial share price of the underlying at the time contract was purchased
+- `μ::Float64 = 0.0015`: Single-step growth rate. Equals the risk-free rate for risk-neutral options evaluation
+
+### Return
+- `V::Float64`: The vega value for this option contract
+
+### See also:
+- [What is Vega?](https://www.investopedia.com/terms/v/vega.asp)
+"""
 function vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
-    Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
+    Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
     # setup the calculation -
     σₒ = σ

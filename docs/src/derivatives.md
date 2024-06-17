@@ -46,5 +46,6 @@ VLQuantitativeFinancePackage.estimate_implied_volatility
 ## Greeks
 ```@docs
 VLQuantitativeFinancePackage.delta
+VLQuantitativeFinancePackage.vega
 VLQuantitativeFinancePackage.gamma
 ```
