@@ -48,5 +48,6 @@ VLQuantitativeFinancePackage.estimate_implied_volatility
 VLQuantitativeFinancePackage.delta
 VLQuantitativeFinancePackage.theta
 VLQuantitativeFinancePackage.vega
+VLQuantitativeFinancePackage.rho
 VLQuantitativeFinancePackage.gamma
 ```
