@@ -65,7 +65,7 @@ end
     delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
-Compute the delta of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
+Compute the `delta` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
 Delta measures the change in the options premium for a `1 USD` change in the underlying price:
 
 ```math
@@ -112,8 +112,8 @@ end
 
 # == GAMMA ========================================================================================================================================= #
 """
-
-
+    gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+        Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
 """
 function gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
     Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) where {Y<:AbstractContractModel}
