@@ -23,7 +23,7 @@ Compute the `theta` of a contract using the [Cox-Ross-Rubinstein binomial tree m
 `Theta` measures the rate of change in the options premium for a `1 day` change in the time to maturity, and is defined as:
 
 ```math
-\\Theta(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{T}}\\Bigr|_{\\star}
+\\theta(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{T}}\\Bigr|_{\\star}
 ```
 
 where ``\\star`` is the current state of the system, i.e., the current underlying price, time to maturity, implied volatility, and risk-free rate.
@@ -282,7 +282,7 @@ end
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
 
 Compute the `rho` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
-`Rho` measures the rate of change in the options premium for a `1%` change in the risk-free rate ``\\r_{f}``, and is defined as:
+`Rho` measures the rate of change in the options premium for a `1%` change in the risk-free rate ``r_f``, and is defined as:
 
 ```math
 \\text{rho}(\\star) = \\frac{\\partial\\mathcal{P}}{\\partial{r_{f}}}\\Bigr|_{\\star}
