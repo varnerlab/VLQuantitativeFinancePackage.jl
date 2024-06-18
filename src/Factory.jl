@@ -547,7 +547,21 @@ function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple)::MySisoL
 end
 
 # --- Markov models --------------------------------------------------------------------------- #
-function build(model::Type{M}, data::NamedTuple)::AbstractMarkovModel where {M <: AbstractMarkovModel}
+"""
+    build(model::Type{M}, data::NamedTuple) -> AbstractMarkovModel where {M <: AbstractMarkovModel}
+
+This `build` method constructs a concrete instance of type `M` where `M` is a subtype of `AbstractMarkovModel` type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{M}`: The type of model to build. This type must be a subtype of `AbstractMarkovModel`.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` argument must contain the following `keys`:
+- `states::Array{Int64,1}`: The states of the model.
+- `T::Array{Float64,2}`: The transition matrix of the model.
+- `E::Array{Float64,2}`: The emission matrix of the model.
+"""
+function build(model::Type{MyHiddenMarkovModel}, data::NamedTuple)::MyHiddenMarkovModel
     
     # initialize -
     m = model(); # build an empty model, add data to it below

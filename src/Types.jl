@@ -643,6 +643,16 @@ end
 # -------------------------------------------------------------------------------------------------------------- #
 
 # --- Markov models ------------------------------------------------------------------------------------------- #
+"""
+    mutable struct MyHiddenMarkovModel <: AbstractMarkovModel
+
+The `MyHiddenMarkovModel` mutable struct represents a hidden Markov model (HMM) with discrete states.
+
+### Required fields
+- `states::Array{Int64,1}`: The states of the model
+- `transition::Dict{Int64, Categorical}`: The transition matrix of the model encoded as a dictionary where the `key` is the state and the `value` is a `Categorical` distribution
+- `emission::Dict{Int64, Categorical}`: The emission matrix of the model encoded as a dictionary where the `key` is the state and the `value` is a `Categorical` distribution   
+"""
 mutable struct MyHiddenMarkovModel <: AbstractMarkovModel
     
     # data -
