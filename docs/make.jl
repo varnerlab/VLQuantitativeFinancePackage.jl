@@ -15,6 +15,9 @@ makedocs(
             "Derivative securities" => "derivatives.md",
         ],
         "Portfolio management" => "portfolio.md",
+        "Decisions" => [
+            "Markov models" => "markov.md",
+        ],
     ]
 )
 
