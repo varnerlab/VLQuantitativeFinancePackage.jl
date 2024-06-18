@@ -11,6 +11,8 @@ module VLQuantitativeFinancePackage
     export AbstractTreasuryDebtSecurity
     export AbstractCompoundingModel
     export AbstractStochasticChoiceProblem
+    export AbstractMarkovModel
+
 
     # export concrete types -
     export MyCRRLatticeNodeModel, MyGeometricBrownianMotionEquityModel, MyMultipleAssetGeometricBrownianMotionEquityModel, MyAdjacencyBasedCRREquityPriceTree, MyLongstaffSchwartzContractPricingModel, MyBlackScholesContractPricingModel
@@ -23,6 +25,10 @@ module VLQuantitativeFinancePackage
     export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, AbstractProbabilityMeasure
     export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
+    
+    # Markov models types and methods -
+    export MyHiddenMarkovModel
+
 
     # Base functions -
     export log_growth_matrix

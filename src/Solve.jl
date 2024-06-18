@@ -124,3 +124,21 @@ function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{S
     # return -
     return results
 end
+
+# --- Markov models --------------------------------------------------------------------------- #
+function _simulate(m::MyHiddenMarkovModel, start::Int64, steps::Int64)::Array{Int64,1}
+
+    # initialize -
+    chain = Array{Int64,1}(undef, steps);
+    chain[1] = start;
+
+    # main loop -
+    for i ∈ 2:steps
+        chain[i] = rand(m.transition[chain[i-1]]);
+    end
+
+    return chain;
+end
+
+(m::MyHiddenMarkovModel)(start::Int64, steps::Int64) = _simulate(m, start, steps); 
+# --------------------------------------------------------------------------------------------- #

@@ -8,6 +8,7 @@ abstract type AbstractStochasticChoiceProblem end
 abstract type AbstractReturnModel end
 abstract type AbstractProbabilityMeasure end
 abstract type AbstractStochasticSolverModel end
+abstract type AbstractMarkovModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -639,4 +640,16 @@ mutable struct MyBinomialEquityPriceTree <: AbstractEquityPriceTreeModel
     # constructor 
     MyBinomialEquityPriceTree() = new()
 end
-# -------------------------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------------- #
+
+# --- Markov models ------------------------------------------------------------------------------------------- #
+mutable struct MyHiddenMarkovModel <: AbstractMarkovModel
+    
+    # data -
+    states::Array{Int64,1}
+    transition::Dict{Int64, Categorical}
+    emission::Dict{Int64, Categorical}
+
+    # constructor -
+    MyHiddenMarkovModel() = new();
+end
