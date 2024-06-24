@@ -64,5 +64,4 @@ VLQuantitativeFinancePackage.theta
 VLQuantitativeFinancePackage.vega
 VLQuantitativeFinancePackage.rho
 VLQuantitativeFinancePackage.gamma
-VLQuantitativeFinancePackage.vwap
 ```
