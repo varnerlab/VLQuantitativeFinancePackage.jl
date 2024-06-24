@@ -106,7 +106,7 @@ end
     log_growth_matrix(dataset::Array{Float64,1}, 
         Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0)::Array{Float64,1}
 """
-function log_growth_matrix(dataset::Array{Float64,1}, 
+function log_growth_matrix(dataset::Array{Float64,1}; 
     Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0)::Array{Float64,1}
 
     # initialize -
