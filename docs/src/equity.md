@@ -10,7 +10,10 @@ VLQuantitativeFinancePackage.vwap
 ```
 
 ## Lattice Models
-Fill me in
+```@docs
+VLQuantitativeFinancePackage.solve(model::MyBinomialEquityPriceTree, L::Int64; 
+    number_of_paths::Int64 = 100)
+```
 
 ## Geometric Brownian Motion
 ```@docs

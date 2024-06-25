@@ -1010,10 +1010,6 @@ function populate(model::MySymmetricBinaryInterestRateLatticeModel )
     return model;
 end
 
-
-# """
-#     populate(model::MyCRRPriceLatticeModel, Sₒ::Float64, T::Int) -> Dict{Int,Array{NamedTuple,1}}
-# """
 function populate(model::MyBinomialEquityPriceTree; 
     Sₒ::Float64 = 100.0, h::Int = 1)::MyBinomialEquityPriceTree
 
@@ -1048,8 +1044,8 @@ function populate(model::MyBinomialEquityPriceTree;
             k′ = big(k)
 
             # compute the prices and P for this level
-            price = Sₒ*(u^(t′-k′))*(d^(k′)) |> x-> round(x, sigdigits = 10);
-            P = binomial(t′,k′)*(p^(t′-k′))*(1-p)^(k′) |> x-> round(x, sigdigits = 10);
+            price = Sₒ*(u^(t′-k′))*(d^(k′)) |> x -> round(x, sigdigits = 10);
+            P = binomial(t′,k′)*(p^(t′-k′))*(1-p)^(k′) |> x -> round(x, sigdigits = 10);
 
             # create a NamedTuple that holds values
             node = MyBiomialLatticeEquityNodeModel()
@@ -1071,6 +1067,32 @@ function populate(model::MyBinomialEquityPriceTree;
 
     # return -
     return model
+end
+
+"""
+    solve(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100) -> Array{Float64,2}
+"""
+function solve(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100)::Array{Float64,2}
+
+    # initialize -
+    levels_array = range(0,stop=L,step=1) |> collect
+    number_of_steps = length(levels_array);
+    samples = zeros(number_of_steps, N+1);
+
+    for i ∈ 1:number_of_paths
+        for j ∈ eachindex(levels_array)
+            l = levels_array[j];
+    
+            prices = model.levels[l] .|> x -> model.data[x].price
+            k = model.levels[l] .|> x -> model.data[x].probability |> p -> Categorial(p) |> d -> rand(d);
+    
+            # capture -
+            samples[i,j] = prices[k];
+        end
+    end
+        
+    # return -
+    return samples;
 end
 
 """
