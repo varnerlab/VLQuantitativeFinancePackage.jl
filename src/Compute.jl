@@ -1077,7 +1077,7 @@ function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int
     # initialize -
     levels_array = range(0,stop=L,step=1) |> collect
     number_of_steps = length(levels_array);
-    samples = zeros(number_of_steps, N+1);
+    samples = zeros(number_of_steps, number_of_paths);
 
     for i ∈ 1:number_of_paths
         for j ∈ eachindex(levels_array)
