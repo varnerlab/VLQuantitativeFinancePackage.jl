@@ -1091,9 +1091,6 @@ function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int
             else
                 samples[j,i] = prices[k];
             end
-
-            # capture -
-            samples[j,i] = prices[k];
         end
     end
         
