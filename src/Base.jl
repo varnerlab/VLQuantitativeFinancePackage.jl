@@ -113,11 +113,9 @@ function log_growth_matrix(dataset::DataFrame;
     keycol::Symbol = :volume_weighted_average_price)::Array{Float64,1}
 
     # initialize -
-    number_of_trading_periods = nrow(dataset);
+    firm_data = dropmissing(dataset, disallowmissing=true)
+    number_of_trading_periods = nrow(firm_data);
     return_matrix = Array{Float64,1}(undef, number_of_trading_periods - 1);
-
-    # get the firm data -
-    firm_data = dataset;
 
     # compute the log returns -
     for j ∈ 2:number_of_trading_periods
