@@ -1048,8 +1048,8 @@ function populate(model::MyBinomialEquityPriceTree;
             k′ = big(k)
 
             # compute the prices and P for this level
-            price = Sₒ*(u^(t-k))*(d^(k)) |> x-> round(x, sigdigits = 10);
-            P = binomial(t′,k′)*(p^(t-k))*(1-p)^(k) |> x-> round(x, sigdigits = 10);
+            price = Sₒ*(u^(t′-k′))*(d^(k′)) |> x-> round(x, sigdigits = 10);
+            P = binomial(t′,k′)*(p^(t′-k′))*(1-p)^(k′) |> x-> round(x, sigdigits = 10);
 
             # create a NamedTuple that holds values
             node = MyBiomialLatticeEquityNodeModel()
