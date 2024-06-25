@@ -1086,6 +1086,12 @@ function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int
             prices = model.levels[l] .|> x -> model.data[x].price
             k = model.levels[l] .|> x -> model.data[x].probability |> p -> Categorical(p) |> d -> rand(d);
     
+            if (l == 0)
+                samples[j,i] = prices[1];
+            else
+                samples[j,i] = prices[k];
+            end
+
             # capture -
             samples[j,i] = prices[k];
         end
