@@ -110,14 +110,14 @@ function log_growth_matrix(dataset::Array{Float64,1};
     Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0)::Array{Float64,1}
 
     # initialize -
-    number_of_trading_days = nrow(dataset);
-    return_matrix = Array{Float64,1}(undef, number_of_trading_days-1);
+    number_of_trading_periods = length(dataset);
+    return_matrix = Array{Float64,1}(undef, number_of_trading_periods-1);
 
     # get the firm data -
     firm_data = dataset;
 
     # compute the log returns -
-    for j ∈ 2:number_of_trading_days
+    for j ∈ 2:number_of_trading_periods
         S₁ = firm_data[j-1, 1];
         S₂ = firm_data[j, 1];
         return_matrix[j-1] = (1/Δt)*log(S₂/S₁) - risk_free_rate;
