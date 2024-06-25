@@ -11,7 +11,7 @@ VLQuantitativeFinancePackage.vwap
 
 ## Lattice Models
 ```@docs
-VLQuantitativeFinancePackage.solve(model::MyBinomialEquityPriceTree, L::Int64; 
+VLQuantitativeFinancePackage.sample(model::MyBinomialEquityPriceTree, L::Int64; 
     number_of_paths::Int64 = 100)
 ```
 

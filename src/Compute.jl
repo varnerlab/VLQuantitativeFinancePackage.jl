@@ -1070,9 +1070,9 @@ function populate(model::MyBinomialEquityPriceTree;
 end
 
 """
-    solve(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100) -> Array{Float64,2}
+    sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100) -> Array{Float64,2}
 """
-function solve(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100)::Array{Float64,2}
+function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100)::Array{Float64,2}
 
     # initialize -
     levels_array = range(0,stop=L,step=1) |> collect
@@ -1087,7 +1087,7 @@ function solve(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int6
             k = model.levels[l] .|> x -> model.data[x].probability |> p -> Categorial(p) |> d -> rand(d);
     
             # capture -
-            samples[i,j] = prices[k];
+            samples[j,i] = prices[k];
         end
     end
         
