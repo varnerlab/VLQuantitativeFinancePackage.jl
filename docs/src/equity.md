@@ -19,6 +19,15 @@ VLQuantitativeFinancePackage.sample(model::MyBinomialEquityPriceTree, L::Int64;
     number_of_paths::Int64 = 100)
 ```
 
+### Short cut syntax for data-driven binomial trees
+We provide a short-cut syntax to estimate the values of the $(u, d, p)$ parameters of a binomial tree model using historical data. The short-cut syntax allows the user to specify a probability measure, the time step in the data, and the historical growth rate data required to estimate the parameters.
+
+For example, to estimate the expected $(\bar{u}, \bar{d}, \bar{p})$ parameters of using historical growth data for a single-asset with time-step $\Delta{t}$ assuming a real-world probability measure, the user can use the following code:
+
+```julia
+(ū,d̄,p̄) = (RealWorldBinomialProbabilityMeasure())(growth_rate_array; Δt = Δt);
+```
+
 ## Geometric Brownian Motion
 ```@docs
 VLQuantitativeFinancePackage.MyGeometricBrownianMotionEquityModel
