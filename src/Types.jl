@@ -631,9 +631,27 @@ mutable struct MyBiomialLatticeEquityNodeModel
     MyBiomialLatticeEquityNodeModel() = new();
 end
 
-# """
-# MyBinomialEquityPriceTree
-# """
+"""
+    mutable struct MyBinomialEquityPriceTree <: AbstractEquityPriceTreeModel
+
+This mutable struct represents a binomial lattice model for simulating equity prices.
+The lattice is constructed using values for the up-factor `u`, down-factor `d`, and probability `p` of an up move computed
+using either a real-world or risk-neutral probability measure. 
+A default (largely empty) lattice is created using a build method, and the lattice is populated using the `populate` function.
+
+### Required fields
+- `u::Float64`: The up-factor for the lattice (return for an up move during a single time step)
+- `d::Float64`: The down-factor for the lattice (return for a down move during a single time step)
+- `p::Float64`: The probability of an up move in the lattice
+
+### Optional or computed fields
+- `μ::Union{Nothing,Float64}`: The drift rate of the asset price (needed for option pricing)
+- `T::Union{Nothing,Float64}`: The time to expiration of the option contract (needed for option pricing)
+- `connectivity::Union{Nothing, Dict{Int64, Array{Int64,1}}}`: A dictionary that holds the connectivity of the lattice where the `key` is the node index and the `value` is an array of the connected nodes.
+- `levels::Union{Nothing, Dict{Int64,Array{Int64,1}}}`: A dictionary that holds the nodes on each level of the lattice where the `key` is the level index and the `value` is an array of the nodes on that level.
+- `ΔT::Union{Nothing,Float64}`: The time step size for a single time step in the lattice
+- `data::Union{Nothing, Dict{Int64, MyBiomialLatticeEquityNodeModel}}`: A dictionary that holds the lattice data for each node where nodes are modeled as `MyBiomialLatticeEquityNodeModel` instances.         
+"""
 mutable struct MyBinomialEquityPriceTree <: AbstractEquityPriceTreeModel
 
     # data -

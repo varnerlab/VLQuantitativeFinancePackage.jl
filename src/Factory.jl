@@ -195,6 +195,25 @@ build(model::Type{MyLongstaffSchwartzContractPricingModel}, data::NamedTuple)::M
 build(model::Type{MyBlackScholesContractPricingModel}, data::NamedTuple)::MyBlackScholesContractPricingModel = _build(model, data)
 build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)::MySymmetricBinaryInterestRateLatticeModel = _build(model, data);
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);
+
+
+"""
+    build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple) -> MyBinomialEquityPriceTree
+
+This `build` method constructs an instance of the [`MyBinomialEquityPriceTree`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MyBinomialEquityPriceTree}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `u::Float64`: The up-factor for the lattice (return for an up move during a single time step)
+- `d::Float64`: The down-factor for the lattice (return for a down move during a single time step)
+- `p::Float64`: The probability of an up move in the lattice
+
+The other properties of the [`MyBinomialEquityPriceTree`](@ref) model are set to `nothing` by default and are populated during the construction of the model using the 
+`populate` method.
+"""
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
 
 """

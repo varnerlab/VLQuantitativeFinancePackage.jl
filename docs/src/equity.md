@@ -11,6 +11,10 @@ VLQuantitativeFinancePackage.vwap
 
 ## Lattice Models
 ```@docs
+VLQuantitativeFinancePackage.RealWorldBinomialProbabilityMeasure
+VLQuantitativeFinancePackage.RiskNeutralBinomialProbabilityMeasure
+VLQuantitativeFinancePackage.MyBinomialEquityPriceTree
+VLQuantitativeFinancePackage.build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)
 VLQuantitativeFinancePackage.sample(model::MyBinomialEquityPriceTree, L::Int64; 
     number_of_paths::Int64 = 100)
 ```
