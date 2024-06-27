@@ -1010,6 +1010,24 @@ function populate(model::MySymmetricBinaryInterestRateLatticeModel )
     return model;
 end
 
+
+"""
+    function populate(model::MyBinomialEquityPriceTree; 
+        Sₒ::Float64 = 100.0, h::Int = 1) -> MyBinomialEquityPriceTree
+
+The `populate` function initializes a [`MyBinomialEquityPriceTree`](@ref) model with share prices and probabilities for each node in a lattice of height `h`.
+
+### Arguments
+- `model::MyBinomialEquityPriceTree`: An instance of the [`MyBinomialEquityPriceTree`](@ref) type constructed using the corresponding `build` function.
+- `Sₒ::Float64 = 100.0`: The initial price of the equity at time `0`. Default value is `100.0` dollars per share.
+- `h::Int = 1`: The height of the binomial price tree. Default value is `1`.
+
+### Returns
+- `MyBinomialEquityPriceTree`: An updated instance of the [`MyBinomialEquityPriceTree`](@ref) type with the share prices and probabilities computed for each node in the lattice. 
+
+Node data is stored in the `data` field of the model (as MyBiomialLatticeEquityNodeModel instances), and the connectivity of the lattice is stored in the `connectivity` field.
+See the [`MyBinomialEquityPriceTree`](@ref) type for more information on the tree.
+"""
 function populate(model::MyBinomialEquityPriceTree; 
     Sₒ::Float64 = 100.0, h::Int = 1)::MyBinomialEquityPriceTree
 

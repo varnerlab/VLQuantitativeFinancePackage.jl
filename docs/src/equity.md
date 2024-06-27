@@ -15,6 +15,7 @@ VLQuantitativeFinancePackage.RealWorldBinomialProbabilityMeasure
 VLQuantitativeFinancePackage.RiskNeutralBinomialProbabilityMeasure
 VLQuantitativeFinancePackage.MyBinomialEquityPriceTree
 VLQuantitativeFinancePackage.build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)
+VLQuantitativeFinancePackage.populate(model::MyBinomialEquityPriceTree; Sₒ::Float64 = 100.0, h::Int64 = 1)
 VLQuantitativeFinancePackage.sample(model::MyBinomialEquityPriceTree, L::Int64; 
     number_of_paths::Int64 = 100)
 ```
