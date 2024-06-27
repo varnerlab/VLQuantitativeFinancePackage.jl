@@ -490,10 +490,22 @@ struct ContinuousCompoundingModel <: AbstractCompoundingModel
     ContinuousCompoundingModel() = new()
 end
 
+"""
+   struct RealWorldBinomialProbabilityMeasure <: AbstractProbabilityMeasure
+
+Immutable type that represents the real-world probability measure. 
+This type is passed as an argument to various functions to indicate that the real-world probability measure should be used in calculations.   
+"""
 struct RealWorldBinomialProbabilityMeasure <: AbstractProbabilityMeasure
     RealWorldBinomialProbabilityMeasure() = new()
 end
 
+"""
+    struct RiskNeutralBinomialProbabilityMeasure <: AbstractProbabilityMeasure
+
+Immutable type that represents the risk-neutral probability measure. 
+This type is passed as an argument to various functions to indicate that the risk-neutral probability measure should be used in calculations.        
+"""
 struct RiskNeutralBinomialProbabilityMeasure <: AbstractProbabilityMeasure
     RiskNeutralBinomialProbabilityMeasure() = new()
 end
