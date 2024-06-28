@@ -91,8 +91,8 @@ function _solve(model::MyOrnsteinUhlenbeckModel, tspan::NamedTuple,
 end
 
 """
-    solve(model::AbstractAssetModel, tspan::NamedTuple, initialconditions::AbstractArray; 
-        method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), N::Int64 = 100)::Tuple
+    function solve(model::AbstractAssetModel, tspan::NamedTuple, initialconditions::AbstractArray; 
+                method::AbstractStochasticSolverModel = EulerMaruyamaMethod(), N::Int64 = 100)::Tuple
 
 The `solve` function is used to solve a stochastic asset model. 
 The function takes a model, time span, initial conditions, method, and number of paths as input and returns a tuple of time and state arrays. 

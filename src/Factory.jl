@@ -198,7 +198,7 @@ build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBi
 
 
 """
-    build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple) -> MyBinomialEquityPriceTree
+    function build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple) -> MyBinomialEquityPriceTree
 
 This `build` method constructs an instance of the [`MyBinomialEquityPriceTree`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -217,7 +217,7 @@ The other properties of the [`MyBinomialEquityPriceTree`](@ref) model are set to
 build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)::MyBinomialEquityPriceTree = _build(model, data);
 
 """
-    build(model::Type{MySingleIndexModel}, data::NamedTuple) -> MySingleIndexModel
+    function build(model::Type{MySingleIndexModel}, data::NamedTuple) -> MySingleIndexModel
 
 This `build` method constructs an instance of the [`MySingleIndexModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -242,7 +242,7 @@ build(model::Type{MySingleIndexModel}, data::NamedTuple) = _build(model, data);
 
 
 """
-    build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)  -> MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem
+    function build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)  -> MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem
 
 This `build` method constructs an instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -256,7 +256,7 @@ The `data::NamedTuple` must contain the following `keys`:
 build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem = _build(model, data);
 
 """
-    build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple) -> MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
+   function build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple) -> MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
 
 This `build` method constructs an instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -276,7 +276,7 @@ build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedT
 
 
 """
-    build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple) -> MyAdjacencyBasedCRREquityPriceTree
+    function build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple) -> MyAdjacencyBasedCRREquityPriceTree
 
 This `build` method constructs an instance of the [`MyAdjacencyBasedCRREquityPriceTree`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -292,7 +292,7 @@ The `data::NamedTuple` must contain the following `keys`:
 build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
 
 """
-    build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple) -> MyEuropeanCallContractModel
+    function build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple) -> MyEuropeanCallContractModel
 
 This `build` method constructs an instance of the [`MyEuropeanCallContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -309,7 +309,7 @@ These optional fields can be updated by the user after the model is built, or by
 build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple)::MyEuropeanCallContractModel = _build(model, data)
 
 """
-    build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple) -> MyEuropeanPutContractModel
+    function build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple) -> MyEuropeanPutContractModel
 
 This `build` method constructs an instance of the [`MyEuropeanPutContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple). 
 
@@ -327,7 +327,7 @@ build(model::Type{MyEuropeanPutContractModel}, data::NamedTuple)::MyEuropeanPutC
 
 
 """
-    build(model::Type{MyAmericanPutContractModel}, data::NamedTuple) -> MyAmericanPutContractModel
+    function build(model::Type{MyAmericanPutContractModel}, data::NamedTuple) -> MyAmericanPutContractModel
 
 This `build` method constructs an instance of the [`MyAmericanPutContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -344,7 +344,7 @@ These optional fields can be updated by the user after the model is built, or by
 build(model::Type{MyAmericanPutContractModel}, data::NamedTuple)::MyAmericanPutContractModel = _build(model, data)
 
 """
-    build(model::Type{MyAmericanCallContractModel}, data::NamedTuple) -> MyAmericanCallContractModel
+    function build(model::Type{MyAmericanCallContractModel}, data::NamedTuple) -> MyAmericanCallContractModel
 
 This `build` method constructs an instance of the [`MyAmericanCallContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -361,7 +361,7 @@ These optional fields can be updated by the user after the model is built, or by
 build(model::Type{MyAmericanCallContractModel}, data::NamedTuple)::MyAmericanCallContractModel = _build(model, data)
 
 """
-    build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyGeometricBrownianMotionEquityModel
+    function build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyGeometricBrownianMotionEquityModel
 
 This `build` method constructs an instance of the [`MyGeometricBrownianMotionEquityModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -376,7 +376,7 @@ The `data::NamedTuple` must contain the following `keys`:
 build(model::Type{MyGeometricBrownianMotionEquityModel}, data::NamedTuple)::MyGeometricBrownianMotionEquityModel = _build(model, data)
 
 """
-    build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyMultipleAssetGeometricBrownianMotionEquityModel
+    function build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::NamedTuple) -> MyMultipleAssetGeometricBrownianMotionEquityModel
 
 This `build` method constructs an instance of the [`MyMultipleAssetGeometricBrownianMotionEquityModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -392,7 +392,7 @@ build(model::Type{MyMultipleAssetGeometricBrownianMotionEquityModel}, data::Name
 
 
 """
-    build(model::Type{MyHestonModel}, data::NamedTuple) -> MyHestonModel
+    function build(model::Type{MyHestonModel}, data::NamedTuple) -> MyHestonModel
 
 This `build` method constructs an instance of the [`MyHestonModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -411,7 +411,7 @@ build(model::Type{MyHestonModel}, data::NamedTuple)::MyHestonModel = _build(mode
 
 
 """
-    build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple) -> MyUSTreasuryCouponSecurityModel
+    function build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple) -> MyUSTreasuryCouponSecurityModel
 
 This `build` method constructs an instance of the [`MyUSTreasuryCouponSecurityModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -448,7 +448,7 @@ build(model::Type{MyUSTreasuryCouponSecurityModel}, data::NamedTuple)::MyUSTreas
 
 
 """
-    build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple) -> MyUSTreasuryZeroCouponBondModel
+    function build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple) -> MyUSTreasuryZeroCouponBondModel
 
 This `build` method constructs an instance of the [`MyUSTreasuryZeroCouponBondModel`](@ref) type using the 
 data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple) argument.
@@ -468,7 +468,7 @@ build(model::Type{MyUSTreasuryZeroCouponBondModel}, data::NamedTuple)::MyUSTreas
 
 
 """
-    build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple) -> MyOrnsteinUhlenbeckModel
+    function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple) -> MyOrnsteinUhlenbeckModel
 
 This method builds an instance of the [`MyOrnsteinUhlenbeckModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
@@ -495,7 +495,7 @@ function build(modeltype::Type{MyOrnsteinUhlenbeckModel}, data::NamedTuple)::MyO
 end
 
 """
-    build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple) -> MySisoLegSHippoModel
+    function build(modeltype::Type{MySisoLegSHippoModel}, data::NamedTuple) -> MySisoLegSHippoModel
 
 This `build` method constructs an instance of the [`MySisoLegSHippoModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 This implementation uses the bilinear method to discretize the model, where the `A` and `B` matrices are computed
@@ -567,7 +567,7 @@ end
 
 # --- Markov models --------------------------------------------------------------------------- #
 """
-    build(model::Type{M}, data::NamedTuple) -> AbstractMarkovModel where {M <: AbstractMarkovModel}
+   function build(model::Type{M}, data::NamedTuple) -> AbstractMarkovModel where {M <: AbstractMarkovModel}
 
 This `build` method constructs a concrete instance of type `M` where `M` is a subtype of `AbstractMarkovModel` type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 

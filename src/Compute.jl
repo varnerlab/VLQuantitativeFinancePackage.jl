@@ -809,8 +809,8 @@ function premium(contract::T, model::MyBinomialEquityPriceTree;
 end
 
 """
-    premium(contract::MyEuropeanCallContractModel, 
-        model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)
+   function premium(contract::MyEuropeanCallContractModel, 
+                model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)
 
 The `premium` function computes the premium for a European call option contract using the [Black-Scholes-Merton model](https://en.wikipedia.org/wiki/Black–Scholes_model).
 This function requires the contract to have the `K`, `DTE`, and `IV` fields set on the contract model, and the `Sₒ` and `r` fields set on the pricing `model::MyBlackScholesContractPricingModel` instance.
@@ -844,8 +844,8 @@ function premium(contract::MyEuropeanCallContractModel,
 end
 
 """
-    premium(contract::MyEuropeanPutContractModel, 
-        model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4) -> Float64
+    function premium(contract::MyEuropeanPutContractModel, 
+                model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4) -> Float64
 
 The `premium` function computes the premium for a European put option contract using the [Black-Scholes-Merton model](https://en.wikipedia.org/wiki/Black–Scholes_model).
 This function requires the contract to have the `K`, `DTE`, and `IV` fields set on the contract model, and the `Sₒ` and `r` fields set on the pricing `model::MyBlackScholesContractPricingModel` instance.
@@ -1013,7 +1013,7 @@ end
 
 """
     function populate(model::MyBinomialEquityPriceTree; 
-        Sₒ::Float64 = 100.0, h::Int = 1) -> MyBinomialEquityPriceTree
+                Sₒ::Float64 = 100.0, h::Int = 1) -> MyBinomialEquityPriceTree
 
 The `populate` function initializes a [`MyBinomialEquityPriceTree`](@ref) model with share prices and probabilities for each node in a lattice of height `h`.
 
@@ -1088,7 +1088,7 @@ function populate(model::MyBinomialEquityPriceTree;
 end
 
 """
-    sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100) -> Array{Float64,2}
+    function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100) -> Array{Float64,2}
 """
 function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int64 = 100)::Array{Float64,2}
 
@@ -1118,8 +1118,8 @@ function sample(model::MyBinomialEquityPriceTree, L::Int64; number_of_paths::Int
 end
 
 """
-    populate(model::MyAdjacencyBasedCRREquityPriceTree; 
-        Sₒ::Float64 = 100.0, h::Int64 = 1)
+    function populate(model::MyAdjacencyBasedCRREquityPriceTree; 
+                Sₒ::Float64 = 100.0, h::Int64 = 1)
 
 The `populate` function initializes the `MyAdjacencyBasedCRREquityPriceTree` model with share prices and probabilities for each node in the lattice.
 In addition, this methods sets the intrinsic and extrinsic values of each node to `0.0` and computes the connectivity and levels of the lattice.
@@ -1197,7 +1197,7 @@ end
 
 # == PUBLIC METHODS BELOW HERE ======================================================================================================== #
 """
-    price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel
+    function price(model::MyUSTreasuryCouponSecurityModel, compounding::T) -> MyUSTreasuryCouponSecurityModel where T <: AbstractCompoundingModel
 
 The `price(...)` function computes the price of a `MyUSTreasuryCouponSecurityModel` instance using a discrete or continuous compounding model.
 
@@ -1214,7 +1214,7 @@ function price(model::MyUSTreasuryCouponSecurityModel, compounding::T)::MyUSTrea
 end
 
 """
-    price(model::MyUSTreasuryZeroCouponBondModel, compounding::T) -> MyUSTreasuryZeroCouponBondModel where T <: AbstractCompoundingModel
+    function price(model::MyUSTreasuryZeroCouponBondModel, compounding::T) -> MyUSTreasuryZeroCouponBondModel where T <: AbstractCompoundingModel
     
 The `price(...)` function computes the price of a `MyUSTreasuryZeroCouponBondModel` instance using a discrete or continuous compounding model.
 
@@ -1230,7 +1230,7 @@ function price(model::MyUSTreasuryZeroCouponBondModel, compounding::T)::MyUSTrea
 end
 
 """
-    strip(model::MyUSTreasuryCouponSecurityModel) -> Dict{Int, MyUSTreasuryZeroCouponBondModel}
+    function strip(model::MyUSTreasuryCouponSecurityModel) -> Dict{Int, MyUSTreasuryZeroCouponBondModel}
 
 Strips the coupon and par value payments from a parent coupon security. 
 

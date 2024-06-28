@@ -1,7 +1,7 @@
 
 """
-    log_growth_matrix(dataset::Dict{String, DataFrame}, 
-        firms::Array{String,1}; Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0) -> Array{Float64,2}
+    function log_growth_matrix(dataset::Dict{String, DataFrame}, 
+                firms::Array{String,1}; Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0) -> Array{Float64,2}
 
 The `log_growth_matrix` function computes the excess log growth matrix for a given set of firms where we define the log growth as:
 
@@ -55,8 +55,8 @@ function log_growth_matrix(dataset::Dict{String, DataFrame},
 end
 
 """
-    log_growth_matrix(dataset::Dict{String, DataFrame}, 
-        firm::String; Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0) -> Array{Float64,1}
+    function log_growth_matrix(dataset::Dict{String, DataFrame}, 
+                firm::String; Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0) -> Array{Float64,1}
 
 The `log_growth_matrix` function computes the excess log growth matrix for a given firm where we define the log growth as:
 
@@ -103,8 +103,8 @@ function log_growth_matrix(dataset::Dict{String, DataFrame},
 end
 
 """
-    log_growth_matrix(dataset::DataFrame; Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0,
-            keycol::Symbol = :volume_weighted_average_price) -> Array{Float64,1}
+    function log_growth_matrix(dataset::DataFrame; Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0,
+                keycol::Symbol = :volume_weighted_average_price) -> Array{Float64,1}
 
 Compute the log growth matrix for a given data frame. 
 """
@@ -129,8 +129,8 @@ function log_growth_matrix(dataset::DataFrame;
 end
 
 """
-    log_growth_matrix(dataset::Array{Float64,1}, 
-        Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0)::Array{Float64,1}
+    function log_growth_matrix(dataset::Array{Float64,1}, 
+                Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0)::Array{Float64,1}
 """
 function log_growth_matrix(dataset::Array{Float64,1}; 
     Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.0)::Array{Float64,1}
@@ -154,7 +154,7 @@ function log_growth_matrix(dataset::Array{Float64,1};
 end
 
 """
-    vwap(data::DataFrame) -> Array{Float64,1}
+    function vwap(data::DataFrame) -> Array{Float64,1}
 
 The `vwap` function computes the volume weighted average price (VWAP) for a given data frame. 
 The VWAP is calculated by multiplying the average price by the volume and then dividing by total volume per period.

@@ -1,5 +1,5 @@
 """
-    solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
+    function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
 
 The `solve` function solves the Markowitz risky asset-only portfolio choice problem for a given instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) problem type.
 The `solve` method checks for the status of the optimization using an assertion, thus, the optimization must be successful for the function to return.
@@ -63,7 +63,7 @@ function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{
 end
 
 """
-    solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
+    function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
 
 The `solve` function solves the Markowitz risky and risk-free portfolio choice problem for a given instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) problem type.
 The `solve` method checks for the status of the optimization using an assertion, thus, the optimization must be successful for the function to return.

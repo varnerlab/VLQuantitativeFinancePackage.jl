@@ -18,7 +18,7 @@ end
 
 
 """
-    prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64,1}; L::Int64 = 10) -> Tuple
+    function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64,1}; L::Int64 = 10) -> Tuple
 
 The `prediction` function predicts the output of the single input single output (SISO) HiPPO model given a signal vector using the Leg-S parameterization and bilinear discretization. 
 The function returns the time array, the hidden state array and the output array. 
@@ -88,7 +88,7 @@ function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Arra
 end
 
 """
-    solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64}) -> Tuple
+    function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64}) -> Tuple
 
 The `solve` function solves the single input single output (SISO) HiPPO model using the Leg-S parameterization and 
 bilinear discretization. The function returns the time array, the hidden state array and the output array.
@@ -137,7 +137,7 @@ function solve(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Flo
 end
 
 """
-    estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64};
+    function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64};
         method = LBFGS()) -> Array{Float64}
 
 The `estimate_hippo_parameters` function estimates the `C`-matrix of the single input single output (SISO) 

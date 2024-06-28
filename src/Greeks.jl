@@ -16,7 +16,7 @@ function theta(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365),
 end
 
 """
-    theta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+    function theta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
 
 Compute the `theta` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
@@ -90,7 +90,7 @@ function delta(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Floa
 end
 
 """
-    delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+    function delta(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational)::Float64 where {Y<:AbstractContractModel}
 
 Compute the `delta` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
@@ -142,7 +142,7 @@ end
 
 # == GAMMA ========================================================================================================================================= #
 """
-    gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+    function gamma(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
 
 Compute the `gamma` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
@@ -220,7 +220,7 @@ function vega(contracts::Array{Y,1}; h::Int64=2, T::Float64=(1 / 365), σ::Float
 end
 
 """
-    vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+    function vega(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
 
 Compute the `vega` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
@@ -278,7 +278,7 @@ end
 
 # == RHO =========================================================================================================================================== #
 """
-    rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
+    function rho(contract::Y; h::Int64=2, T::Float64=(1 / 365), σ::Float64=0.15,
         Sₒ::Float64=1.0, μ::Float64=0.0015, choice::Function=_rational) -> Float64 where {Y<:AbstractContractModel}
 
 Compute the `rho` of a contract using the [Cox-Ross-Rubinstein binomial tree method](https://en.wikipedia.org/wiki/Binomial_options_pricing_model).
