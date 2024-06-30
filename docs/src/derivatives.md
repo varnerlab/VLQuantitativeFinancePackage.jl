@@ -83,11 +83,11 @@ VLQuantitativeFinancePackage.premium(contract::MyEuropeanCallContractModel,
 ```
 
 The Black-Scholes-Merton pricing formula for a European put option is given by the expression:
-$$
+```math
 \begin{equation}
 \mathcal{P}_{p}(K,S(0)) = N(-d_{-})\cdot{K}\cdot\mathcal{D}^{-1}_{T,0}(\bar{r}) - N(-d_{+})\cdot{S}(0)
 \end{equation}
-$$
+```
 where $N(\dots)$ denotes the standard normal cumulative distribution function, 
 $S(0)$ is the price of the underlying asset at time $t=0$ (when we are evaluating the option),
 $K$ is the strike price of the contract, and $\mathcal{D}^{-1}_{T,0}(\bar{r})$ is the discount factor from time $t=0$ to time $T$ evaluated at the risk-free interest rate $\bar{r}$.
