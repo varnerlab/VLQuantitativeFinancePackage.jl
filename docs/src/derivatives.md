@@ -42,8 +42,8 @@ Under these assumptions, the price of the option can be computed using the Black
 ```math
 \begin{aligned}
 	\frac{\partial{V}}{\partial{t}} + \frac{1}{2}\sigma^{2}S^{2}\frac{\partial^{2}V}{\partial{S}^{2}} &=  \bar{r}V - rS\frac{\partial{V}}{\partial{S}}  \\
-	\frac{dS}{S} & = & \bar{r}\,dt + \sigma\,{dW}\\
-	V(T,S) & = & K(S)
+	\frac{dS}{S} &=  \bar{r}\,dt + \sigma\,{dW}\\
+	V(T,S) &=  K(S)
 \end{aligned}
 ```
 where $V(t, S)$ is the price of the option, $S$ is the price of the underlying asset (governed by the risk-neutral geometric Brownian motion model), 
@@ -58,6 +58,7 @@ We implement the Black-Scholes-Merton model in the [`MyBlackScholesContractPrici
 VLQuantitativeFinancePackage.MyBlackScholesContractPricingModel
 ```
 
+#### European call options
 The Black-Scholes-Merton pricing formula for a European call option is given by the expression:
 ```math
 \begin{equation}
@@ -82,6 +83,7 @@ VLQuantitativeFinancePackage.premium(contract::MyEuropeanCallContractModel,
     model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)
 ```
 
+#### European put options
 The Black-Scholes-Merton pricing formula for a European put option is given by the expression:
 ```math
 \mathcal{P}_{p}(K,S(0)) = N(-d_{-})\cdot{K}\cdot\mathcal{D}^{-1}_{T,0}(\bar{r}) - N(-d_{+})\cdot{S}(0)
