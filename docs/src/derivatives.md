@@ -39,13 +39,13 @@ The Black-Scholes-Merton model is used to compute the premium of European-style 
 Robert C. Merton, Myron S. Scholes, and Fischer Black won the [Nobel Prize in Economics in 1997](https://www.nobelprize.org/prizes/economic-sciences/1997/press-release/) for their work on this model.
 The model assumes that the underlying asset's price follows a geometric Brownian motion with constant drift and volatility, where the drift is the risk-free interest rate, i.e., we evaluate the option using a risk-neutral pricing paradigm. Further, the model assumes that the risk-free interest rate is constant and that the underlying stock does not pay dividends (although the model can be modified to include dividends).
 Under these assumptions, the price of the option can be computed using the Black-Scholes-Merton pricing formula, which is the parabolic partial differential equation:
-$$
+```math
 \begin{eqnarray}
 	\frac{\partial{V}}{\partial{t}} + \frac{1}{2}\sigma^{2}S^{2}\frac{\partial^{2}V}{\partial{S}^{2}} & = & \bar{r}V - rS\frac{\partial{V}}{\partial{S}}  \\
 	\frac{dS}{S} & = & \bar{r}\,dt + \sigma\,{dW}\\
 	V(T,S) & = & K(S)
 \end{eqnarray}
-$$
+```
 where $V(t, S)$ is the price of the option, $S$ is the price of the underlying asset (governed by the risk-neutral geometric Brownian motion model), 
 $K(S)$ is the payoff of the option at expiration, $T$ is the expiration date, $t$ is time, 
 $\bar{r}$ is the risk-free interest rate, and $\sigma$ is the volatility of the underlying asset.
@@ -59,20 +59,20 @@ VLQuantitativeFinancePackage.MyBlackScholesContractPricingModel
 ```
 
 The Black-Scholes-Merton pricing formula for a European call option is given by the expression:
-$$
+```math
 \begin{equation}
 	\mathcal{P}_{c}(K,S(0)) = N(d_{+})S(0) - N(d_{-})K\mathcal{D}^{-1}_{T,0}(\bar{r})
 \end{equation}
-$$
+```
 where $N(\dots)$ denotes the standard normal cumulative distribution function, 
 $S(0)$ is the price of the underlying asset at time $t=0$ (when we are evaluating the option),
 $K$ is the strike price of the contract, and $\mathcal{D}^{-1}_{T,0}(\bar{r})$ is the discount factor from time $t=0$ to time $T$ evaluated at the risk-free interest rate $\bar{r}$. The arguments of the normal cumulative distribution function are given by:
-$$
+```math
 \begin{eqnarray}
 d_{+} & = & \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\frac{\sigma^{2}}{2})T\right] \\
 d_{-} & = & d_{+} - \sigma\sqrt{T}
 \end{eqnarray}
-$$
+```
 
 We implement the Black-Scholes-Merton pricing formula for European call using the `premium` function, which takes a 
 [`MyEuropeanCallContractModel`](@ref) and a [`MyBlackScholesContractPricingModel`](@ref) instance as input arguments. The function returns the premium of the contract.
@@ -83,19 +83,19 @@ VLQuantitativeFinancePackage.premium(contract::MyEuropeanCallContractModel,
 ```
 
 The Black-Scholes-Merton pricing formula for a European put option is given by the expression:
-$$
+```math
 \mathcal{P}_{p}(K,S(0)) = N(-d_{-})\cdot{K}\cdot\mathcal{D}^{-1}_{T,0}(\bar{r}) - N(-d_{+})\cdot{S}(0)
-$$
+```
 where $N(\dots)$ denotes the standard normal cumulative distribution function, 
 $S(0)$ is the price of the underlying asset at time $t=0$ (when we are evaluating the option),
 $K$ is the strike price of the contract, and $\mathcal{D}^{-1}_{T,0}(\bar{r})$ is the discount factor from time $t=0$ to time $T$ evaluated at the risk-free interest rate $\bar{r}$.
 The arguments of the normal cumulative distribution function are given by:
-$$
+```math
 \begin{eqnarray}
 d_{+} & = & \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\frac{\sigma^{2}}{2})T\right] \\
 d_{-} & = & d_{+} - \sigma\sqrt{T}
 \end{eqnarray}
-$$
+```
 
 We implement the Black-Scholes-Merton pricing formula for European put using the `premium` function, which takes a 
 [`MyEuropeanPutContractModel`](@ref) and a [`MyBlackScholesContractPricingModel`](@ref) instance as input arguments. The function returns the premium of the contract.
