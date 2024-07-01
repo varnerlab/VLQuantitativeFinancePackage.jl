@@ -41,10 +41,10 @@ The model assumes that the underlying asset's price follows a geometric Brownian
 Under these assumptions, the price of the option can be computed using the Black-Scholes-Merton pricing formula, which is the parabolic partial differential equation:
 ```math
 \begin{aligned}
-	\frac{\partial{V}}{\partial{t}} + \frac{1}{2}\sigma^{2}S^{2}\frac{\partial^{2}V}{\partial{S}^{2}} & =  \bar{r}V - rS\frac{\partial{V}}{\partial{S}}  \\
+	\frac{\partial{V}}{\partial{t}} + \frac{1}{2}\sigma^{2}S^{2}\frac{\partial^{2}V}{\partial{S}^{2}} &=  \bar{r}V - rS\frac{\partial{V}}{\partial{S}}  \\
 	\frac{dS}{S} & = & \bar{r}\,dt + \sigma\,{dW}\\
 	V(T,S) & = & K(S)
-\begin{aligned}
+\end{aligned}
 ```
 where $V(t, S)$ is the price of the option, $S$ is the price of the underlying asset (governed by the risk-neutral geometric Brownian motion model), 
 $K(S)$ is the payoff of the option at expiration, $T$ is the expiration date, $t$ is time, 
@@ -69,9 +69,9 @@ $S(0)$ is the price of the underlying asset at time $t=0$ (when we are evaluatin
 $K$ is the strike price of the contract, and $\mathcal{D}^{-1}_{T,0}(\bar{r})$ is the discount factor from time $t=0$ to time $T$ evaluated at the risk-free interest rate $\bar{r}$. The arguments of the normal cumulative distribution function are given by:
 ```math
 \begin{aligned}
-d_{+} & =  \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\frac{\sigma^{2}}{2})T\right] \\
-d_{-} & =  d_{+} - \sigma\sqrt{T}
-\begin{aligned}
+d_{+} &=  \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\frac{\sigma^{2}}{2})T\right] \\
+d_{-} &=  d_{+} - \sigma\sqrt{T}
+\end{aligned}
 ```
 
 We implement the Black-Scholes-Merton pricing formula for European call using the `premium` function, which takes a 
@@ -92,9 +92,9 @@ $K$ is the strike price of the contract, and $\mathcal{D}^{-1}_{T,0}(\bar{r})$ i
 The arguments of the normal cumulative distribution function are given by:
 ```math
 \begin{aligned}
-d_{+} & =  \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\frac{\sigma^{2}}{2})T\right] \\
-d_{-} & =  d_{+} - \sigma\sqrt{T}
-\begin{aligned}
+d_{+} &=  \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\frac{\sigma^{2}}{2})T\right] \\
+d_{-} &=  d_{+} - \sigma\sqrt{T}
+\end{aligned}
 ```
 
 We implement the Black-Scholes-Merton pricing formula for European put using the `premium` function, which takes a 
