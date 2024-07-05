@@ -36,14 +36,12 @@ European options are the simplest type of options to price because they can only
 
 ### Black-Scholes model
 The Black-Scholes-Merton model is used to compute the premium of European-style options contracts \cite{BlackScholes1973};
-Robert C. Merton, Myron S. Scholes, and Fischer Black won the [Nobel Prize in Economics in 1997](https://www.nobelprize.org/prizes/economic-sciences/1997/press-release/) for their work on this model.
-The model assumes that the underlying asset's price follows a geometric Brownian motion with constant drift and volatility, where the drift is the risk-free interest rate, i.e., we evaluate the option using a risk-neutral pricing paradigm. Further, the model assumes that the risk-free interest rate is constant and that the underlying stock does not pay dividends (although the model can be modified to include dividends).
-Under these assumptions, the price of the option can be computed using the Black-Scholes-Merton pricing formula, which is the parabolic partial differential equation:
+Robert C. Merton, Myron S. Scholes, and Fischer Black won the [Nobel Prize in Economics in 1997](https://www.nobelprize.org/prizes/economic-sciences/1997/press-release/) for their work on this model. The model assumes that the underlying asset's price follows a geometric Brownian motion with constant drift and volatility, where the drift is the risk-free interest rate, i.e., we evaluate the option using a risk-neutral pricing paradigm. Further, the model assumes that the risk-free interest rate is constant and that the underlying stock does not pay dividends (although the model can be modified to include dividends). Under these assumptions, the price of the option can be computed using the Black-Scholes-Merton pricing formula, which is the parabolic partial differential equation:
 ```math
 \begin{aligned}
-	\frac{\partial{V}}{\partial{t}} + \frac{1}{2}\sigma^{2}S^{2}\frac{\partial^{2}V}{\partial{S}^{2}} &=  \bar{r}V - rS\frac{\partial{V}}{\partial{S}}  \\
-	\frac{dS}{S} &=  \bar{r}\,dt + \sigma\,{dW}\\
-	V(T,S) &=  K(S)
+	\frac{\partial{V}}{\partial{t}} + \frac{1}{2}\sigma^{2}S^{2}\frac{\partial^{2}V}{\partial{S}^{2}} + \bar{r}S\frac{\partial{V}}{\partial{S}}  &= \bar{r}V \\
+	\frac{dS}{S} &= \bar{r}\,dt + \sigma\,{dW}\\
+	V(T,S) &= K(S)
 \end{aligned}
 ```
 where $V(t, S)$ is the price of the option, $S$ is the price of the underlying asset (governed by the risk-neutral geometric Brownian motion model), 
