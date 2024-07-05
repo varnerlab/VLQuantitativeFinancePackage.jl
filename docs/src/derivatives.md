@@ -72,10 +72,8 @@ d_{+} &=  \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\fra
 d_{-} &=  d_{+} - \sigma\sqrt{T}
 \end{aligned}
 ```
-
 We implement the Black-Scholes-Merton pricing formula for European call using the `premium` function, which takes a 
 [`MyEuropeanCallContractModel`](@ref) and a [`MyBlackScholesContractPricingModel`](@ref) instance as input arguments. The function returns the premium of the contract.
-
 ```@docs
 VLQuantitativeFinancePackage.premium(contract::MyEuropeanCallContractModel, 
     model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)
@@ -96,10 +94,8 @@ d_{+} &=  \frac{1}{\sigma\sqrt{T}}\left[\ln(\frac{S_{\circ}}{K}) + (\bar{r}+\fra
 d_{-} &=  d_{+} - \sigma\sqrt{T}
 \end{aligned}
 ```
-
 We implement the Black-Scholes-Merton pricing formula for European put using the `premium` function, which takes a 
 [`MyEuropeanPutContractModel`](@ref) and a [`MyBlackScholesContractPricingModel`](@ref) instance as input arguments. The function returns the premium of the contract.
-
 ```@docs
 VLQuantitativeFinancePackage.premium(contract::MyEuropeanPutContractModel, 
     model::MyBlackScholesContractPricingModel; sigdigits::Int64 = 4)
