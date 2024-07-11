@@ -2,7 +2,7 @@
     function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
 
 The `solve` function solves the Markowitz risky asset-only portfolio choice problem for a given instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) problem type.
-The `solve` method checks for the status of the optimization using an assertion, thus, the optimization must be successful for the function to return.
+The `solve` method checks for the optimization's status using an assertion. Thus, the optimization must be successful for the function to return.
 Wrap the function call in a `try` block to handle exceptions.
 
 
@@ -10,7 +10,7 @@ Wrap the function call in a `try` block to handle exceptions.
 - `problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) that defines the problem parameters.
 
 ### Returns
-- `Dict{String,Any}`: A dictionary that holds the results of the optimization.
+- `Dict{String, Any}`: A dictionary with optimization results.
 
 The results dictionary has the following keys:
 - `"reward"`: The reward associated with the optimal portfolio.
@@ -66,14 +66,14 @@ end
     function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
 
 The `solve` function solves the Markowitz risky and risk-free portfolio choice problem for a given instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) problem type.
-The `solve` method checks for the status of the optimization using an assertion, thus, the optimization must be successful for the function to return.
+The `solve` method checks for the optimization's status using an assertion. Thus, the optimization must be successful for the function to return.
 Wrap the function call in a `try` block to handle exceptions.
 
 ### Arguments
 - `problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) that defines the problem parameters.
 
 ### Returns
-- `Dict{String,Any}`: A dictionary that holds the results of the optimization. 
+- `Dict{String, Any}`: A dictionary with optimization results. 
 
 The results dictionary has the following keys:
 - `"reward"`: The reward associated with the optimal portfolio.
