@@ -14,4 +14,5 @@ Fill me in
 VLQuantitativeFinancePackage.MyTickerPickerWorldModel
 VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerWorldModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.sample(model::MyEpsilonSamplingBanditModel, world::MyTickerPickerWorldModel)
+VLQuantitativeFinancePackage.preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100)
 ```
