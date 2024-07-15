@@ -107,9 +107,6 @@ end
 # end
 
 
-"""
-    function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100)
-"""
 function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100)
 
     # sample -
