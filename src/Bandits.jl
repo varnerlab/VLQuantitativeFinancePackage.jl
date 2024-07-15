@@ -80,7 +80,7 @@ function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::MyTicke
             aₜ = argmax(θ̂_vector);
 
             # pass that action to the world function, gives back a reward -
-            rₜ = world(aₜ, t, data, tickers; buffersize = buffersize, risk_free_rate = risk_free_rate);
+            rₜ = world(aₜ, t, worldmodel; buffersize = buffersize);
 
             # update the parameters -
             # first, get the old parameters -
