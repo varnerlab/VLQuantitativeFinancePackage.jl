@@ -13,6 +13,7 @@ using JuMP
 using LsqFit
 using Optim
 using DataStructures
+using StatsBase
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
