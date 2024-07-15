@@ -729,16 +729,14 @@ The `MyTickerPickerWorldModel` mutable struct represents a world model for a tic
 ### Required fields
 - `tickers::Array{String,1}`: An array of ticker symbols that we explore
 - `data::Dict{String, DataFrame}`: A dictionary that holds the data for each ticker symbol
-- `horizon::Int64`: The number of days to look ahead for the ticker picker
-- `buffersize::Int64`: The size of the buffer for storing the data
+- `risk_free_rate::Float64`: The risk-free rate of return in the world (assumed constant)
+- `world::Function`: A function that represents the world model. The function takes an action `a`, data about the world, and returns the reward for taking action `a`.
 """
 mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
 
     # data -
     tickers::Array{String,1}
     data::Dict{String, DataFrame}
-    horizon::Int64
-    buffersize::Int64
     risk_free_rate::Float64
     world::Function
 
