@@ -9,6 +9,8 @@ abstract type AbstractReturnModel end
 abstract type AbstractProbabilityMeasure end
 abstract type AbstractStochasticSolverModel end
 abstract type AbstractMarkovModel end
+abstract type AbstractSamplingModel end
+abstract type AbstractWorldModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -693,3 +695,54 @@ mutable struct MyHiddenMarkovModel <: AbstractMarkovModel
     # constructor -
     MyHiddenMarkovModel() = new();
 end
+
+# --- Bandits, MDP and RL models ---------------------------------------------------------------------------------------- #
+
+"""
+    mutable struct MyEpsilonSamplingBanditModel <: AbstractSamplingModel
+
+The `MyEpsilonSamplingBanditModel` mutable struct represents a multi-armed bandit model that uses epsilon-sampling for exploration.
+
+### Required fields
+- `α::Array{Float64,1}`: A vector holding the number of successful pulls for each arm. Each element in the vector represents the number of successful pulls for a specific arm.
+- `β::Array{Float64,1}`: A vector holding the number of unsuccessful pulls for each arm. Each element in the vector represents the number of unsuccessful pulls for a specific arm.
+- `K::Int64`: The number of arms in the bandit model
+- `ϵ::Float64`: The exploration parameter. A value of `0.0` indicates no exploration, and a value of `1.0` indicates full exploration.
+"""
+mutable struct MyEpsilonSamplingBanditModel <: AbstractSamplingModel
+
+    # data -
+    α::Array{Float64,1}
+    β::Array{Float64,1}
+    K::Int64
+    ϵ::Float64
+
+    # constructor -
+    MyEpsilonSamplingBanditModel() = new();
+end
+
+"""
+    mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
+
+The `MyTickerPickerWorldModel` mutable struct represents a world model for a ticker picker problem.
+    
+### Required fields
+- `tickers::Array{String,1}`: An array of ticker symbols that we explore
+- `data::Dict{String, DataFrame}`: A dictionary that holds the data for each ticker symbol
+- `horizon::Int64`: The number of days to look ahead for the ticker picker
+- `buffersize::Int64`: The size of the buffer for storing the data
+"""
+mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
+
+    # data -
+    tickers::Array{String,1}
+    data::Dict{String, DataFrame}
+    horizon::Int64
+    buffersize::Int64
+    risk_free_rate::Float64
+    world::Function
+
+    # constructor -
+    MyTickerPickerWorldModel() = new();
+end
+# -------------------------------------------------------------------------------------------------------------- #

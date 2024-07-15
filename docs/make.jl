@@ -17,6 +17,7 @@ makedocs(
         "Portfolio management" => "portfolio.md",
         "Decisions" => [
             "Markov models" => "markov.md",
+            "Bandits" => "bandits.md",
         ],
     ]
 )

@@ -12,6 +12,8 @@ module VLQuantitativeFinancePackage
     export AbstractCompoundingModel
     export AbstractStochasticChoiceProblem
     export AbstractMarkovModel
+    export AbstractSamplingModel
+    export AbstractWorldModel
 
 
     # export concrete types -
@@ -26,10 +28,11 @@ module VLQuantitativeFinancePackage
     export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
     
-    # Markov models types and methods -
+    # Markov models, MDPs, Bandits types and methods -
     export MyHiddenMarkovModel
-
-
+    export MyEpsilonSamplingBanditModel, MyTickerPickerWorldModel
+    export preference
+    
     # Base functions -
     export log_growth_matrix
 

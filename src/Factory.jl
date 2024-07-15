@@ -1,4 +1,4 @@
-function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractEquityPriceTreeModel, AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem, AbstractReturnModel}
+function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractEquityPriceTreeModel, AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem, AbstractReturnModel, AbstractSamplingModel, AbstractWorldModel}
     
     # build an empty model
     model = modeltype();
@@ -607,3 +607,40 @@ function build(model::Type{MyHiddenMarkovModel}, data::NamedTuple)::MyHiddenMark
     return m;
 end
 # --------------------------------------------------------------------------------------------- #
+
+# -- Bandit, MDP and RL models --------------------------------------------------------------- #
+"""
+    function build(modeltype::Type{MyEpsilonSamplingBanditModel}, data::NamedTuple) -> MyEpsilonSamplingBanditModel
+
+This `build` method constructs an instance of the [`MyEpsilonSamplingBanditModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `modeltype::Type{MyEpsilonSamplingBanditModel}`: The type of model to build, in this case, the [`MyEpsilonSamplingBanditModel`](@ref) type.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `α::Array{Float64,1}`: A vector holding the number of successful pulls for each arm. Each element in the vector represents the number of successful pulls for a specific arm.
+- `β::Array{Float64,1}`: A vector holding the number of unsuccessful pulls for each arm. Each element in the vector represents the number of unsuccessful pulls for a specific arm.
+- `K::Int64`: The number of arms in the bandit model
+- `ϵ::Float64`: The exploration parameter. A value of `0.0` indicates no exploration, and a value of `1.0` indicates full exploration.
+
+"""
+build(modeltype::Type{MyEpsilonSamplingBanditModel}, data::NamedTuple)::MyEpsilonSamplingBanditModel = _build(modeltype, data);
+
+"""
+    function build(modeltype::Type{MyTickerPickerWorldModel}, data::NamedTuple) -> MyTickerPickerWorldModel
+
+This `build` method constructs an instance of the [`MyTickerPickerWorldModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `modeltype::Type{MyTickerPickerWorldModel}`: The type of model to build, in this case, the [`MyTickerPickerWorldModel`](@ref) type.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `tickers::Array{String,1}`: An array of ticker symbols that we explore
+- `data::Dict{String, DataFrame}`: A dictionary that holds the data for each ticker symbol
+- `horizon::Int64`: The number of days to look ahead for the ticker picker
+- `buffersize::Int64`: The size of the buffer for storing the data
+"""
+build(modeltype::Type{MyTickerPickerWorldModel}, data::NamedTuple)::MyTickerPickerWorldModel = _build(modeltype, data);
+# -------------------------------------------------------------------------------------------- #
