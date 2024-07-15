@@ -11,13 +11,12 @@ The function returns a dictionary where the keys are integers (time steps) and t
 - `model::MyEpsilonSamplingBanditModel`: An instance of the [`MyEpsilonSamplingBanditModel`](@ref) that defines the bandit model parameters.
 - `world::MyTickerPickerWorldModel`: An instance of the [`MyTickerPickerWorldModel`](@ref) that defines the world model parameters.
 - `horizon::Int64 = 1`: The number of trials to sample. Default is 1 (single trial).
-- `buffersize::Int64 = 1`: The buffer size for the world model (how many sequences to store). Default is 1.
 
 ### Returns
 - `Dict{Int64, Array{Beta,1}}`: A dictionary where the keys are integers (trials) and the values are arrays of Beta distributions (ticker preferences).
 """
 function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::MyTickerPickerWorldModel; 
-    horizon::Int64 = 1, buffersize::Int64 = 1)::Dict{Int64, Array{Beta,1}}
+    horizon::Int64 = 1)::Dict{Int64, Array{Beta,1}}
 
     # data from the sampling model -
     α = samplingmodel.α

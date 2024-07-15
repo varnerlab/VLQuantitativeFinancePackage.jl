@@ -732,6 +732,7 @@ The `MyTickerPickerWorldModel` mutable struct represents a world model for a tic
 - `risk_free_rate::Float64`: The risk-free rate of return in the world (assumed constant)
 - `world::Function`: A function that represents the world model. The function takes an action `a`, data about the world, and returns the reward for taking action `a`.
 - `Δt::Float64`: The time step size in the world model
+- `buffersize::Int64`: The size of the buffer used in the world model
 """
 mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
 
@@ -741,6 +742,7 @@ mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
     risk_free_rate::Float64
     world::Function
     Δt::Float64
+    buffersize::Int64
 
     # constructor -
     MyTickerPickerWorldModel() = new();
