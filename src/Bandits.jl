@@ -65,7 +65,7 @@ function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::MyTicke
         # end
 
         # update the results archive -
-        time_sample_results_dict_Ts[t] = action_distribution;
+        time_sample_results_dict_Ts[t] = deepcopy(action_distribution);
 
         aₜ = nothing; # default to nothing 
         if (rand() < ϵ)
