@@ -1,4 +1,4 @@
-using Documenter, VLQuantitativeFinancePackage
+using Documenter, Distributions, VLQuantitativeFinancePackage
 
 push!(LOAD_PATH,"../src/")
 
