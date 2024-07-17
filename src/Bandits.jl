@@ -117,9 +117,19 @@ end
 # end
 
 """
-    function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100) -> Array{Int64,1}
+    function preference(beta::Array{Beta,1}, tickers::Array{String,1}) -> Array{Int64,1}
+
+This function computes the preference of each action based on the mean of the Beta distribution.
+
+### Arguments
+- `beta::Array{Beta,1}`: An array of Beta distributions that represent the actions (or preferences)
+- `tickers::Array{String,1}`: An array of strings that represent the tickers (or actions)
+
+### Returns
+- `Array{Int64,1}`: An array of integers that represent the preference of each action based on the mean of the Beta distribution.
+
 """
-function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100)::Array{Int64,1}
+function preference(beta::Array{Beta,1}, tickers::Array{String,1})::Array{Int64,1}
 
     # sample -
     K = length(tickers);
@@ -129,8 +139,7 @@ function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 10
     for k ∈ 1:K # for each action
         
         # grab -
-        d = beta[k];
-        α,β = params(d);
+        α,β = beta[k] |> d -> params(d);
         
         # generate a sample for this action -
         θ̂_vector[k] = (α)/(α+β);
@@ -139,5 +148,5 @@ function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 10
     # ok: let's choose an action -
 
     # return -
-    return tiedrank(θ̂_vector, rev = true);
+    return tiedrank(θ̂_vector, rev = true) .|> x -> trunc(Int64, x);
 end
