@@ -116,8 +116,10 @@ end
 #     return beta_array;
 # end
 
-
-function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100)
+"""
+    function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100) -> Array{Int64,1}
+"""
+function preference(beta::Array{Beta,1}, tickers::Array{String,1}; N::Int64 = 100)::Array{Int64,1}
 
     # sample -
     K = length(tickers);
