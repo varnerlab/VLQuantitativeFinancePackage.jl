@@ -1,5 +1,5 @@
 """
-    function sample(model::MyEpsilonSamplingBanditModel, world::MyTickerPickerWorldModel)::Dict{Int64, Array{Beta,1}}
+    function sample(model::MyEpsilonSamplingBanditModel, world::AbstractWorldModel)::Dict{Int64, Array{Beta,1}}
 
 This function solved the ticker picker problem as a bandit model using an epsilon-greedy strategy. 
 The function takes two arguments: a bandit model and a world model. 
@@ -9,7 +9,7 @@ The function returns a dictionary where the keys are integers (time steps) and t
 
 ### Arguments
 - `model::MyEpsilonSamplingBanditModel`: An instance of the [`MyEpsilonSamplingBanditModel`](@ref) that defines the bandit model parameters.
-- `world::MyTickerPickerWorldModel`: An instance of the [`MyTickerPickerWorldModel`](@ref) that defines the world model parameters.
+- `world::AbstractWorldModel`: An instance of the world model that defines the world model parameters.
 - `horizon::Int64 = 1`: The number of trials to sample. Default is 1 (single trial).
 
 ### Returns

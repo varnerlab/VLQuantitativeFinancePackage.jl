@@ -748,6 +748,21 @@ mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
     MyTickerPickerWorldModel() = new();
 end
 
+"""
+    mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
+
+The `MyTickerPickerRiskAwareWorldModel` mutable struct represents a world model for a ticker picker problem that is risk-aware.
+
+### Required fields
+- `tickers::Array{String,1}`: An array of ticker symbols that we explore
+- `data::Dict{String, DataFrame}`: A dictionary that holds the price data for each ticker symbol
+- `risk_free_rate::Float64`: The risk-free rate of return in the world (assumed constant)
+- `world::Function`: A function that represents the world model. The function takes an action `a`, data about the world, and returns the reward `r` for taking action `a`.
+- `Δt::Float64`: The time step size in the world model
+- `buffersize::Int64`: The size of the buffer used in the world model
+- `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
+
+"""
 mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
 
     # data -

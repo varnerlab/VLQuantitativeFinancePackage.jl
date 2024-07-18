@@ -649,6 +649,18 @@ build(modeltype::Type{MyTickerPickerWorldModel}, data::NamedTuple)::MyTickerPick
 
 This `build` method constructs an instance of the [`MyTickerPickerRiskAwareWorldModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
+### Arguments
+- `modeltype::Type{MyTickerPickerRiskAwareWorldModel}`: The type of model to build, in this case, the [`MyTickerPickerRiskAwareWorldModel`](@ref) type.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `tickers::Array{String,1}`: An array of ticker symbols that we explore
+- `data::Dict{String, DataFrame}`: A dictionary that holds the price data for each ticker symbol
+- `risk_free_rate::Float64`: The risk-free rate of return in the world (assumed constant)
+- `world::Function`: A function that represents the world model. The function takes an action `a`, data about the world, and returns the reward `r` for taking action `a`.
+- `Δt::Float64`: The time step size in the world model
+- `buffersize::Int64`: The size of the buffer used in the world model
+- `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
 """
 build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
 # -------------------------------------------------------------------------------------------- #

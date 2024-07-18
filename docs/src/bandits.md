@@ -13,6 +13,12 @@ Fill me in
 ```@docs
 VLQuantitativeFinancePackage.MyTickerPickerWorldModel
 VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerWorldModel}, data::NamedTuple)
-VLQuantitativeFinancePackage.sample(model::MyEpsilonSamplingBanditModel, world::MyTickerPickerWorldModel)
+VLQuantitativeFinancePackage.sample(model::MyEpsilonSamplingBanditModel, world::AbstractWorldModel)
 VLQuantitativeFinancePackage.preference
+```
+
+Risk aware bandit problem example
+```@docs
+VLQuantitativeFinancePackage.MyTickerPickerRiskAwareWorldModel
+VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)
 ```
