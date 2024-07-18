@@ -16,9 +16,3 @@ VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerWorldModel}, data::
 VLQuantitativeFinancePackage.sample(model::MyEpsilonSamplingBanditModel, world::AbstractWorldModel)
 VLQuantitativeFinancePackage.preference
 ```
-
-Risk aware bandit problem example
-```@docs
-VLQuantitativeFinancePackage.MyTickerPickerRiskAwareWorldModel
-VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)
-```
