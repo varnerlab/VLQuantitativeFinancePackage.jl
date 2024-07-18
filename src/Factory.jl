@@ -643,4 +643,12 @@ The `data::NamedTuple` must contain the following `keys`:
 - `buffersize::Int64`: The size of the buffer for storing the data
 """
 build(modeltype::Type{MyTickerPickerWorldModel}, data::NamedTuple)::MyTickerPickerWorldModel = _build(modeltype, data);
+
+"""
+    function build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple) -> MyTickerPickerRiskAwareWorldModel
+
+This `build` method constructs an instance of the [`MyTickerPickerRiskAwareWorldModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+"""
+build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
 # -------------------------------------------------------------------------------------------- #
