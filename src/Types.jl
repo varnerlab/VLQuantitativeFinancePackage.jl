@@ -761,7 +761,6 @@ The `MyTickerPickerRiskAwareWorldModel` mutable struct represents a world model 
 - `Δt::Float64`: The time step size in the world model
 - `buffersize::Int64`: The size of the buffer used in the world model
 - `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
-
 """
 mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
 
