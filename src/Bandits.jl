@@ -15,7 +15,7 @@ The function returns a dictionary where the keys are integers (time steps) and t
 ### Returns
 - `Dict{Int64, Array{Beta,1}}`: A dictionary where the keys are integers (trials) and the values are arrays of Beta distributions (ticker preferences).
 """
-function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::MyTickerPickerWorldModel; 
+function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::AbstractWorldModel; 
     horizon::Int64 = 1)::Dict{Int64, Array{Beta,1}}
 
     # data from the sampling model -

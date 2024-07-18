@@ -747,4 +747,19 @@ mutable struct MyTickerPickerWorldModel <: AbstractWorldModel
     # constructor -
     MyTickerPickerWorldModel() = new();
 end
+
+mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
+
+    # data -
+    tickers::Array{String,1}
+    data::Dict{String, DataFrame}
+    risk_free_rate::Float64
+    world::Function
+    Δt::Float64
+    buffersize::Int64
+    risk::Dict{String, Float64}
+
+    # constructor -
+    MyTickerPickerRiskAwareWorldModel() = new();
+end
 # -------------------------------------------------------------------------------------------------------------- #
