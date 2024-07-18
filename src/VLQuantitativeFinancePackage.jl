@@ -30,7 +30,7 @@ module VLQuantitativeFinancePackage
     
     # Markov models, MDPs, Bandits types and methods -
     export MyHiddenMarkovModel
-    export MyEpsilonSamplingBanditModel, MyTickerPickerWorldModel
+    export MyEpsilonSamplingBanditModel, MyTickerPickerWorldModel, MyTickerPickerRiskAwareWorldModel
     export preference
     
     # Base functions -
