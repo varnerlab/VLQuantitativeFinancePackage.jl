@@ -16,4 +16,5 @@ VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerWorldModel}, data::
 VLQuantitativeFinancePackage.sample(model::MyEpsilonSamplingBanditModel, world::AbstractWorldModel)
 VLQuantitativeFinancePackage.preference
 VLQuantitativeFinancePackage.MyTickerPickerRiskAwareWorldModel
+VLQuantitativeFinancePackage.build(model::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)
 ```

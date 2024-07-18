@@ -662,5 +662,9 @@ build(modeltype::Type{MyTickerPickerWorldModel}, data::NamedTuple)::MyTickerPick
 # - `buffersize::Int64`: The size of the buffer used in the world model
 # - `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
 # """
+
+"""
+    function build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple) -> MyTickerPickerRiskAwareWorldModel
+"""
 build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
 # -------------------------------------------------------------------------------------------- #
