@@ -1,4 +1,4 @@
-function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractEquityPriceTreeModel, AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem, AbstractReturnModel, AbstractSamplingModel, AbstractWorldModel}
+function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractEquityPriceTreeModel, AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem, AbstractReturnModel, AbstractSamplingModel, AbstractWorldModel, AbstractPolicyModel}
     
     # build an empty model
     model = modeltype();
@@ -663,4 +663,33 @@ The `data::NamedTuple` must contain the following `keys`:
 - `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
 """
 build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
+
+
+function build(modeltype::Type{MyOneDimensionalElementaryRuleModel}, 
+    data::NamedTuple)::MyOneDimensionalElementaryRuleModel
+
+    # initialize -
+    index = data.index;
+    colors = data.colors;
+    radius = data.radius;
+
+    # create an empty model instance -
+    model = MyOneDimensionalElementaryRuleModel();
+    rule = Dict{Int,Int}();
+
+    # build the rule -
+    number_of_states = colors^radius;
+    states = digits(index, base=levels, pad=number_of_states);
+    for i ∈ 0:number_of_states-1
+        rule[i] = states[i+1];
+    end
+    
+    # set the data on the object
+    model.index = index;
+    model.rule = rule;
+    model.radius = radius;
+
+    # return
+    return model;
+end
 # -------------------------------------------------------------------------------------------- #

@@ -11,6 +11,7 @@ abstract type AbstractStochasticSolverModel end
 abstract type AbstractMarkovModel end
 abstract type AbstractSamplingModel end
 abstract type AbstractWorldModel end
+abstract type AbstractPolicyModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -775,5 +776,17 @@ mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
 
     # constructor -
     MyTickerPickerRiskAwareWorldModel() = new();
+end
+
+
+mutable struct MyOneDimensionalElementaryRuleModel <: AbstractPolicyModel
+    
+    # data
+    index::Int
+    radius::Int
+    rule::Dict{Int,Int}
+
+    # constructor -
+    MyOneDimensionalElementaryRuleModel() = new();
 end
 # -------------------------------------------------------------------------------------------------------------- #
