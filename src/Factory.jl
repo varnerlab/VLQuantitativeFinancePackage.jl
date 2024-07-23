@@ -801,7 +801,7 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
     model.moves = moves;
     model.number_of_rows = nrows
     model.number_of_cols = ncols
-    model.stateactionnewstate = stateactionmap
+    model.stateactionnextstate = stateactionmap
 
     # return -
     return model
