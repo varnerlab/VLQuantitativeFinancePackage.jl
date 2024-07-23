@@ -821,6 +821,7 @@ mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
     states::Dict{Tuple{Int,Int},Int}
     moves::Dict{Int,Tuple{Int,Int}}
     rewards::Dict{Int,Float64}
+    stateactionmap::Array{Int,2}
 
     # constructor -
     MyPeriodicRectangularGridWorldModel() = new();

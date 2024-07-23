@@ -740,23 +740,24 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
     rewards = data[:rewards]
     defaultreward = haskey(data, :defaultreward) == false ? -1.0 : data[:defaultreward]
 
+    # derived data -
+    nstates = nrows*ncols;
+    nactions = 4; # up, down, left, right
+
     # setup storage
     rewards_dict = Dict{Int,Float64}()
     coordinates = Dict{Int,Tuple{Int,Int}}()
     states = Dict{Tuple{Int,Int},Int}()
     moves = Dict{Int,Tuple{Int,Int}}()
+    stateactionmap = Array{Int,2}(undef, nstates, nactions);
 
     # build all the stuff 
     position_index = 1;
     for i ∈ 1:nrows
         for j ∈ 1:ncols
-            
-            # capture this corrdinate 
-            coordinate = (i,j);
-
-            # set -
-            coordinates[position_index] = coordinate;
-            states[coordinate] = position_index;
+            coordinate = (i,j); # capture this corrdinate 
+            coordinates[position_index] = coordinate;  # set the coordinate: map between index, and coordinate tuple
+            states[coordinate] = position_index; # set the state: map between coordinate tuple, and index
 
             if (haskey(rewards,coordinate) == true)
                 rewards_dict[position_index] = rewards[coordinate];
@@ -775,6 +776,24 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
     moves[3] = (0,-1)   # a = 3 left
     moves[4] = (0,1)    # a = 4 right
 
+    # setup the state-action map -
+    for i ∈ 1:nrows
+        for j ∈ 1:ncols
+            state = states[(i,j)];
+            for a ∈ 1:nactions
+                move = moves[a];
+                newi = i + move[1];
+                newj = j + move[2];
+                newi = newi < 1 ? nrows : newi;
+                newi = newi > nrows ? 1 : newi;
+                newj = newj < 1 ? ncols : newj;
+                newj = newj > ncols ? 1 : newj;
+                newstate = states[(newi,newj)];
+                stateactionmap[state,a] = newstate;
+            end
+        end
+    end
+
     # add items to the model -
     model.rewards = rewards_dict
     model.coordinates = coordinates
@@ -782,6 +801,7 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
     model.moves = moves;
     model.number_of_rows = nrows
     model.number_of_cols = ncols
+    model.stateactionmap = stateactionmap
 
     # return -
     return model
