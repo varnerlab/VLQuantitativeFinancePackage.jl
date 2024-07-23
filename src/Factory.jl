@@ -710,13 +710,13 @@ function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel},
 end
 
 """
-    function build(type::MyRectangularGridWorldModel, nrows::Int, ncols::Int, 
-        rewards::Dict{Tuple{Int,Int}, Float64}; defaultreward::Float64 = -1.0) -> MyRectangularGridWorldModel
+    function build(type::MyPeriodicRectangularGridWorldModel, nrows::Int, ncols::Int, 
+        rewards::Dict{Tuple{Int,Int}, Float64}; defaultreward::Float64 = -1.0) -> MyPeriodicRectangularGridWorldModel
 
-The `build` method constructs an instance of the [`MyRectangularGridWorldModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+The `build` method constructs an instance of the [`MyPeriodicRectangularGridWorldModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
 
 ### Arguments
-- `type::MyRectangularGridWorldModel`: The type of model to build.
+- `type::MyPeriodicRectangularGridWorldModel`: The type of model to build.
 - `data::NamedTuple`: The data to use to build the model.
 
 The `data::NamedTuple` must contain the following `keys`:
@@ -726,13 +726,13 @@ The `data::NamedTuple` must contain the following `keys`:
 - `defaultreward::Float64`: The default reward for the grid. This is set to `-1.0` by default.
 
 ### Return
-This function returns an instance of the [`MyRectangularGridWorldModel`](@ref) type.
+This function returns a populated instance of the [`MyPeriodicRectangularGridWorldModel`](@ref) type.
 """
-function build(modeltype::Type{MyRectangularGridWorldModel}, 
-    data::NamedTuple)::MyRectangularGridWorldModel
+function build(modeltype::Type{MyPeriodicRectangularGridWorldModel}, 
+    data::NamedTuple)::MyPeriodicRectangularGridWorldModel
 
     # initialize and empty model -
-    model = MyRectangularGridWorldModel()
+    model = MyPeriodicRectangularGridWorldModel()
 
     # get the data -
     nrows = data[:nrows]

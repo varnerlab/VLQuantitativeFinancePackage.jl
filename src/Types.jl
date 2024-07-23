@@ -800,9 +800,9 @@ mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
 end
 
 """
-    mutable struct MyRectangularGridWorldModel <: AbstractWorldModel
+    mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
 
-The `MyRectangularGridWorldModel` mutable struct represents a rectangular grid world model.
+The `MyPeriodicRectangularGridWorldModel` mutable struct represents a rectangular grid world model.
 
 ### Required fields
 - `number_of_rows::Int`: The number of rows in the grid
@@ -812,7 +812,7 @@ The `MyRectangularGridWorldModel` mutable struct represents a rectangular grid w
 - `moves::Dict{Int,Tuple{Int,Int}}`: A dictionary that holds the moves that can be made from each cell in the grid where the `key` is the move index and the `value` is a tuple of the row and column changes associated with the move
 - `rewards::Dict{Int,Float64}`: A dictionary that holds the rewards for each cell in the grid where the `key` is the cell index and the `value` is the reward
 """
-mutable struct MyRectangularGridWorldModel <: AbstractWorldModel
+mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
 
     # data -
     number_of_rows::Int
@@ -823,6 +823,6 @@ mutable struct MyRectangularGridWorldModel <: AbstractWorldModel
     rewards::Dict{Int,Float64}
 
     # constructor -
-    MyRectangularGridWorldModel() = new();
+    MyPeriodicRectangularGridWorldModel() = new();
 end
 # -------------------------------------------------------------------------------------------------------------- #
