@@ -29,7 +29,7 @@ module VLQuantitativeFinancePackage
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
     
     # Markov models, MDPs, Bandits types and methods -
-    export MyHiddenMarkovModel
+    export MyHiddenMarkovModel,MyRectangularGridWorldModel,MyOneDimensionalElementarWolframRuleModel
     export MyEpsilonSamplingBanditModel, MyTickerPickerWorldModel, MyTickerPickerRiskAwareWorldModel
     export preference
     
