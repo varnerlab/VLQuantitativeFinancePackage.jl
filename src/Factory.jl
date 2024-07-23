@@ -664,9 +664,25 @@ The `data::NamedTuple` must contain the following `keys`:
 """
 build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
 
+"""
+    function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel}, data::NamedTuple) -> MyOneDimensionalElementarWolframRuleModel
 
-function build(modeltype::Type{MyOneDimensionalElementaryRuleModel}, 
-    data::NamedTuple)::MyOneDimensionalElementaryRuleModel
+This `build` method constructs an instance of the [`MyOneDimensionalElementarWolframRuleModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `modeltype::Type{MyOneDimensionalElementarWolframRuleModel}`: The type of model to build, in this case, the [`MyOneDimensionalElementarWolframRuleModel`](@ref) type.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `index::Int64`: The index of the Wolfram rule
+- `colors::Int64`: The number of colors in the rule
+- `radius::Int64`: The radius, i.e., the number of cells to consider in the rule
+
+### Return
+This function returns a populated instance of the [`MyOneDimensionalElementarWolframRuleModel`](@ref) type.
+"""
+function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel}, 
+    data::NamedTuple)::MyOneDimensionalElementarWolframRuleModel
 
     # initialize -
     index = data.index;
@@ -674,7 +690,7 @@ function build(modeltype::Type{MyOneDimensionalElementaryRuleModel},
     radius = data.radius;
 
     # create an empty model instance -
-    model = MyOneDimensionalElementaryRuleModel();
+    model = MyOneDimensionalElementarWolframRuleModel();
     rule = Dict{Int,Int}();
 
     # build the rule -
@@ -691,5 +707,83 @@ function build(modeltype::Type{MyOneDimensionalElementaryRuleModel},
 
     # return
     return model;
+end
+
+"""
+    function build(type::MyRectangularGridWorldModel, nrows::Int, ncols::Int, 
+        rewards::Dict{Tuple{Int,Int}, Float64}; defaultreward::Float64 = -1.0) -> MyRectangularGridWorldModel
+
+The `build` method constructs an instance of the [`MyRectangularGridWorldModel`](@ref) type using the data in the [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `type::MyRectangularGridWorldModel`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `nrows::Int`: The number of rows in the grid
+- `ncols::Int`: The number of columns in the grid
+- `rewards::Dict{Tuple{Int,Int}, Float64}`: A dictionary that maps the coordinates of the grid to the rewards at those coordinates
+- `defaultreward::Float64`: The default reward for the grid. This is set to `-1.0` by default.
+
+### Return
+This function returns an instance of the [`MyRectangularGridWorldModel`](@ref) type.
+"""
+function build(modeltype::Type{MyRectangularGridWorldModel}, 
+    data::NamedTuple)::MyRectangularGridWorldModel
+
+    # initialize and empty model -
+    model = MyRectangularGridWorldModel()
+
+    # get the data -
+    nrows = data[:nrows]
+    ncols = data[:ncols]
+    rewards = data[:rewards]
+    defaultreward = haskey(data, :defaultreward) == false ? -1.0 : data[:defaultreward]
+
+    # setup storage
+    rewards_dict = Dict{Int,Float64}()
+    coordinates = Dict{Int,Tuple{Int,Int}}()
+    states = Dict{Tuple{Int,Int},Int}()
+    moves = Dict{Int,Tuple{Int,Int}}()
+
+    # build all the stuff 
+    position_index = 1;
+    for i ∈ 1:nrows
+        for j ∈ 1:ncols
+            
+            # capture this corrdinate 
+            coordinate = (i,j);
+
+            # set -
+            coordinates[position_index] = coordinate;
+            states[coordinate] = position_index;
+
+            if (haskey(rewards,coordinate) == true)
+                rewards_dict[position_index] = rewards[coordinate];
+            else
+                rewards_dict[position_index] = defaultreward;
+            end
+
+            # update position_index -
+            position_index += 1;
+        end
+    end
+
+    # setup the moves dictionary -
+    moves[1] = (-1,0)   # a = 1 up
+    moves[2] = (1,0)    # a = 2 down
+    moves[3] = (0,-1)   # a = 3 left
+    moves[4] = (0,1)    # a = 4 right
+
+    # add items to the model -
+    model.rewards = rewards_dict
+    model.coordinates = coordinates
+    model.states = states;
+    model.moves = moves;
+    model.number_of_rows = nrows
+    model.number_of_cols = ncols
+
+    # return -
+    return model
 end
 # -------------------------------------------------------------------------------------------- #

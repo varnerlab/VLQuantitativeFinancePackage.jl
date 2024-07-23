@@ -778,8 +778,17 @@ mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
     MyTickerPickerRiskAwareWorldModel() = new();
 end
 
+"""
+    mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
 
-mutable struct MyOneDimensionalElementaryRuleModel <: AbstractPolicyModel
+The `MyOneDimensionalElementarWolframRuleModel` mutable struct represents a one-dimensional elementary Wolfram rule model.
+
+### Required fields
+- `index::Int`: The index of the rule
+- `radius::Int`: The radius, i.e, the number of cells that influence the next state for this rule
+- `rule::Dict{Int,Int}`: A dictionary that holds the rule where the `key` is the binary representation of the neighborhood and the `value` is the next state
+"""
+mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
     
     # data
     index::Int
@@ -787,6 +796,33 @@ mutable struct MyOneDimensionalElementaryRuleModel <: AbstractPolicyModel
     rule::Dict{Int,Int}
 
     # constructor -
-    MyOneDimensionalElementaryRuleModel() = new();
+    MyOneDimensionalElementarWolframRuleModel() = new();
+end
+
+"""
+    mutable struct MyRectangularGridWorldModel <: AbstractWorldModel
+
+The `MyRectangularGridWorldModel` mutable struct represents a rectangular grid world model.
+
+### Required fields
+- `number_of_rows::Int`: The number of rows in the grid
+- `number_of_cols::Int`: The number of columns in the grid
+- `coordinates::Dict{Int,Tuple{Int,Int}}`: A dictionary that holds the coordinates of each cell in the grid where the `key` is the cell index and the `value` is a tuple of the row and column index
+- `states::Dict{Tuple{Int,Int},Int}`: A dictionary that holds the states of each cell in the grid where the `key` is the cell coordinates and the `value` is the state index
+- `moves::Dict{Int,Tuple{Int,Int}}`: A dictionary that holds the moves that can be made from each cell in the grid where the `key` is the move index and the `value` is a tuple of the row and column changes associated with the move
+- `rewards::Dict{Int,Float64}`: A dictionary that holds the rewards for each cell in the grid where the `key` is the cell index and the `value` is the reward
+"""
+mutable struct MyRectangularGridWorldModel <: AbstractWorldModel
+
+    # data -
+    number_of_rows::Int
+    number_of_cols::Int
+    coordinates::Dict{Int,Tuple{Int,Int}}
+    states::Dict{Tuple{Int,Int},Int}
+    moves::Dict{Int,Tuple{Int,Int}}
+    rewards::Dict{Int,Float64}
+
+    # constructor -
+    MyRectangularGridWorldModel() = new();
 end
 # -------------------------------------------------------------------------------------------------------------- #

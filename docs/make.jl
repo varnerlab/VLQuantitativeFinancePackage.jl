@@ -18,6 +18,7 @@ makedocs(
         "Decisions" => [
             "Markov models" => "markov.md",
             "Bandits" => "bandits.md",
+            "Reinforcement learning" => "RL.md",
         ],
     ]
 )
