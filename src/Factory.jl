@@ -695,7 +695,7 @@ function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel},
 
     # build the rule -
     number_of_states = colors^radius;
-    states = digits(index, base=levels, pad=number_of_states);
+    states = digits(index, base=colors, pad=number_of_states);
     for i ∈ 0:number_of_states-1
         rule[i] = states[i+1];
     end
