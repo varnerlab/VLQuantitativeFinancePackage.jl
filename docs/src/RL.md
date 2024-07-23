@@ -3,8 +3,8 @@ Fill me in
 
 ## Grid World
 ```@docs
-VLQuantitativeFinancePackage.MyRectangularGridWorldModel
-VLQuantitativeFinancePackage.build(model::Type{MyRectangularGridWorldModel}, data::NamedTuple)
+VLQuantitativeFinancePackage.MyPeriodicRectangularGridWorldModel
+VLQuantitativeFinancePackage.build(model::Type{MyPeriodicRectangularGridWorldModel}, data::NamedTuple)
 ```
 
 ## Wolfram policies
