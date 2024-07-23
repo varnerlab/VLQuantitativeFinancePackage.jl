@@ -817,6 +817,7 @@ mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
     # data -
     number_of_rows::Int
     number_of_cols::Int
+    number_of_states::Int
     coordinates::Dict{Int,Tuple{Int,Int}}
     states::Dict{Tuple{Int,Int},Int}
     moves::Dict{Int,Tuple{Int,Int}}
