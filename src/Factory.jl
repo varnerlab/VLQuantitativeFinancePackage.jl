@@ -784,8 +784,8 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
                 move = moves[a];
                 newi = i + move[1];
                 newj = j + move[2];
-                newi = newi < 1 ? nrows : newi;
-                newi = newi > nrows ? 1 : newi;
+                newi = newi < 1 ? i : newi;
+                newi = newi > nrows ? i : newi;
                 newj = newj < 1 ? ncols : newj;
                 newj = newj > ncols ? 1 : newj;
                 newstate = states[(newi,newj)];
