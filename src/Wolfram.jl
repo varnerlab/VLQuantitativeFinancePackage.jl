@@ -4,7 +4,7 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
     # get stuff from models -
     width = worldmodel.number_of_cols;
     radius = rulemodel.radius;
-    number_of_colors = rulemodel.colors;
+    number_of_colors = rulemodel.number_of_colors;
 
     # initialize -
     frames = Dict{Int64, Array{Int64,2}}();
