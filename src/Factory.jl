@@ -710,15 +710,21 @@ function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel},
     return model;
 end
 
-function build(modeltype::Type{MyOneDimensionalTotalisticWolframRuleModel}; 
-    index::Int64 = 0, radius::Int64 = 3, levels::Int64 = 3)::MyOneDimensionalTotalisticWolframRuleModel
+function build(modeltype::Type{MyOneDimensionalTotalisticWolframRuleModel}, 
+    data::NamedTuple)::MyOneDimensionalTotalisticWolframRuleModel
+
+
+    # initialize -
+    index = data.index;
+    levels = data.colors;
+    radius = data.radius;
 
     # create instance
     model = modeltype();
     rule = Dict{Int,Int}();
 
     # build the rule -
-    number_of_states = 7; # why 7? 3^3 = 27, but we only have 7 states??
+    number_of_states = range(0, stop = (levels - 1), step = (1/radius)) |> length;
     states = digits(index, base = levels, pad = number_of_states);
     for i ∈ 0:number_of_states-1
         rule[i] = states[i+1];
