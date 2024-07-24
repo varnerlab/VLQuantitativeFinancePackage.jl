@@ -60,3 +60,55 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
     # return
     return frames;
 end
+
+function simulation(rulemodel::MyTwoDimensionalElementaryWolframRuleModel, initialstate::Array{Int64,2};
+    steps::Int64 = 100)::Dict{Int64, Array{Int64,2}}
+    
+    # initialize -
+    frames = Dict{Int64, Array{Int64,2}}();
+    decision = rulemodel.rule;
+    radius = rulemodel.radius;
+    number_of_rows, number_of_columns = size(initialstate);
+
+    # capture the initial state of the world -
+    frames[0] = initialstate # capture the initial state of the world
+
+    # setup Q -
+    Q = Dict{Float64, Int64}();
+    values = range(0.0, stop=1.0, step = 0.25);
+    for i ∈ eachindex(values)
+        Q[round(values[i], digits=2)] = (i - 1);
+    end
+    
+    # iterate -
+    for i ∈ 1:steps
+        
+        # grab the previous frames -
+        current_frame = frames[i-1];
+        next_frame = copy(current_frame);
+        tmp = Array{Int64,1}(undef, radius);
+        for row ∈ 2:(number_of_rows-1)
+            for column ∈ 2:(number_of_columns - 1)
+
+                tmp[1] = current_frame[row, column-1];  # 1: left
+                tmp[2] = current_frame[row, column+1];  # 2: right
+                tmp[3] = current_frame[row-1, column];  # 3: up
+                tmp[4] = current_frame[row+1, column];  # 4: down
+
+                # convert the binary string to an integer -
+                # index = parse(Int, join(tmp), base = 2);
+                index = Q[round(mean(tmp), digits=2)];
+
+                # use the decision rule to update the frame -
+                next_state = decision[index];
+                next_frame[row,column] = rand() < 0.0 ? next_state |> Bool |> x->!x |> Int : next_state;
+            end
+        end
+
+        # store the frame -
+        frames[i] = next_frame;
+    end
+
+    # return -
+    return frames;
+end

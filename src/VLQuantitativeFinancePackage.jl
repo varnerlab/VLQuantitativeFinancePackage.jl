@@ -14,6 +14,7 @@ module VLQuantitativeFinancePackage
     export AbstractMarkovModel
     export AbstractSamplingModel
     export AbstractWorldModel
+    export AbstractPolicyModel
 
 
     # export concrete types -
@@ -29,9 +30,13 @@ module VLQuantitativeFinancePackage
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
     
     # Markov models, MDPs, Bandits types and methods -
-    export MyHiddenMarkovModel,MyPeriodicRectangularGridWorldModel,MyOneDimensionalElementarWolframRuleModel
+    export MyHiddenMarkovModel,MyPeriodicRectangularGridWorldModel
     export MyEpsilonSamplingBanditModel, MyTickerPickerWorldModel, MyTickerPickerRiskAwareWorldModel
     export preference
+
+    # wolfram rules etc
+    export MyOneDimensionalTotalisticWolframRuleModel, MyOneDimensionalElementarWolframRuleModel
+    export MyTwoDimensionalElementaryWolframRuleModel, MyTwoDimensionalTotalisticWolframRuleModel
     
     # Base functions -
     export log_growth_matrix

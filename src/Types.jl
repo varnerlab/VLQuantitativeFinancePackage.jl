@@ -800,6 +800,43 @@ mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
     MyOneDimensionalElementarWolframRuleModel() = new();
 end
 
+mutable struct MyOneDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
+    
+    # data
+    index::Int
+    radius::Int
+    number_of_colors::Int
+    rule::Dict{Int,Int}
+
+    # constructor -
+    MyOneDimensionalTotalisticWolframRuleModel() = new();
+end
+
+mutable struct MyTwoDimensionalElementaryWolframRuleModel <: AbstractPolicyModel
+    
+    # data -
+    index::Int
+    radius::Int
+    number_of_colors::Int
+    rule::Dict{Int,Int}
+
+    # constructor
+    MyTwoDimensionalElementaryWolframRuleModel() = new()
+end
+
+mutable struct MyTwoDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
+    
+    # data -
+    index::Int
+    radius::Int
+    number_of_colors::Int
+    rule::Dict{Int,Int}
+
+    # constructor
+    MyTwoDimensionalTotalisticWolframRuleModel() = new()
+end
+
+
 """
     mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
 

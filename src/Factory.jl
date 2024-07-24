@@ -710,6 +710,30 @@ function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel},
     return model;
 end
 
+function build(modeltype::Type{MyOneDimensionalTotalisticWolframRuleModel}; 
+    index::Int64 = 0, radius::Int64 = 3, levels::Int64 = 3)::MyOneDimensionalTotalisticWolframRuleModel
+
+    # create instance
+    model = modeltype();
+    rule = Dict{Int,Int}();
+
+    # build the rule -
+    number_of_states = 7; # why 7? 3^3 = 27, but we only have 7 states??
+    states = digits(index, base = levels, pad = number_of_states);
+    for i ∈ 0:number_of_states-1
+        rule[i] = states[i+1];
+    end
+    
+    # set the data on the object
+    model.index = index;
+    model.rule = rule;
+    model.radius = radius;
+    model.number_of_colors = levels;
+
+    # return
+    return model;
+end
+
 """
     function build(type::MyPeriodicRectangularGridWorldModel, nrows::Int, ncols::Int, 
         rewards::Dict{Tuple{Int,Int}, Float64}; defaultreward::Float64 = -1.0) -> MyPeriodicRectangularGridWorldModel
