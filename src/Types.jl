@@ -793,6 +793,7 @@ mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
     # data
     index::Int
     radius::Int
+    number_of_colors::Int
     rule::Dict{Int,Int}
 
     # constructor -

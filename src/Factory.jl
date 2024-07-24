@@ -704,6 +704,7 @@ function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel},
     model.index = index;
     model.rule = rule;
     model.radius = radius;
+    model.number_of_colors = colors;
 
     # return
     return model;
