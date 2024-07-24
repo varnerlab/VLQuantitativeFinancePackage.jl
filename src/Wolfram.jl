@@ -2,7 +2,7 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
     initial::Array{Int64,1}; steps::Int64 = 240)::Dict{Int64, Array{Int64,2}}
     
     # get stuff from models -
-    width = worldmodel.number_of_cells;
+    width = worldmodel.number_of_cols;
     radius = rulemodel.radius;
     number_of_colors = rulemodel.colors;
 
