@@ -8,8 +8,7 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
 
     # initialize -
     frames = Dict{Int64, Array{Int64,2}}();
-    frame = Array{Int64,2}(undef, steps, width);
-    fill!(frame, 0);
+    frame = Array{Int64,2}(undef, steps, width) |> X -> fill!(X, 0);
 
     # set the initial state -
     foreach(i -> frame[1,i] = initial[i], 1:width);    
