@@ -719,8 +719,9 @@ function build(modeltype::Type{MyOneDimensionalTotalisticWolframRuleModel},
     levels = data.colors;
     radius = data.radius;
 
-    # create instance
+    # create instance, and storage for the model components that we are going to build
     model = modeltype();
+    Q = Dict{Float64, Int64}();
     rule = Dict{Int,Int}();
 
     # build the rule -
@@ -729,17 +730,61 @@ function build(modeltype::Type{MyOneDimensionalTotalisticWolframRuleModel},
     for i ∈ 0:number_of_states-1
         rule[i] = states[i+1];
     end
+
+    # setup Q -
+    values = range(0.0, stop=(levels - 1), step = (1/radius));
+    for i ∈ eachindex(values)
+        Q[round(values[i], digits=2)] = (i - 1);
+    end
     
     # set the data on the object
     model.index = index;
     model.rule = rule;
     model.radius = radius;
     model.number_of_colors = levels;
+    model.Q = Q;
 
     # return
     return model;
 end
 
+function build(modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel}, 
+    data::NamedTuple)::MyTwoDimensionalTotalisticWolframRuleModel
+    
+    # initialize -
+    index = data.index;
+    levels = data.colors;
+    radius = data.radius;
+
+    # create instance, and storage for the model components that we are going to build
+    model = modeltype();
+    Q = Dict{Float64, Int64}();
+    rule = Dict{Int,Int}();
+
+    # build the rule -
+    number_of_states = range(0, stop = (levels - 1), step = (1/radius)) |> length;
+    states = digits(index, base = levels, pad = number_of_states);
+    for i ∈ 0:number_of_states-1
+        rule[i] = states[i+1];
+    end
+
+    # setup Q -
+    values = range(0.0, stop=(levels - 1), step = (1/radius));
+    for i ∈ eachindex(values)
+        Q[round(values[i], digits=2)] = (i - 1);
+    end
+    
+    # set the data on the object
+    model.index = index;
+    model.rule = rule;
+    model.radius = radius;
+    model.number_of_colors = levels;
+    model.Q = Q;
+
+    # return
+    return model;
+end
+    
 """
     function build(type::MyPeriodicRectangularGridWorldModel, nrows::Int, ncols::Int, 
         rewards::Dict{Tuple{Int,Int}, Float64}; defaultreward::Float64 = -1.0) -> MyPeriodicRectangularGridWorldModel

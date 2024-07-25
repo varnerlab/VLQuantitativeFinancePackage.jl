@@ -800,17 +800,6 @@ mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
     MyOneDimensionalElementarWolframRuleModel() = new();
 end
 
-mutable struct MyOneDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
-    
-    # data
-    index::Int
-    radius::Int
-    number_of_colors::Int
-    rule::Dict{Int,Int}
-
-    # constructor -
-    MyOneDimensionalTotalisticWolframRuleModel() = new();
-end
 
 mutable struct MyTwoDimensionalElementaryWolframRuleModel <: AbstractPolicyModel
     
@@ -824,12 +813,27 @@ mutable struct MyTwoDimensionalElementaryWolframRuleModel <: AbstractPolicyModel
     MyTwoDimensionalElementaryWolframRuleModel() = new()
 end
 
+
+mutable struct MyOneDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
+    
+    # data
+    index::Int
+    radius::Int
+    number_of_colors::Int
+    Q::Dict{Float64, Int64}
+    rule::Dict{Int,Int}
+
+    # constructor -
+    MyOneDimensionalTotalisticWolframRuleModel() = new();
+end
+
 mutable struct MyTwoDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
     
     # data -
     index::Int
     radius::Int
     number_of_colors::Int
+    Q::Dict{Float64, Int64}
     rule::Dict{Int,Int}
 
     # constructor

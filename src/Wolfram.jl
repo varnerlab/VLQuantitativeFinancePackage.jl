@@ -61,7 +61,7 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
     return frames;
 end
 
-function simulation(rulemodel::MyTwoDimensionalElementaryWolframRuleModel, initialstate::Array{Int64,2};
+function simulation(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialstate::Array{Int64,2};
     steps::Int64 = 100)::Dict{Int64, Array{Int64,2}}
     
     # initialize -
@@ -69,17 +69,11 @@ function simulation(rulemodel::MyTwoDimensionalElementaryWolframRuleModel, initi
     decision = rulemodel.rule;
     radius = rulemodel.radius;
     number_of_rows, number_of_columns = size(initialstate);
+    Q = rulemodel.Q;
 
     # capture the initial state of the world -
     frames[0] = initialstate # capture the initial state of the world
-
-    # setup Q -
-    Q = Dict{Float64, Int64}();
-    values = range(0.0, stop=1.0, step = 0.25);
-    for i ∈ eachindex(values)
-        Q[round(values[i], digits=2)] = (i - 1);
-    end
-    
+  
     # iterate -
     for i ∈ 1:steps
         
