@@ -61,7 +61,7 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
     return frames;
 end
 
-function simulation(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialstate::Array{Int64,2};
+function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialstate::Array{Int64,2};
     steps::Int64 = 100)::Dict{Int64, Array{Int64,2}}
     
     # initialize -
