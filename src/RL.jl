@@ -89,6 +89,21 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
     return agent
 end
 
+function policy(Q_array::Array{Float64,2})::Array{Int64,1}
+
+    # get the dimension -
+    (NR, _) = size(Q_array);
+
+    # initialize some storage -
+    π_array = Array{Int64,1}(undef, NR)
+    for s ∈ 1:NR
+        π_array[s] = argmax(Q_array[s,:]);
+    end
+
+    # return -
+    return π_array;
+end
+
 (model::MyWolframRuleQLearningAgentModel)(data::NamedTuple) = _update(model, data);
 (model::MyWolframGridWorldModel)(t::Int, s::Int, a::Int) = _world(model, t, s, a);
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #
