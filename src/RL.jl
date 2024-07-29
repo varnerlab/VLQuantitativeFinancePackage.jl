@@ -8,6 +8,7 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
     
     # grab the parameters from the model -
     dataset = model.data;
+    policymap = model.policymap;
 
     # what is the state, action and reward?
     data = dataset[t];
@@ -18,8 +19,10 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
         r = -1.0;
     end
 
-    # jump to the next state -
-    s′ = rand(1:model.number_of_states);
+    # get the next state -
+    next_state_data = dataset[t+1];
+    my_neighbors = next_state_data[1:end-1];
+    s′ = round(mean([my_neighbors]), digits=2) |> value -> policymap[value];
 
     # return -
     return (s′,r);

@@ -889,6 +889,7 @@ mutable struct MyWolframGridWorldModel <: AbstractWorldModel
     # data -
     number_of_states::Int64
     data::Dict{Int64, Array{Int64,1}}
+    policymap::Dict{Float64, Int64}
 
     # constructor -
     MyWolframGridWorldModel() = new();
