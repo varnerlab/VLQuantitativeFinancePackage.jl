@@ -892,7 +892,8 @@ function build(modeltype::Type{MyWolframGridWorldModel}, data::NamedTuple)::MyWo
     model = modeltype();
 
     # get data -
-
+    model.number_of_states = data.number_of_states;
+    model.data = data.data;
 
     # return 
     return model;

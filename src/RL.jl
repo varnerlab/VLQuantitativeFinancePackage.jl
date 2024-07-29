@@ -1,36 +1,13 @@
 
 # -- PRIVATE METHODS BELOW HERE ------------------------------------------------------------------------------------------- #
-function _world(model::MyWolframGridWorldModel, s::Int, a::Int)::Tuple{Int,Float64}
+function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{Int, Float64}
 
     # initialize -
     s′ = nothing
     r = nothing
     
-    # get data from the model -
-    coordinates = model.coordinates;
-    moves = model.moves
-    states = model.states;
-    rewards = model.rewards;
+    # grab the parameters from the model -
 
-    # where are we now?
-    current_position = coordinates[s];
-
-    # get the perturbation -
-    Δ = moves[a];
-    new_position = current_position .+ Δ
-
-    # before we go on, have we "driven off the grid"?
-    if (haskey(states, new_position) == true)
-
-        # lookup the new state -
-        s′ = states[new_position];
-        r = rewards[s′];
-    else
-       
-        # ok: so we are all the grid. Bounce us back to to the current_position, and charge a huge penalty 
-        s′ = states[current_position];
-        r = -1000000000000.0
-    end
 
     # return -
     return (s′,r);
@@ -56,7 +33,7 @@ end
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #
 
 # -- PUBLIC METHODS BELOW HERE -------------------------------------------------------------------------------------------- #
-function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWorldModel, startstate::Tuple{Int,Int}, maxsteps::Int;
+function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWorldModel; maxsteps::Int = 100;
     ϵ::Float64 = 0.2)::MyWolframRuleQLearningAgentModel
 
     # initialize -
@@ -79,18 +56,11 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
             a = argmax(Q[s,:]);
         end
 
-        # check the action -
-        s′, r = nothing, nothing;
-        current_position = environment.coordinates[s];
-        new_position = current_position .+ environment.moves[a]
-        if (haskey(environment.states, new_position) == true)
-
-            # ask the world, what is my next state and reward from this (s,a)
-            (s′,r) = environment(s,a)
-        else
-            s′ = s;
-            r = -1000000000000.0;
-        end
+        # initialize -
+        s′, r = nothing, nothing; 
+        
+        # ask the world, what is my next state and reward from this (s,a)
+        (s′,r) = environment(s,a)
         
         # update my model -
         agent = agent((
@@ -106,5 +76,5 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
 end
 
 (model::MyWolframRuleQLearningAgentModel)(data::NamedTuple) = _update(model, data);
-(model::MyWolframGridWorldModel)(s::Int,a::Int) = _world(model, s, a);
+(model::MyWolframGridWorldModel)(t::Int, s::Int, a::Int) = _world(model, t, s, a);
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #

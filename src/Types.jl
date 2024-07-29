@@ -888,7 +888,7 @@ mutable struct MyWolframGridWorldModel <: AbstractWorldModel
 
     # data -
     number_of_states::Int64
-    world::Function
+    data::Dict{Int64, Array{Int64,1}}
 
     # constructor -
     MyWolframGridWorldModel() = new();
