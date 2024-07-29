@@ -97,7 +97,7 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
                 next_frame[row,column] = decision[index];
 
                 # clean -
-                empty!(tmp);
+                empty!(tmp) |> X -> fill!(X, 0);
             end
         end
 
