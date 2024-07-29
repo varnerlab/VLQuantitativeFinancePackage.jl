@@ -90,7 +90,10 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
                 tmp[3] = current_frame[row-1, column];  # 3: up
                 tmp[4] = current_frame[row+1, column];  # 4: down
 
-                @show tmp, Q[round(mean(tmp), digits=2)] |> index -> decision[index];
+                index = Q[round(mean(tmp), digits=2)]
+                next = decision[index];
+
+                @show tmp, index, next
 
                 # use the decision rule to update the frame -
                 next_frame[row, column] = Q[round(mean(tmp), digits=2)] |> index -> decision[index];
