@@ -11,7 +11,7 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
 
     # what is the state, action and reward?
     data = dataset[t];
-    s′ = data[end]; # the last element is the next state -
+    s′ = data[end]+1; # the last element is the next state (correct for zero)
     if (s′ == a)
         r = 1.0;
     else
@@ -29,6 +29,8 @@ function _update(model::MyWolframRuleQLearningAgentModel, data::NamedTuple)::MyW
     a = data[:a];
     r = data[:r];
     s′ = data[:s′];
+
+    @show s,a,r,s′
     
     # grab parameters from the model -
     γ, Q, α = model.γ, model.Q, model.α
