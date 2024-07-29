@@ -38,7 +38,7 @@ module VLQuantitativeFinancePackage
     # wolfram rules etc
     export MyOneDimensionalTotalisticWolframRuleModel, MyOneDimensionalElementarWolframRuleModel
     export MyTwoDimensionalElementaryWolframRuleModel, MyTwoDimensionalTotalisticWolframRuleModel
-    export MyWolframRuleQLearningAgentModel, MyWorlframGridWorldModel
+    export MyWolframRuleQLearningAgentModel, MyWolframGridWorldModel
     
     # Base functions -
     export log_growth_matrix
