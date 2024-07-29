@@ -46,7 +46,7 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
     ϵ::Float64 = 0.2)::MyWolframRuleQLearningAgentModel
 
     # initialize -
-    s = environment.states[startstate]
+    s = 1; # for now, we start at the first state
     actions = agent.actions;
     number_of_actions = length(actions);
 
