@@ -891,6 +891,8 @@ function build(modeltype::Type{MyWolframGridWorldModel}, data::NamedTuple)::MyWo
     # build empty model -
     model = modeltype();
 
+    # get data -
+
 
     # return 
     return model;

@@ -18,16 +18,11 @@ The function returns a dictionary where the keys are integers (time steps) and t
 function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::AbstractWorldModel; 
     horizon::Int64 = 1)::Dict{Int64, Array{Beta,1}}
 
-    # data from the sampling model -
+    # data from the sampling and world models -
     α = samplingmodel.α
     β = samplingmodel.β
     K = samplingmodel.K
     ϵ = samplingmodel.ϵ
-
-    # data from the world model -
-    risk_free_rate = worldmodel.risk_free_rate
-    data = worldmodel.data
-    tickers = worldmodel.tickers
     world = worldmodel.world
 
     # initialize -

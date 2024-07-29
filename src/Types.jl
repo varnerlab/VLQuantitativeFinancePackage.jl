@@ -887,12 +887,8 @@ end
 mutable struct MyWolframGridWorldModel <: AbstractWorldModel
 
     # data -
-    number_of_rows::Int
-    number_of_cols::Int
-    coordinates::Dict{Int,Tuple{Int,Int}}
-    states::Dict{Tuple{Int,Int},Int}
-    moves::Dict{Int,Tuple{Int,Int}}
-    rewards::Dict{Int,Float64}
+    number_of_states::Int64
+    world::Function
 
     # constructor -
     MyWolframGridWorldModel() = new();

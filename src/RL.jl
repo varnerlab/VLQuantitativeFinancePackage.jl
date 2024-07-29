@@ -56,8 +56,8 @@ end
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #
 
 # -- PUBLIC METHODS BELOW HERE -------------------------------------------------------------------------------------------- #
-function sample(agent::MyWolframRuleQLearningAgentModel, environment::T, startstate::Tuple{Int,Int}, maxsteps::Int;
-    ϵ::Float64 = 0.2)::MyWolframRuleQLearningAgentModel where T <: AbstractWorldModel
+function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWorldModel, startstate::Tuple{Int,Int}, maxsteps::Int;
+    ϵ::Float64 = 0.2)::MyWolframRuleQLearningAgentModel
 
     # initialize -
     s = environment.states[startstate]

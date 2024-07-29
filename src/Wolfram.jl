@@ -94,8 +94,7 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
                 index = Q[round(mean(tmp), digits=2)];
 
                 # use the decision rule to update the frame -
-                next_state = decision[index];
-                next_frame[row,column] = rand() < 0.0 ? next_state |> Bool |> x->!x |> Int : next_state;
+                next_frame[row,column] = decision[index];
             end
         end
 
