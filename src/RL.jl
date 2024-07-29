@@ -51,7 +51,7 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
     number_of_actions = length(actions);
 
     # simulation loop -
-    for _ ∈ 1:maxsteps
+    for t ∈ 1:maxsteps
 
         a = nothing;
         if rand() < ϵ
@@ -69,7 +69,7 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
         s′, r = nothing, nothing; 
         
         # ask the world, what is my next state and reward from this (s,a)
-        (s′,r) = environment(s,a)
+        (s′,r) = environment(t, s, a)
         
         # update my model -
         agent = agent((
