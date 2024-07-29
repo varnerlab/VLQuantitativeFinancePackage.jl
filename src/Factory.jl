@@ -1,4 +1,4 @@
-function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractEquityPriceTreeModel, AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem, AbstractReturnModel, AbstractSamplingModel, AbstractWorldModel, AbstractPolicyModel}
+function _build(modeltype::Type{T}, data::NamedTuple) where T <: Union{AbstractEquityPriceTreeModel, AbstractAssetModel, AbstractTreasuryDebtSecurity, AbstractStochasticChoiceProblem, AbstractReturnModel, AbstractSamplingModel, AbstractWorldModel, AbstractPolicyModel, AbstractLearningModel}
     
     # build an empty model
     model = modeltype();
@@ -663,6 +663,8 @@ The `data::NamedTuple` must contain the following `keys`:
 - `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
 """
 build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
+build(modeltype::Type{MyWolframRuleQLearningAgentModel}, data::NamedTuple)::MyWolframRuleQLearningAgentModel = _build(modeltype, data);
+
 
 """
     function build(modeltype::Type{MyOneDimensionalElementarWolframRuleModel}, data::NamedTuple) -> MyOneDimensionalElementarWolframRuleModel
@@ -882,5 +884,15 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
 
     # return -
     return model
+end
+
+function build(modeltype::Type{MyWolframGridWorldModel}, data::NamedTuple)::MyWolframGridWorldModel 
+
+    # build empty model -
+    model = modeltype();
+
+
+    # return 
+    return model;
 end
 # -------------------------------------------------------------------------------------------- #

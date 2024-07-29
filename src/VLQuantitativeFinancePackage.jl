@@ -15,6 +15,7 @@ module VLQuantitativeFinancePackage
     export AbstractSamplingModel
     export AbstractWorldModel
     export AbstractPolicyModel
+    export AbstractLearningModel
 
 
     # export concrete types -
@@ -37,6 +38,7 @@ module VLQuantitativeFinancePackage
     # wolfram rules etc
     export MyOneDimensionalTotalisticWolframRuleModel, MyOneDimensionalElementarWolframRuleModel
     export MyTwoDimensionalElementaryWolframRuleModel, MyTwoDimensionalTotalisticWolframRuleModel
+    export MyWolframRuleQLearningAgentModel, MyWorlframGridWorldModel
     
     # Base functions -
     export log_growth_matrix

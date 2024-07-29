@@ -12,6 +12,7 @@ abstract type AbstractMarkovModel end
 abstract type AbstractSamplingModel end
 abstract type AbstractWorldModel end
 abstract type AbstractPolicyModel end
+abstract type AbstractLearningModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -869,4 +870,32 @@ mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
     # constructor -
     MyPeriodicRectangularGridWorldModel() = new();
 end
+
+mutable struct MyWolframRuleQLearningAgentModel <: AbstractLearningModel
+
+    # data -
+    states::Array{Int,1}
+    actions::Array{Int,1}
+    γ::Float64
+    α::Float64 
+    Q::Array{Float64,2}
+
+    # constructor
+    MyWolframRuleQLearningAgentModel() = new();
+end
+
+mutable struct MyWolframGridWorldModel <: AbstractWorldModel
+
+    # data -
+    number_of_rows::Int
+    number_of_cols::Int
+    coordinates::Dict{Int,Tuple{Int,Int}}
+    states::Dict{Tuple{Int,Int},Int}
+    moves::Dict{Int,Tuple{Int,Int}}
+    rewards::Dict{Int,Float64}
+
+    # constructor -
+    MyWolframGridWorldModel() = new();
+end
+
 # -------------------------------------------------------------------------------------------------------------- #
