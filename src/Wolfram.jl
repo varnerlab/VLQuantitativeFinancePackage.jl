@@ -95,6 +95,9 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
 
                 # use the decision rule to update the frame -
                 next_frame[row,column] = decision[index];
+
+                # clean -
+                empty!(tmp);
             end
         end
 
