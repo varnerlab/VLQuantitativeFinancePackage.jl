@@ -7,7 +7,16 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
     r = nothing
     
     # grab the parameters from the model -
+    dataset = model.data;
 
+    # what is the state, action and reward?
+    data = dataset[t];
+    s′ = data[end]; # the last element is the next state -
+    if (s′ == a)
+        r = 1.0;
+    else
+        r = -1.0;
+    end
 
     # return -
     return (s′,r);
