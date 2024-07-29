@@ -79,7 +79,7 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
         
         # grab the previous frames -
         current_frame = frames[i-1];
-        next_frame = copy(current_frame);
+        next_frame = deepcopy(current_frame);
         tmp = Array{Int64,1}(undef, radius);
         for row ∈ 2:(number_of_rows-1)
             for column ∈ 2:(number_of_columns - 1)
