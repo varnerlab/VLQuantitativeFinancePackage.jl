@@ -11,12 +11,15 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
 
     # what is the state, action and reward?
     data = dataset[t];
-    s′ = data[end]+1; # the last element is the next state (correct for zero)
-    if (s′ == a)
+    a′ = data[end]+1; # the last element is the next state (correct for zero)
+    if (a′ == a)
         r = 1.0;
     else
         r = -1.0;
     end
+
+    # jump to the next state -
+    s′ = rand(1:model.number_of_states);
 
     # return -
     return (s′,r);
