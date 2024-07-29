@@ -22,7 +22,7 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
     # get the next state -
     next_state_data = dataset[t+1];
     my_neighbors = next_state_data[1:end-1];
-    s′ = round(mean([my_neighbors]), digits=2) |> value -> policymap[value];
+    s′ = round(mean(my_neighbors), digits=2) |> value -> policymap[value];
 
     # return -
     return (s′,r);
