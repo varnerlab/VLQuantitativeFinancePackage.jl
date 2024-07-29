@@ -80,6 +80,7 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
         # grab the previous frames -
         current_frame = frames[i-1];
         next_frame = deepcopy(current_frame);
+
         tmp = Array{Int64,1}(undef, radius);
         for row ∈ 2:(number_of_rows-1)
             for column ∈ 2:(number_of_columns - 1)
@@ -88,6 +89,8 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
                 tmp[2] = current_frame[row, column+1];  # 2: right
                 tmp[3] = current_frame[row-1, column];  # 3: up
                 tmp[4] = current_frame[row+1, column];  # 4: down
+
+                @show tmp, Q[round(mean(tmp), digits=2)] |> index -> decision[index];
 
                 # use the decision rule to update the frame -
                 next_frame[row, column] = Q[round(mean(tmp), digits=2)] |> index -> decision[index];
