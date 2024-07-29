@@ -89,15 +89,8 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
                 tmp[3] = current_frame[row-1, column];  # 3: up
                 tmp[4] = current_frame[row+1, column];  # 4: down
 
-                # convert the binary string to an integer -
-                # index = parse(Int, join(tmp), base = 2);
-                index = Q[round(mean(tmp), digits=2)];
-
                 # use the decision rule to update the frame -
-                next_frame[row,column] = decision[index];
-
-                # clean -
-                empty!(tmp) |> X -> fill!(X, 0);
+                next_frame[row, column] = Q[round(mean(tmp), digits=2)] |> index -> decision[index];
             end
         end
 
