@@ -55,6 +55,7 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
     s = 1; # for now, we start at the first state
     actions = agent.actions;
     number_of_actions = length(actions);
+    world = environment.world;
 
     # simulation loop -
     for t ∈ 1:maxsteps
@@ -75,7 +76,7 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
         s′, r = nothing, nothing; 
         
         # ask the world, what is my next state and reward from this (s,a)
-        (s′,r) = environment(t, s, a)
+        (s′,r) = world(environment, t, s, a)
         
         # update my model -
         agent = agent((
@@ -91,5 +92,5 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
 end
 
 (model::MyWolframRuleQLearningAgentModel)(data::NamedTuple) = _update(model, data);
-(model::MyWolframGridWorldModel)(t::Int, s::Int, a::Int) = _world(model, t, s, a);
+# (model::MyWolframGridWorldModel)(t::Int, s::Int, a::Int) = _world(model, t, s, a);
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #
