@@ -44,7 +44,7 @@ module VLQuantitativeFinancePackage
     export log_growth_matrix
 
     # export functions/methods
-    export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve, YTM, vwap, policy
+    export build, payoff, profit, premium, sample, sample_endpoint, price, strip, populate, solve, YTM, vwap
     export estimate_implied_volatility
     
     # export the greeks -

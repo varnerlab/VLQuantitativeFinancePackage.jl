@@ -35,8 +35,6 @@ function _update(model::MyWolframRuleQLearningAgentModel, data::NamedTuple)::MyW
     a = data[:a];
     r = data[:r];
     s′ = data[:s′];
-
-    @show s,a,r,s′
     
     # grab parameters from the model -
     γ, Q, α = model.γ, model.Q, model.α
@@ -90,21 +88,6 @@ function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWo
 
     # return -
     return agent
-end
-
-function policy(Q_array::Array{Float64,2})::Array{Int64,1}
-
-    # get the dimension -
-    (NR, _) = size(Q_array);
-
-    # initialize some storage -
-    π_array = Array{Int64,1}(undef, NR)
-    for s ∈ 1:NR
-        π_array[s] = argmax(Q_array[s,:]);
-    end
-
-    # return -
-    return π_array;
 end
 
 (model::MyWolframRuleQLearningAgentModel)(data::NamedTuple) = _update(model, data);
