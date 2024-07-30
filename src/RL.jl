@@ -48,7 +48,7 @@ end
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #
 
 # -- PUBLIC METHODS BELOW HERE -------------------------------------------------------------------------------------------- #
-function sample(agent::MyWolframRuleQLearningAgentModel, environment::AbstractWorldModel; maxsteps::Int = 100,
+function sample(agent::MyWolframRuleQLearningAgentModel, environment::MyWolframGridWorldModel; maxsteps::Int = 100,
     ϵ::Float64 = 0.2)::MyWolframRuleQLearningAgentModel
 
     # initialize -
