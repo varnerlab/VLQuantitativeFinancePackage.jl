@@ -14,7 +14,7 @@ function _world(model::MyWolframGridWorldModel, t::Int, s::Int, a::Int)::Tuple{I
     data = dataset[t];
     a′ = data[end]+1; # the last element is the next state (correct for zero)
     if (a′ == a)
-        r = 10.0;
+        r = 1.0;
     else
         r = -1.0;
     end
