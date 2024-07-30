@@ -48,6 +48,22 @@ end
 # -- PRIVATE METHODS ABOVE HERE ------------------------------------------------------------------------------------------- #
 
 # -- PUBLIC METHODS BELOW HERE -------------------------------------------------------------------------------------------- #
+"""
+    sample(agent::MyWolframRuleQLearningAgentModel, environment::MyWolframGridWorldModel; maxsteps::Int = 100, ϵ::Float64 = 0.2) -> MyWolframRuleQLearningAgentModel
+
+The `sample` function samples the environment using the Q-learning agent model for a given number of steps using an epsilon-greedy method.
+At each step, the agent selects an action based on the epsilon-greedy method and updates the Q-table using the Q-learning update rule by calling
+the `world` function contained in the `environment` model.
+
+### Arguments
+- `agent::MyWolframRuleQLearningAgentModel`: An instance of the [`MyWolframRuleQLearningAgentModel`](@ref) type that defines the agent model parameters.
+- `environment::MyWolframGridWorldModel`: An instance of the [`MyWolframGridWorldModel`](@ref) type that defines the world model.
+- `maxsteps::Int`: The number of steps to sample. The default value is `100`.
+- `ϵ::Float64`: The epsilon value for the epsilon-greedy method. The default value is `0.2`.
+
+### Returns
+- `MyWolframRuleQLearningAgentModel`: An updated instance of the [`MyWolframRuleQLearningAgentModel`](@ref) type, where the Q-table has been updated.
+"""
 function sample(agent::MyWolframRuleQLearningAgentModel, environment::MyWolframGridWorldModel; maxsteps::Int = 100,
     ϵ::Float64 = 0.2)::MyWolframRuleQLearningAgentModel
 

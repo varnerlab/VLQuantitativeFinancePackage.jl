@@ -828,13 +828,25 @@ mutable struct MyOneDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
     MyOneDimensionalTotalisticWolframRuleModel() = new();
 end
 
+"""
+    mutable struct MyTwoDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
+
+The `MyTwoDimensionalTotalisticWolframRuleModel` mutable struct represents a two-dimensional totalistic Wolfram rule model.
+
+### Required fields
+- `index::Int`: The index of the rule
+- `radius::Int`: The radius, i.e, the number of cells that influence the next state for this rule
+- `number_of_colors::Int`: The number of colors in the rule, i.e., the number of states a cell can exist in
+- `rule::Dict{Int,Int}`: A dictionary that holds the rule where the `key` is index of the neighborhood state and the `value` is the next state
+- `neighborhoodstatesmap::Dict{Float64, Int64}`: A dictionary whose `keys` are the average of the neighborhood states and the `value` the neighborhood state index
+"""
 mutable struct MyTwoDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
     
     # data -
     index::Int
     radius::Int
     number_of_colors::Int
-    Q::Dict{Float64, Int64}
+    neighborhoodstatesmap::Dict{Float64, Int64}
     rule::Dict{Int,Int}
 
     # constructor
@@ -871,6 +883,18 @@ mutable struct MyPeriodicRectangularGridWorldModel <: AbstractWorldModel
     MyPeriodicRectangularGridWorldModel() = new();
 end
 
+"""
+    mutable struct MyWolframRuleQLearningAgentModel <: AbstractLearningModel
+
+The `MyWolframRuleQLearningAgentModel` mutable struct represents a Q-learning agent model for a Wolfram rule.
+
+### Required fields
+- `states::Array{Int,1}`: The states of the model
+- `actions::Array{Int,1}`: The actions of the model
+- `γ::Float64`: The discount factor
+- `α::Float64`: The learning rate
+- `Q::Array{Float64,2}`: The Q-table of the model   
+"""
 mutable struct MyWolframRuleQLearningAgentModel <: AbstractLearningModel
 
     # data -
@@ -884,6 +908,17 @@ mutable struct MyWolframRuleQLearningAgentModel <: AbstractLearningModel
     MyWolframRuleQLearningAgentModel() = new();
 end
 
+"""
+    mutable struct MyWolframGridWorldModel <: AbstractWorldModel
+
+The `MyWolframGridWorldModel` mutable struct represents a grid world model for a Wolfram rule.
+
+### Required fields
+- `number_of_states::Int64`: The number of states of the agent
+- `data::Dict{Int64, Array{Int64,1}}`: A dictionary that holds temporal playback data where the `key` is the time step and the `value` is an array holding the neighborhood (first radius elemnts) of the agent and the next state (last element).
+- `policymap::Dict{Float64, Int64}`: A dictionary that holds the policy map where the `key` is the average of the neighborhood and the `value` is the state index
+- `world::Function`: A function that represents the world model. The function takes the world model, the time step `t`, the state `s` and proposed action `a` and returns the next state of the agent, and the immediate reward for taking action `a` in state `s`.
+"""
 mutable struct MyWolframGridWorldModel <: AbstractWorldModel
 
     # data -

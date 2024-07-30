@@ -663,6 +663,12 @@ The `data::NamedTuple` must contain the following `keys`:
 - `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
 """
 build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerRiskAwareWorldModel = _build(modeltype, data);
+
+
+
+"""
+    function build(modeltype::Type{MyWolframRuleQLearningAgentModel}, data::NamedTuple) -> MyWolframRuleQLearningAgentModel
+"""
 build(modeltype::Type{MyWolframRuleQLearningAgentModel}, data::NamedTuple)::MyWolframRuleQLearningAgentModel = _build(modeltype, data);
 
 
@@ -750,6 +756,23 @@ function build(modeltype::Type{MyOneDimensionalTotalisticWolframRuleModel},
     return model;
 end
 
+"""
+    function build(modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel}, data::NamedTuple) -> MyTwoDimensionalTotalisticWolframRuleModel
+
+This `build` method constructs an instance of the [`MyTwoDimensionalTotalisticWolframRuleModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `index::Int64`: The index of the Wolfram rule
+- `colors::Int64`: The number of colors in the rule
+- `radius::Int64`: The radius, i.e., the number of neighbor cells to consider in the rule
+
+### Return
+This function returns a populated instance of the [`MyTwoDimensionalTotalisticWolframRuleModel`](@ref) type.
+"""
 function build(modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel}, 
     data::NamedTuple)::MyTwoDimensionalTotalisticWolframRuleModel
     
@@ -781,7 +804,7 @@ function build(modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel},
     model.rule = rule;
     model.radius = radius;
     model.number_of_colors = levels;
-    model.Q = Q;
+    model.neighborhoodstatesmap = Q;
 
     # return
     return model;
@@ -886,6 +909,9 @@ function build(modeltype::Type{MyPeriodicRectangularGridWorldModel},
     return model
 end
 
+"""
+    function build(modeltype::Type{MyWolframGridWorldModel}, data::NamedTuple) -> MyWolframGridWorldModel
+"""
 function build(modeltype::Type{MyWolframGridWorldModel}, data::NamedTuple)::MyWolframGridWorldModel 
 
     # build empty model -

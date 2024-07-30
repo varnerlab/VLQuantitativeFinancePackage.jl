@@ -61,6 +61,19 @@ function solve(rulemodel::MyOneDimensionalElementarWolframRuleModel, worldmodel:
     return frames;
 end
 
+"""
+    solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialstate::Array{Int64,2}; steps::Int64 = 100) -> Dict{Int64, Array{Int64,2}}
+
+The `solve` function solves the two-dimensional totalistic Wolfram rule model for a given initial state.
+
+### Arguments
+- `rulemodel::MyTwoDimensionalTotalisticWolframRuleModel`: An instance of the [`MyTwoDimensionalTotalisticWolframRuleModel`](@ref) type that defines the rule model parameters. 
+- `initialstate::Array{Int64,2}`: A two-dimensional array that represents the initial state of the world.
+- `steps::Int64`: The number of steps to simulate. The default value is `100`.
+
+### Returns
+- `Dict{Int64, Array{Int64,2}}`: A dictionary where the keys are integers (time steps) and the values are two-dimensional arrays that represent the state of the world at each time step.
+"""
 function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialstate::Array{Int64,2};
     steps::Int64 = 100)::Dict{Int64, Array{Int64,2}}
     
@@ -69,7 +82,7 @@ function solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialsta
     decision = rulemodel.rule;
     radius = rulemodel.radius;
     number_of_rows, number_of_columns = size(initialstate);
-    Q = rulemodel.Q;
+    Q = rulemodel.neighborhoodstatesmap;
 
     # capture the initial state of the world -
     frames[0] = initialstate # capture the initial state of the world
