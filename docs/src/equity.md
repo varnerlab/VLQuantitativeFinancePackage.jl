@@ -41,6 +41,8 @@ VLQuantitativeFinancePackage.sample(model::MyMultipleAssetGeometricBrownianMotio
     number_of_paths::Int64 = 100)
 VLQuantitativeFinancePackage.sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
     number_of_paths::Int64 = 100)
+VLQuantitativeFinancePackage.expectation(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple)
+VLQuantitativeFinancePackage.variance(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple)
 ```
 
 ## Advanced Stochastic Pricing and Return Models

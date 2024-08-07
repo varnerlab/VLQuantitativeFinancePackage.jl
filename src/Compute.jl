@@ -405,6 +405,87 @@ end
 # -- GBM Model Methods --------------------------------------------------------------------------------------------- #
 
 """
+    function expectation(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple) -> Array{Float64,2}
+"""
+function expectation(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple)::Array{Float64,2}
+
+    # get information from data -
+    T₁ = data[:T₁]
+    T₂ = data[:T₂]
+    Δt = data[:Δt]
+    Sₒ = data[:Sₒ]
+    
+    # get information from model -
+    μ = model.μ
+
+    # setup the time range -
+    time_array = range(T₁,stop=T₂, step = Δt) |> collect
+    N = length(time_array)
+
+    # expectation -
+    expectation_array = Array{Float64,2}(undef, N, 2)
+
+    # main loop -
+    for i ∈ 1:N
+
+        # get the time value -
+        h = (time_array[i] - time_array[1])
+
+        # compute the expectation -
+        value = Sₒ*exp(μ*h)
+
+        # capture -
+        expectation_array[i,1] = h + time_array[1]
+        expectation_array[i,2] = value
+    end
+   
+    # return -
+    return expectation_array
+end
+
+"""
+    function variance(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple) -> Array{Float64,2}
+"""
+function variance(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple)::Array{Float64,2}
+
+    # get information from data -
+    T₁ = data[:T₁]
+    T₂ = data[:T₂]
+    Δt = data[:Δt]
+    Sₒ = data[:Sₒ]
+
+    # get information from model -
+    μ = model.μ
+    σ = model.σ
+
+    # setup the time range -
+    time_array = range(T₁,stop=T₂, step = Δt) |> collect
+    N = length(time_array)
+
+    # expectation -
+    variance_array = Array{Float64,2}(undef, N, 2)
+
+    # main loop -
+    for i ∈ 1:N
+
+        # get the time value -
+        h = time_array[i] - time_array[1]
+
+        # compute the expectation -
+        value = (Sₒ^2)*exp(2*μ*h)*(exp((σ^2)*h) - 1)
+
+        # capture -
+        variance_array[i,1] = h + time_array[1]
+        variance_array[i,2] = value
+    end
+   
+    # return -
+    return variance_array
+end
+
+
+
+"""
     sample_endpoint(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple; 
         number_of_paths::Int64 = 100) -> Array{Float64,1}
 
