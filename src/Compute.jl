@@ -175,14 +175,14 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     if (N == 0)
         
         # we have a zero coupon bond -
-        𝒟 = (1+rᵢ)^(T);
+        𝒟 = (1+rᵢ)^(λ*T);
          
         # compute the price -
         price = (1/𝒟)*Vₚ
    
         # casflow -
         cashflow[0] = -1*price;
-        cashflow[1] = Vₚ;
+        cashflow[1] = Vₚ; # we get the face value back
 
         # discount -
         discount[0] = 1.0;
