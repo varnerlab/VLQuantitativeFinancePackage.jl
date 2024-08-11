@@ -178,7 +178,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
         𝒟 = (1+rᵢ)^(λ*T);
          
         # compute the price -
-        price = (1/𝒟)*Vₚ + T*C
+        price = (1/𝒟)*Vₚ + Δ*T*Cᵢ
    
         # casflow -
         cashflow[0] = -1*price;
