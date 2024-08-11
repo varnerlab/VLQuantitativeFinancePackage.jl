@@ -253,7 +253,7 @@ function _price_continuous_compounding(model::MyUSTreasuryZeroCouponBondModel)
     # compute the price -
     price = (1/𝒟)*Vₚ
     cashflow[0] = -1*price;
-    cashflow[1] = price;
+    cashflow[1] = Vₚ;
 
     # update the model -
     model.price = price;
@@ -284,7 +284,7 @@ function _price_discrete_compounding(model::MyUSTreasuryZeroCouponBondModel)
    
     # casflow -
     cashflow[0] = -1*price;
-    cashflow[1] = price;
+    cashflow[1] = Vₚ;
 
     # discount -
     discount[0] = 1.0;
