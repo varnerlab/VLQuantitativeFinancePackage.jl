@@ -175,7 +175,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     if (N == 0)
         
         # we have a zero coupon bond -
-        𝒟 = (1+rate)^(T);
+        𝒟 = (1+rᵢ)^(T);
          
         # compute the price -
         price = (1/𝒟)*Vₚ
