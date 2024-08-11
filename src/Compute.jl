@@ -182,7 +182,7 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
    
         # casflow -
         cashflow[0] = -1*price;
-        cashflow[1] = price;
+        cashflow[1] = Vₚ;
 
         # discount -
         discount[0] = 1.0;
