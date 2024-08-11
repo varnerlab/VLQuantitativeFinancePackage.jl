@@ -170,7 +170,35 @@ function _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
     # internal timescale -
     Δ = 1/λ;
 
-    # main loop -
+
+    # edge case, we have a duration less than 6-months
+    if (N == 0)
+        
+        # we have a zero coupon bond -
+        𝒟 = (1+rate)^(T);
+         
+        # compute the price -
+        price = (1/𝒟)*Vₚ
+   
+        # casflow -
+        cashflow[0] = -1*price;
+        cashflow[1] = price;
+
+        # discount -
+        discount[0] = 1.0;
+        discount[1] = 𝒟;
+
+        # update the model -
+        model.price = price;
+        model.cashflow = cashflow;
+        model.discount = discount;
+   
+        # return -
+        return model;
+    end
+
+
+    # main loop - we have a duration greater than 6-months
     for i ∈ 1:N
 
         # update the internal timescale -
@@ -1006,7 +1034,7 @@ function solve(model::MySymmetricBinaryInterestRateLatticeModel; Vₚ::Float64 =
     return model;
 end
 
-function populate(model::MySymmetricBinaryInterestRateLatticeModel )
+function populate(model::MySymmetricBinaryInterestRateLatticeModel)
 
     # initialize -
     nodes_dictionary = Dict{Int, MyBinaryInterestRateLatticeNodeModel}()
