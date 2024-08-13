@@ -526,7 +526,23 @@ mutable struct MyBinaryInterestRateLatticeNodeModel
     MyBinaryInterestRateLatticeNodeModel() = new();
 end
 
-# tree
+"""
+    mutable struct MySymmetricBinaryInterestRateLatticeModel <: AbstractInterestRateTreeModel
+
+The `MySymmetricBinaryInterestRateLatticeModel` mutable struct represents a binary lattice model for simulating interest rates.
+
+### Required fields
+- `u::Float64`: The up-factor for the lattice
+- `d::Float64`: The down-factor for the lattice
+- `p::Float64`: The probability of an up move in the lattice
+- `rₒ::Float64`: The initial interest rate (the root value of the lattice)
+- `T::Int64`: The number of levels in the tree (zero based), so the tree will have a total of `T + 1` levels (including the root level).
+
+### Computed fields
+- `connectivity::Union{Nothing,Dict{Int64, Array{Int64,1}}}`: A dictionary that holds the connectivity of the lattice where the `key` is the node index and the `value` is an array of the connected nodes.
+- `levels::Union{Nothing,Dict{Int64,Array{Int64,1}}}`: A dictionary that holds the node indexes on each level of the lattice where the `key` is the level index and the `value` is an array of the node indexes on that level.
+- `data::Union{Nothing, Dict{Int64, MyBinaryInterestRateLatticeNodeModel}}`: A dictionary that holds the lattice data for each node where nodes are modeled as `MyBinaryInterestRateLatticeNodeModel` instances.
+"""
 mutable struct MySymmetricBinaryInterestRateLatticeModel <: AbstractInterestRateTreeModel
     
     # data -

@@ -50,6 +50,14 @@ test_bond = build(MyUSTreasuryCouponSecurityModel, (
 where the `discount_model` refers to either a [`DiscreteCompoundingModel`](@ref) or a [`ContinuousCompoundingModel`](@ref) instance.
 
 
+## Term structure of interest rates
+Fill me in
+    
+```@docs
+VLQuantitativeFinancePackage.MySymmetricBinaryInterestRateLatticeModel
+VLQuantitativeFinancePackage.build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)
+```
+
 ## Separating the principal and interest payments
 [Registered Interest and Principal of Securities (STRIPS) bonds](https://en.wikipedia.org/wiki/United_States_Treasury_security#STRIPS) are a unique type of fixed-income investment instrument that provides investors with an alternative way to access the coupon payments of Treasury securities. STRIPS bonds are created by separating a Treasury securities coupon and principal components and trading them as individual  zero-coupon securities. This process allows investors to purchase and trade the coupon or principal components separately, providing greater flexibility in managing their investment portfolios.
 

@@ -194,7 +194,9 @@ end
 build(model::Type{MyLongstaffSchwartzContractPricingModel}, data::NamedTuple)::MyLongstaffSchwartzContractPricingModel = _build(model, data)
 build(model::Type{MyBlackScholesContractPricingModel}, data::NamedTuple)::MyBlackScholesContractPricingModel = _build(model, data)
 
-
+"""
+    function build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple) -> MySymmetricBinaryInterestRateLatticeModel
+"""
 build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)::MySymmetricBinaryInterestRateLatticeModel = _build(model, data);
 build(model::Type{MyBinaryInterestRateLatticeNodeModel}, data::NamedTuple)::MyBinaryInterestRateLatticeNodeModel = _build(model, data);
 
