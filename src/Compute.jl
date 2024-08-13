@@ -430,7 +430,7 @@ function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64
         node_index = node_index_array[i];
         node = model.data[node_index];
         probability_array[i] = node.probability;
-        rate_array[i] = node.r;
+        rate_array[i] = node.rate;
     end
     expectation_value = dot(probability_array, rate_array);
 
