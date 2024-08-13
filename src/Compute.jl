@@ -415,6 +415,28 @@ function _analyze_real_world_multiple_asset(R::Array{Float64,2}, tikers::Array{S
     # return -
     return real_world_measure;
 end
+
+function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64)::Float64
+    
+    # initialize -
+    expectation_value = 0.0;
+    levels = model.levels;
+    node_index_array = levels[l];
+    
+    N = length(node_index_array);
+    probability_array = Array{Float64,1}(undef, N);
+    rate_array = Array{Float64,1}(undef, N);
+    for i ∈ 1:N
+        node_index = node_index_array[i];
+        node = model.data[node_index];
+        probability_array[i] = node.p;
+        rate_array[i] = node.r;
+    end
+    expectation_value = dot(probability_array, rate_array);
+
+    # return -
+    return expectation_value;
+end
 # === PRIVATE ABOVE HERE ============================================================================================= #
 
 # === PUBLIC METHODS BELOW HERE ====================================================================================== #
@@ -430,6 +452,7 @@ end
 # """
 #     analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}
 # """
+
 
 # -- GBM Model Methods --------------------------------------------------------------------------------------------- #
 
@@ -988,7 +1011,7 @@ function premium(contract::MyEuropeanPutContractModel,
     return premium
 end
 
-# --- Interest lattice model methods ------------------------------------------------------------- #
+# --- lattice model methods ------------------------------------------------------------- #
 function solve(model::MySymmetricBinaryInterestRateLatticeModel; Vₚ::Float64 = 100.0)
 
     # initialize -
@@ -1118,6 +1141,22 @@ function populate(model::MySymmetricBinaryInterestRateLatticeModel)
 
     # return -
     return model;
+end
+
+function expectation(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int64,Float64}
+
+    # initialize -
+    expectation_dictionary = Dict{Int64,Float64}();
+    levels = model.levels;
+
+    # iterate over the levels, and compute the expectation -
+    number_of_levels = length(levels);
+    for i ∈ 1:number_of_levels
+        expectation_dictionary[i-1] = _expectation(model, i-1);
+    end
+
+    # return
+    return expectation_dictionary;
 end
 
 
@@ -1298,6 +1337,8 @@ function populate(model::MyAdjacencyBasedCRREquityPriceTree;
     # return -
     return model
 end
+
+# ------------------------------------------------------------------------------------------------------------------------------------`#`
 
 # Shortcut methods that map to a 
 (compounding::DiscreteCompoundingModel)(model::MyUSTreasuryCouponSecurityModel) = _price_discrete_compounding(model::MyUSTreasuryCouponSecurityModel)
