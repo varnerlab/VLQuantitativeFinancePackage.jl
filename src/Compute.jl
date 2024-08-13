@@ -1186,7 +1186,11 @@ function variance(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int64,
     # iterate over the levels, and compute the expectation -
     number_of_levels = length(levels);
     for i ∈ 1:number_of_levels
-        variance_dictionary[i-1] = _variance(model, i-1);
+        if (i == 1)
+            variance_dictionary[i-1] = 0.0; # no uncertainty at root
+        else
+            variance_dictionary[i-1] = _variance(model, i-1);
+        end
     end
 
     # return
