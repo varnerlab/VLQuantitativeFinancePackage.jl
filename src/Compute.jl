@@ -436,6 +436,28 @@ function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64
     # return -
     return expectation_value;
 end
+
+function _variance(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64)::Float64
+    
+    # initialize -
+    variance_value = 0.0;
+    levels = model.levels;
+    node_index_array = levels[l];
+    
+    N = length(node_index_array);
+    probability_array = Array{Float64,1}(undef, N);
+    rate_array = Array{Float64,1}(undef, N);
+    expectation = _expectation(model, l);
+    for i ∈ 1:N
+        node = node_index_array[i] |> index -> model.data[index];
+        probability_array[i] = node.probability;
+        rate_array[i] = node.rate;
+    end
+    variance_value = dot(probability_array, (rate_array .- expectation).^2);
+
+    # return -
+    return variance_value;
+end
 # === PRIVATE ABOVE HERE ============================================================================================= #
 
 # === PUBLIC METHODS BELOW HERE ====================================================================================== #
@@ -1158,6 +1180,21 @@ function expectation(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int
     return expectation_dictionary;
 end
 
+function variance(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int64,Float64}
+
+    # initialize -
+    variance_dictionary = Dict{Int64,Float64}();
+    levels = model.levels;
+
+    # iterate over the levels, and compute the expectation -
+    number_of_levels = length(levels);
+    for i ∈ 1:number_of_levels
+        variance_dictionary[i-1] = _variance(model, i-1);
+    end
+
+    # return
+    return variance_dictionary;
+end
 
 """
     function populate(model::MyBinomialEquityPriceTree; 
