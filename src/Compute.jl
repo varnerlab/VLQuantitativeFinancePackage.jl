@@ -445,15 +445,12 @@ function _variance(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64)::
     node_index_array = levels[l];
     
     N = length(node_index_array);
-    probability_array = Array{Float64,1}(undef, N);
     rate_array = Array{Float64,1}(undef, N);
-    expectation = _expectation(model, l);
     for i ∈ 1:N
         node = node_index_array[i] |> index -> model.data[index];
-        probability_array[i] = node.probability;
         rate_array[i] = node.rate;
     end
-    variance_value = dot(probability_array, (rate_array .- expectation).^2);
+    variance_value = var(rate_array); # compute the variance -
 
     # return -
     return variance_value;
