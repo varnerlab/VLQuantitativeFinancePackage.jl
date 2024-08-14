@@ -55,6 +55,7 @@ Fill me in
     
 ```@docs
 VLQuantitativeFinancePackage.MySymmetricBinaryInterestRateLatticeModel
+VLQuantitativeFinancePackage.MyBinaryInterestRateLatticeNodeModel
 VLQuantitativeFinancePackage.build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.populate(model::MySymmetricBinaryInterestRateLatticeModel)
 ```

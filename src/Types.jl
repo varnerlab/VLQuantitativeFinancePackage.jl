@@ -514,7 +514,17 @@ struct RiskNeutralBinomialProbabilityMeasure <: AbstractProbabilityMeasure
     RiskNeutralBinomialProbabilityMeasure() = new()
 end
 
-# nodes
+"""
+    mutable struct MyBinaryInterestRateLatticeNodeModel
+
+The `MyBinaryInterestRateLatticeNodeModel` mutable struct represents a node in a binary lattice model for simulating interest rates.
+This node type is created during the initialization of a lattice model and is used to store the probability, rate, and price data for each node.
+
+### Fields
+- `probability::Float64`: The probability of reaching the node in the binary lattice
+- `rate::Float64`: The interest rate at the node
+- `price::Float64`: The price at the node (used for Treasury security pricing)
+"""
 mutable struct MyBinaryInterestRateLatticeNodeModel
 
     # data -
