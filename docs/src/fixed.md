@@ -56,7 +56,7 @@ Fill me in
 ```@docs
 VLQuantitativeFinancePackage.MySymmetricBinaryInterestRateLatticeModel
 VLQuantitativeFinancePackage.build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)
-VLQuantitativeFinancePackage.populate!(model::MySymmetricBinaryInterestRateLatticeModel)
+VLQuantitativeFinancePackage.populate(model::MySymmetricBinaryInterestRateLatticeModel)
 ```
 
 ## Separating the principal and interest payments
