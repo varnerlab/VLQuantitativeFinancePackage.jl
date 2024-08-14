@@ -1076,7 +1076,15 @@ function solve(model::MySymmetricBinaryInterestRateLatticeModel; Vₚ::Float64 =
     return model;
 end
 
-function populate(model::MySymmetricBinaryInterestRateLatticeModel)
+"""
+    function populate(model::MySymmetricBinaryInterestRateLatticeModel) -> MySymmetricBinaryInterestRateLatticeModel
+
+The `populate` function completes the initializing of a [`MySymmetricBinaryInterestRateLatticeModel`](@ref) model. 
+
+### Arguments
+- `model::MySymmetricBinaryInterestRateLatticeModel`: An instance of the [`MySymmetricBinaryInterestRateLatticeModel`](@ref) type constructed using the corresponding `build` function.
+"""
+function populate(model::MySymmetricBinaryInterestRateLatticeModel)::MySymmetricBinaryInterestRateLatticeModel
 
     # initialize -
     nodes_dictionary = Dict{Int, MyBinaryInterestRateLatticeNodeModel}()
