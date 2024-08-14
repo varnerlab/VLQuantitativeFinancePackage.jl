@@ -1169,6 +1169,17 @@ function populate(model::MySymmetricBinaryInterestRateLatticeModel)::MySymmetric
     return model;
 end
 
+"""
+    function expectation(model::MySymmetricBinaryInterestRateLatticeModel) -> Dict{Int64, Float64}
+
+The `expectation` function computes the expectation for each tree level in the lattice model.
+
+### Arguments
+- `model::MySymmetricBinaryInterestRateLatticeModel`: An instance of the [`MySymmetricBinaryInterestRateLatticeModel`](@ref) type constructed using the corresponding `build` and `populate` functions.
+
+### Returns
+- `Dict{Int64, Float64}`: A dictionary where the `key` is the level index and the `value` is the expectation at that level.
+"""
 function expectation(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int64,Float64}
 
     # initialize -
@@ -1185,6 +1196,17 @@ function expectation(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int
     return expectation_dictionary;
 end
 
+"""
+    function variance(model::MySymmetricBinaryInterestRateLatticeModel) -> Dict{Int64, Float64}
+
+The `variance` function computes the variance for each tree level in the lattice model.
+
+### Arguments
+- `model::MySymmetricBinaryInterestRateLatticeModel`: An instance of the [`MySymmetricBinaryInterestRateLatticeModel`](@ref) type constructed using the corresponding `build` and `populate` functions.
+
+### Returns
+- `Dict{Int64, Float64}`: A dictionary where the `key` is the level index and the `value` is the variance at that level.
+"""
 function variance(model::MySymmetricBinaryInterestRateLatticeModel)::Dict{Int64,Float64}
 
     # initialize -

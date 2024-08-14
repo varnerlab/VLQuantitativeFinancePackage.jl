@@ -58,6 +58,8 @@ VLQuantitativeFinancePackage.MySymmetricBinaryInterestRateLatticeModel
 VLQuantitativeFinancePackage.MyBinaryInterestRateLatticeNodeModel
 VLQuantitativeFinancePackage.build(model::Type{MySymmetricBinaryInterestRateLatticeModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.populate(model::MySymmetricBinaryInterestRateLatticeModel)
+VLQuantitativeFinancePackage.expectation(model::MySymmetricBinaryInterestRateLatticeModel)
+VLQuantitativeFinancePackage.variance(model::MySymmetricBinaryInterestRateLatticeModel)
 ```
 
 ## Separating the principal and interest payments
