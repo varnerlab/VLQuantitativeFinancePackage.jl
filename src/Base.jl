@@ -190,7 +190,7 @@ function _discount(model::DiscreteCompoundingModel, rate::Float64, periods::Int,
     Δ = 1/λ; # internal timescale
 
     for i ∈ 0:periods
-        discount[i] = (1+rate/λ)^(i*Δ);
+        discount[i] = (1+rate/λ)^(i);
     end
 
     # return -
