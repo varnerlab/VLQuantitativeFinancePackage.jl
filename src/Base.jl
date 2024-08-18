@@ -179,3 +179,47 @@ function vwap(data::DataFrame)::Array{Float64,1}
     # return -
     return vwap;
 end
+
+
+# --- Discounting functions --------------------------------------------------------------------------- #
+
+function _discount(model::DiscreteCompoundingModel, rate::Float64, periods::Int, λ::Int64)::Dict{Int,Float64}
+
+    # initialize -
+    discount = Dict{Int,Float64}()    
+    for i ∈ 0:periods
+        discount[i] = (1+rate/λ)^(i);
+    end
+
+    # return -
+    return discount;
+end
+
+function _discount(model::ContinuousCompoundingModel, rate::Float64, periods::Int, λ::Int64)::Dict{Int,Float64}
+
+    # initialize -
+    discount = Dict{Int,Float64}()  
+    rᵢ = rate;
+    Δ = 1/λ; # internal timescale
+    
+    # main loop -
+    for i ∈ 0:periods
+
+        # update the internal timescale -
+        τ = (i)*Δ;
+
+        # compute the discount factor -
+        discount[i] = exp(τ*rᵢ);
+    end
+
+    # return -
+    return discount;
+end
+
+function discount(model::AbstractCompoundingModel, rate::Float64, periods::Int; 
+    λ::Int64 = 2)::Dict{Int,Float64}
+    
+    return _discount(model, rate, periods, λ);
+end
+
+# ----------------------------------------------------------------------------------------------------- #
