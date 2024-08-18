@@ -186,9 +186,11 @@ end
 function _discount(model::DiscreteCompoundingModel, rate::Float64, periods::Int, λ::Int64)::Dict{Int,Float64}
 
     # initialize -
-    discount = Dict{Int,Float64}()    
+    discount = Dict{Int,Float64}()
+    Δ = 1/λ; # internal timescale
+
     for i ∈ 0:periods
-        discount[i] = (1+rate/λ)^(i);
+        discount[i] = (1+rate/λ)^(i*Δ);
     end
 
     # return -
