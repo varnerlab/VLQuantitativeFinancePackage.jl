@@ -9,6 +9,13 @@ VLQuantitativeFinancePackage.DiscreteCompoundingModel
 VLQuantitativeFinancePackage.ContinuousCompoundingModel
 ```
 
+Using the [`DiscreteCompoundingModel`](@ref) and [`ContinuousCompoundingModel`](@ref) types, we can compute the discount factors using the `discount` function. The `discount` function takes a discounting model, a discount rate, and the number of periods as input arguments and returns the discount factors for each period as a [Dictionary](https://docs.julialang.org/en/v1/base/collections/#Base.Dict) object.
+
+```@docs
+VLQuantitativeFinancePackage.discount(model::AbstractCompoundingModel, rate::Float64, periods::Int; 
+    λ::Int64 = 2)
+```
+
 ## Treasury secruity model types
 We model [United States Treasury debt securities](https://www.treasurydirect.gov), e.g., [Treasury bills](https://www.treasurydirect.gov/marketable-securities/treasury-bills/), [Treasury notes](https://www.treasurydirect.gov/marketable-securities/treasury-notes/), and [Treasury bonds](https://www.treasurydirect.gov/marketable-securities/treasury-bonds/) using 
 the [`MyUSTreasuryZeroCouponBondModel`](@ref) and [`MyUSTreasuryCouponSecurityModel`](@ref) types, which are subtypes of the `AbstractTreasuryDebtSecurity` abstract type.  

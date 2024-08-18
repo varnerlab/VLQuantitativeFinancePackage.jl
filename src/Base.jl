@@ -216,6 +216,21 @@ function _discount(model::ContinuousCompoundingModel, rate::Float64, periods::In
     return discount;
 end
 
+"""
+    function discount(model::AbstractCompoundingModel, rate::Float64, periods::Int; λ::Int64 = 2)::Dict{Int,Float64}
+
+The `discount` function computes the discount factors for a given compounding model. We assume that the discount rate is constant over all periods.
+
+### Arguments
+- `model::AbstractCompoundingModel`: The compounding model to use to compute the discount factors. The model can be an instance of either a `DiscreteCompoundingModel` or a `ContinuousCompoundingModel`.
+- `rate::Float64`: The annual discount rate used to compute the discount factors.
+- `periods::Int`: The number of periods for which to compute the discount factors.
+- `λ::Int64`: The number of compounding events per year. The default value is `2`.
+
+### Returns
+- `Dict{Int,Float64}`: A dictionary of the discount factors for the given compounding model. The keys are the period indexes and the values are the discount factors for 0 to `periods`.
+
+"""
 function discount(model::AbstractCompoundingModel, rate::Float64, periods::Int; 
     λ::Int64 = 2)::Dict{Int,Float64}
     
