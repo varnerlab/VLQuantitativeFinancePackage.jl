@@ -78,4 +78,5 @@ and maturity of $T$= 1,2,3,4 and 5 years, and a six security with face  (par) va
 
 ```@docs
 VLQuantitativeFinancePackage.strip
+VLQuantitativeFinancePackage.YTM
 ```
