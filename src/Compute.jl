@@ -416,7 +416,8 @@ function _analyze_real_world_multiple_asset(R::Array{Float64,2}, tikers::Array{S
     return real_world_measure;
 end
 
-function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64)::Float64
+function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64; 
+    p::Int64= 1)::Float64
     
     # initialize -
     expectation_value = 0.0;
@@ -429,7 +430,7 @@ function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64
     for i ∈ 1:N
         node = node_index_array[i] |> index -> model.data[index];
         probability_array[i] = node.probability;
-        rate_array[i] = node.rate;
+        rate_array[i] = (node.rate)^(p);
     end
     expectation_value = dot(probability_array, rate_array);
 
@@ -444,13 +445,17 @@ function _variance(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64)::
     levels = model.levels;
     node_index_array = levels[l];
     
-    N = length(node_index_array);
-    rate_array = Array{Float64,1}(undef, N);
-    for i ∈ 1:N
-        node = node_index_array[i] |> index -> model.data[index];
-        rate_array[i] = node.rate;
-    end
-    variance_value = var(rate_array); # compute the variance -
+    # N = length(node_index_array);
+    # rate_array = Array{Float64,1}(undef, N);
+    # for i ∈ 1:N
+    #     node = node_index_array[i] |> index -> model.data[index];
+    #     rate_array[i] = node.rate;
+    # end
+    # variance_value = var(rate_array); # compute the variance -
+
+    term_1 = _expectation(model, l, p = 2);
+    term_2 = _expectation(model,l, p = 1);
+    variance_value = term_1 - (term_2)^2;
 
     # return -
     return variance_value;
