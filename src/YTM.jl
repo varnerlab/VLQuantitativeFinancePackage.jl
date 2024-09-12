@@ -70,7 +70,7 @@ The YTM is the interest (discount) rate that minimizes the Net Present Value (NP
 - `Float64`: The annual interest (discount) rate that minimizes the NPV of the bond.
 """
 function YTM(model::MyUSTreasuryZeroCouponBondModel, 
-    compounding::AbstractCompoundingModel; rₒ::Float64 = 0.01) 
+    compounding::AbstractCompoundingModel; rₒ::Float64 = 0.01)::Float64
 
     # initialize -    
     xinitial = [rₒ]
