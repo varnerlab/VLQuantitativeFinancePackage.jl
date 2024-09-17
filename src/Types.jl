@@ -649,6 +649,18 @@ end
 # --------------------------------------------------------------------------------------------------------------- #
 
 # Lattice model -
+"""
+    mutable struct MyBiomialLatticeEquityNodeModel
+
+The `MyBiomialLatticeEquityNodeModel` mutable struct represents a node in a binomial lattice model for simulating equity prices.
+This node type is created during the initialization of a lattice model and is used to store the price, probability, intrinsic, and extrinsic values for each node.
+
+### Fields
+- `price::Float64`: The price of the asset at the node
+- `probability::Float64`: The probability of reaching the node in the binomial lattice
+- `intrinsic::Union{Nothing,Float64}`: The intrinsic value of the option contract at the node
+- `extrinsic::Union{Nothing,Float64}`: The extrinsic value of the option contract at the node
+"""
 mutable struct MyBiomialLatticeEquityNodeModel
 
     # data -
