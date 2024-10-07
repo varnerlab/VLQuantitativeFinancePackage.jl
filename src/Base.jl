@@ -170,10 +170,28 @@ function vwap(data::DataFrame)::Array{Float64,1}
     # initialize -
     number_of_trading_periods = nrow(data);
     vwap = Array{Float64,1}(undef, number_of_trading_periods);
+    numerator_array = Array{Float64,1}(undef, number_of_trading_periods);
+    denominator_array = Array{Float64,1}(undef, number_of_trading_periods);
+
+    # fill with the number array, and denominator array fill zeros -
+    fill!(numerator_array, 0.0);
+    fill!(denominator_array, 0.0);
 
     # compute the VWAP -
     for i ∈ 1:number_of_trading_periods
-        vwap[i] = (data[i, :volume]*((data[i, :open] + data[i, :close])/2))/(data[i, :volume]);
+        
+        # grab data from this data frame
+        low = data[i, :low]; # low price during the period i
+        high = data[i, :high]; # high price during the period i
+        close = data[i, :close]; # closing price during the period i
+        volume = data[i, :volume]; # volume during the period i
+
+        # compute the typical price -
+        numerator_array[i] = ((low + high + close)/3)*volume;
+        denominator_array[i] = volume;
+
+        # compute the VWAP -
+        vwap[i] = (sum(numerator_array[1:i]))/(sum(denominator_array[1:i]));
     end
 
     # return -
