@@ -105,6 +105,7 @@ function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{S
         begin
             # my return constraint
             transpose(μ)*w + (1.0 - sum(w))*rfr >= R
+            sum(w) == 1.0
         end
     );
 
