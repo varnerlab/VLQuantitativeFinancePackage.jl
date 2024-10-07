@@ -170,10 +170,6 @@ function typicalprice(data::DataFrame)::Array{Float64,1}
     number_of_trading_periods = nrow(data);
     pricearray = Array{Float64,1}(undef, number_of_trading_periods);
 
-    # fill with the number array, and denominator array fill zeros -
-    fill!(numerator_array, 0.0);
-    fill!(denominator_array, 0.0);
-
     # compute the VWAP -
     for i ∈ 1:number_of_trading_periods
         
