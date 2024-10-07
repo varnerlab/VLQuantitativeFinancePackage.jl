@@ -6,7 +6,7 @@ Fill me in.
 
 ```@docs
 VLQuantitativeFinancePackage.log_growth_matrix
-VLQuantitativeFinancePackage.vwap
+VLQuantitativeFinancePackage.typicalprice
 ```
 
 ## Lattice Models

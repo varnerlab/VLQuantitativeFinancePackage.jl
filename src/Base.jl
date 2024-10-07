@@ -154,24 +154,21 @@ function log_growth_matrix(dataset::Array{Float64,1};
 end
 
 """
-    function vwap(data::DataFrame) -> Array{Float64,1}
+    function typicalprice(data::DataFrame) -> Array{Float64,1}
 
-The `vwap` function computes the volume weighted average price (VWAP) for a given data frame. 
-The VWAP is calculated by multiplying the average price by the volume and then dividing by total volume per period.
+The `typicalprice` function computes the typical price (h+l+c)/3 for a given time frame. 
 
 ### Arguments
 - `data::DataFrame`: A data frame holding the price data. To compute the VWAP, we use the `volume` and `open` and `close` price fields.
 
 ### Returns
-- `Array{Float64,1}`: An array of the VWAP values for the given data frame.
+- `Array{Float64,1}`: An array of the typical values for the given time frame.
 """
-function vwap(data::DataFrame)::Array{Float64,1}
+function typicalprice(data::DataFrame)::Array{Float64,1}
 
     # initialize -
     number_of_trading_periods = nrow(data);
-    vwap = Array{Float64,1}(undef, number_of_trading_periods);
-    numerator_array = Array{Float64,1}(undef, number_of_trading_periods);
-    denominator_array = Array{Float64,1}(undef, number_of_trading_periods);
+    pricearray = Array{Float64,1}(undef, number_of_trading_periods);
 
     # fill with the number array, and denominator array fill zeros -
     fill!(numerator_array, 0.0);
@@ -184,18 +181,13 @@ function vwap(data::DataFrame)::Array{Float64,1}
         low = data[i, :low]; # low price during the period i
         high = data[i, :high]; # high price during the period i
         close = data[i, :close]; # closing price during the period i
-        volume = data[i, :volume]; # volume during the period i
 
         # compute the typical price -
-        typical_price = ((low + high + close)/3)*volume;
-        denominator_array[i] = volume;
-
-        # compute the VWAP -
-        vwap[i] = (typical_price)/(volume);
+        pricearray[i] = (low + high + close)/3;
     end
 
     # return -
-    return vwap;
+    return pricearray;
 end
 
 
