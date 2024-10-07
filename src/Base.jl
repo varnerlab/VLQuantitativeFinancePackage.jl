@@ -191,7 +191,7 @@ function vwap(data::DataFrame)::Array{Float64,1}
         denominator_array[i] = volume;
 
         # compute the VWAP -
-        vwap[i] = (typical_price)/(sum(denominator_array[1:i]));
+        vwap[i] = (typical_price)/(volume);
     end
 
     # return -
