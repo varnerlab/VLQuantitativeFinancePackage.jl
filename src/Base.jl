@@ -187,11 +187,11 @@ function vwap(data::DataFrame)::Array{Float64,1}
         volume = data[i, :volume]; # volume during the period i
 
         # compute the typical price -
-        numerator_array[i] = ((low + high + close)/3)*volume;
+        typical_price = ((low + high + close)/3)*volume;
         denominator_array[i] = volume;
 
         # compute the VWAP -
-        vwap[i] = (sum(numerator_array[1:i]))/(sum(denominator_array[1:i]));
+        vwap[i] = (typical_price)/(sum(denominator_array[1:i]));
     end
 
     # return -
