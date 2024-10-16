@@ -637,25 +637,23 @@ function sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple;
 
     # get information from data -
     Δt = data[:Δt]
-    T₁ = data[:T₁];
+    T₁ = data[:T₁]; 
     T₂ = data[:T₂];
     Sₒ = data[:Sₒ]
-    T = T₁*Δt; # back to time -
+    T = T₁*Δt;
 
     # get information from model -
     μ = model.μ
     σ = model.σ
 
 	# initialize -
-	time_index_array = range(T₁, stop=T₂, step=1) |> collect
-	number_of_time_steps = length(time_index_array)
+	time_array = range(T₁, stop=T₂, step=Δt) |> collect
+	number_of_time_steps = length(time_array)
     X = zeros(number_of_time_steps, number_of_paths + 1) # extra column for time -
 
     # put the time in the first col -
-    tmp = T;
     for t ∈ 1:number_of_time_steps
-        tmp += (t)*Δt;
-        X[t,1] = tmp; 
+        X[t,1] = time_array[t]
     end
 
 	# replace first-row w/Sₒ -
