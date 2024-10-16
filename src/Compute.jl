@@ -637,8 +637,8 @@ function sample(model::MyGeometricBrownianMotionEquityModel, data::NamedTuple;
 
     # get information from data -
     Δt = data[:Δt]
-    T₁ = data[:T₁]*(1/Δt); # back to index -
-    T₂ = data[:T₂]*(1/Δt); # back to index -
+    T₁ = data[:T₁];
+    T₂ = data[:T₂];
     Sₒ = data[:Sₒ]
     T = T₁*Δt; # back to time -
 
