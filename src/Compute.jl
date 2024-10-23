@@ -1027,12 +1027,22 @@ function premium(contract::MyEuropeanPutContractModel,
     r = model.r
 
     # compute the premium -
-    d₊ = (1/(σ*sqrt(T)))*(log(Sₒ/K)+(r+(σ^2)/2)*T);
-    d₋ = d₊ - σ*sqrt(T);
-    premium = cdf(Normal(0,1), -d₋)*K*(1/𝒟(r,T)) - cdf(Normal(0,1), -d₊)*Sₒ |> x-> round(x,sigdigits=sigdigits)
+    # d₊ = (1/(σ*sqrt(T)))*(log(Sₒ/K)+(r+(σ^2)/2)*T);
+    # d₋ = d₊ - σ*sqrt(T);
+    # premium = cdf(Normal(0,1), -d₋)*K*(1/𝒟(r,T)) - cdf(Normal(0,1), -d₊)*Sₒ |> x-> round(x,sigdigits=sigdigits)
+
+    # crate a call model -
+    call_model = build(MyEuropeanCallContractModel, (
+        K=K, 
+        DTE=T, 
+        IV=σ
+    ));
+
+    C = premium(call_model, model, sigdigits = sigdigits);
+    P = C + K*(1/𝒟(r,T)) - Sₒ;
 
     # return -
-    return premium
+    return P
 end
 
 # --- lattice model methods ------------------------------------------------------------- #
