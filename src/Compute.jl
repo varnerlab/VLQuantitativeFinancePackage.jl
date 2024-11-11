@@ -887,7 +887,7 @@ function profit(contracts::Array{T,1}, equity::MyEquityModel, S::Array{Float64,1
         # update the equity profit
         n = equity.number_of_shares;
         Sₒ = equity.purchase_price;
-        profit_array[i,number_of_contracts+1] = n*(Sᵢ - Sₒ);
+        profit_array[i,number_of_contracts+2] = n*(Sᵢ - Sₒ);
     end
     
     # compute the overall sum
