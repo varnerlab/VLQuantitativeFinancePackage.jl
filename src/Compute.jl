@@ -855,6 +855,50 @@ function profit(contracts::Array{T,1}, S::Array{Float64,1})::Array{Float64,2} wh
     return profit_array;    
 end
 
+function profit(contracts::Array{T,1}, equity::MyEquityModel, S::Array{Float64,1}) where T <: AbstractContractModel
+
+    # initialize - 
+    number_of_underlying_prices = length(S);
+    number_of_contracts = length(contracts);
+    profit_array = Array{Float64,2}(undef, number_of_underlying_prices, number_of_contracts+3);
+
+    # main loop -
+    for i ∈ 1:number_of_underlying_prices
+
+        # get the underlying price -
+        Sᵢ = S[i];
+
+        # compute the payoff -
+        profit_array[i,1] = Sᵢ;
+
+        # loop over the contracts -
+        for j ∈ 1:number_of_contracts
+
+            # get the contract -
+            contract = contracts[j];
+            sense = contract.sense |> Float64;
+            copy = contract.copy |> Float64;
+            premium = contract.premium;
+
+            # compute the payoff -
+            profit_array[i,j+1] = (copy*sense)*(_payoff(contract, Sᵢ) - premium)
+        end
+
+        # update the equity profit
+        n = equity.number_of_shares;
+        Sₒ = equity.purchase_price;
+        profit_array[i,number_of_contracts+1] = n*(Sᵢ - Sₒ);
+    end
+    
+    # compute the overall sum
+    for i ∈ 1:number_of_underlying_prices
+        profit_array[i,end] = sum(profit_array[i, 2:end-1]);
+    end
+
+    # return -
+    return profit_array;
+end
+
 """
     premium(contract::T, model::MyAdjacencyBasedCRREquityPriceTree; 
         choice::Function=_rational, sigdigits::Int64 = 4) -> Float64 where {T<:AbstractContractModel}
