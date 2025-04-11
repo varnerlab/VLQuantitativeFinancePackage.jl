@@ -16,7 +16,6 @@ function _hippo_objective_function(p, signal, hidden);
     return error_term;
 end
 
-
 """
     function prediction(model::MySisoLegSHippoModel, tspan::NamedTuple, signal::Array{Float64,1}; L::Int64 = 10) -> Tuple
 
@@ -164,6 +163,26 @@ function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTupl
 
     # setup the objective function -
     loss(p) = _hippo_objective_function(p,signal,X);
+ 
+    # call the optimizer -
+    opt_result = Optim.optimize(loss, p, method);
+ 
+    # return the result -
+    return Optim.minimizer(opt_result);
+end
+
+function estimate_hippo_parameters(model::MySisoLegSHippoModel, tspan::NamedTuple, 
+    inputsignal::Array{Float64}, outputsignal::Array{Float64};
+    method = LBFGS())
+    
+    # initialize -
+    p = model.Ĉ;
+ 
+    # solve the model to get the initial guess -
+    (_, X, _) = solve(model, tspan, inputsignal); # use SPY to drive the model``
+
+    # setup the objective function -
+    loss(p) = _hippo_objective_function(p, outputsignal, X); # find C to match the output signal
  
     # call the optimizer -
     opt_result = Optim.optimize(loss, p, method);
