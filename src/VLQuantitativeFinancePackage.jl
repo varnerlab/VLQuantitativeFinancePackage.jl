@@ -50,4 +50,7 @@ module VLQuantitativeFinancePackage
     
     # export the greeks -
     export theta, delta, gamma, vega, rho
+
+    # data functions -
+    export MyTrainingMarketDataSet;
 end

@@ -1,5 +1,6 @@
 # setup my paths -
 const _PATH_TO_SRC = dirname(pathof(@__MODULE__));
+const _PATH_TO_DATA = joinpath(_PATH_TO_SRC, "data");
 
 # load external dependencies -
 using Distributions
@@ -14,6 +15,7 @@ using LsqFit
 using Optim
 using DataStructures
 using StatsBase
+using FileIO
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
@@ -30,3 +32,4 @@ include(joinpath(_PATH_TO_SRC, "Base.jl"));
 include(joinpath(_PATH_TO_SRC, "Bandits.jl"));
 include(joinpath(_PATH_TO_SRC, "Wolfram.jl"));
 include(joinpath(_PATH_TO_SRC, "RL.jl"));
+include(joinpath(_PATH_TO_SRC, "Files.jl"));

@@ -9,6 +9,8 @@ makedocs(
     pages = [
         "Home" => "index.md",
 
+        "Data" => "data.md",
+
         "Instruments" => [
             "Treasury securities" => "fixed.md",
             "Equity securities" => "equity.md",
