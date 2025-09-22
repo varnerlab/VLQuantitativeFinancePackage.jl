@@ -33,3 +33,4 @@ include(joinpath(_PATH_TO_SRC, "Bandits.jl"));
 include(joinpath(_PATH_TO_SRC, "Wolfram.jl"));
 include(joinpath(_PATH_TO_SRC, "RL.jl"));
 include(joinpath(_PATH_TO_SRC, "Files.jl"));
+include(joinpath(_PATH_TO_SRC, "Trees.jl"));

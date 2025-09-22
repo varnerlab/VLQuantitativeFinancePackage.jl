@@ -29,6 +29,7 @@ module VLQuantitativeFinancePackage
     export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, AbstractProbabilityMeasure
     export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
+    export MyGeneralAdjacencyRecombiningCommodityPriceTree
     
     # Markov models, MDPs, Bandits types and methods -
     export MyHiddenMarkovModel,MyPeriodicRectangularGridWorldModel

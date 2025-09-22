@@ -296,6 +296,53 @@ The `data::NamedTuple` must contain the following `keys`:
 build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple)::MyAdjacencyBasedCRREquityPriceTree = _build(model, data);
 
 """
+    function build(type::Type{MyGeneralAdjacencyRecombiningCommodityPriceTree}, data::NamedTuple) -> MyGeneralAdjacencyRecombiningCommodityPriceTree
+
+Builds an `MyGeneralAdjacencyRecombiningCommodityPriceTree` model given the data in the `NamedTuple`. 
+This method builds the connectivity of the tree. To compute the price at each node, use the `populate!` method.
+
+### Arguments
+- `type::Type{MyGeneralAdjacencyRecombiningCommodityPriceTree}`: The type of the model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data` `NamedTuple` must contain the following fields:
+- `h::Int64`: The height of the tree.
+- `price::Float64`: The price at the root node.
+- `u::Float64`: The price increase factor.
+- `d::Float64`: The price decrease factor.
+
+### Returns
+- `MyGeneralAdjacencyRecombiningCommodityPriceTree`: the price tree model holding the computed price data.
+"""
+function build(modeltype::Type{MyGeneralAdjacencyRecombiningCommodityPriceTree}, 
+    data::NamedTuple)::MyGeneralAdjacencyRecombiningCommodityPriceTree
+
+    # get data -
+    n = data.n; # branching factor
+    h = data.h; # height of the tree
+    model = modeltype(); # create an empty model
+    
+    # initialize -
+    connectivity = Dict{Int64, Array{Int64,1}}()
+    Nₕ = binomial(h + n, h) # number of nodes in the tree
+
+    # main loop -
+    for i ∈ 0:(Nₕ - 1)
+        connectivity[i] = children_indices(i, n; base=0)
+    end
+
+    
+    # set the data, and connectivity for the model -
+    model.data = nothing; # we don't have any data yet, set as nothing
+    model.connectivity = connectivity;
+    model.h = h; # height of the tree
+    model.n = n; # branching factor
+
+    # return -
+    return model;
+end
+
+"""
     function build(model::Type{MyEuropeanCallContractModel}, data::NamedTuple) -> MyEuropeanCallContractModel
 
 This `build` method constructs an instance of the [`MyEuropeanCallContractModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
