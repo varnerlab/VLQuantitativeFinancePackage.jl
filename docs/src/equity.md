@@ -15,11 +15,15 @@ VLQuantitativeFinancePackage.RealWorldBinomialProbabilityMeasure
 VLQuantitativeFinancePackage.RiskNeutralBinomialProbabilityMeasure
 VLQuantitativeFinancePackage.MyBinomialEquityPriceTree
 VLQuantitativeFinancePackage.MyBiomialLatticeEquityNodeModel
-VLQuantitativeFinancePackage.MyGeneralAdjacencyRecombiningCommodityPriceTree
 VLQuantitativeFinancePackage.build(model::Type{MyBinomialEquityPriceTree}, data::NamedTuple)
 VLQuantitativeFinancePackage.populate(model::MyBinomialEquityPriceTree; Sₒ::Float64 = 100.0, h::Int64 = 1)
 VLQuantitativeFinancePackage.sample(model::MyBinomialEquityPriceTree, L::Int64; 
     number_of_paths::Int64 = 100)
+VLQuantitativeFinancePackage.RealWorldGeneralProbabilityMeasure
+VLQuantitativeFinancePackage.MyGeneralAdjacencyRecombiningCommodityPriceTree
+VLQuantitativeFinancePackage.build(model::Type{MyGeneralAdjacencyRecombiningCommodityPriceTree}, data::NamedTuple)
+VLQuantitativeFinancePackage.populate(model::MyGeneralAdjacencyRecombiningCommodityPriceTree, 
+    price::Float64, Δ::Array{Float64,1})
 ```
 
 ### Short cut syntax for data-driven binomial trees

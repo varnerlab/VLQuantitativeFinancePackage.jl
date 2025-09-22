@@ -416,6 +416,19 @@ function _analyze_real_world_multiple_asset(R::Array{Float64,2}, tikers::Array{S
     return real_world_measure;
 end
 
+function _analyze_real_world_single_asset_nary_tree(R::Array{Float64,1}, n::Int64;  Δt::Float64 = (1.0/252.0))
+
+    # initialize -
+    minvalue = minimum(R);
+    maxvalue = maximum(R);
+    range = maxvalue - minvalue;
+    step = range/n;
+
+
+    
+
+end
+
 function _expectation(model::MySymmetricBinaryInterestRateLatticeModel, l::Int64; 
     p::Int64= 1)::Float64
     
@@ -471,6 +484,8 @@ end
 (m::RealWorldBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0))::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_real_world_multiple_asset(R, tickers, Δt=Δt)
 (m::RiskNeutralBinomialProbabilityMeasure)(R::Array{Float64,1};  Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Tuple{Float64,Float64,Float64} = _analyze_risk_neutral_single_asset(R, Δt = Δt, risk_free_rate = risk_free_rate)
 (m::RiskNeutralBinomialProbabilityMeasure)(R::Array{Float64,2}, tickers::Array{String,1};  Δt::Float64 = (1.0/252.0), risk_free_rate::Float64 = 0.05)::Dict{String,Tuple{Float64,Float64,Float64}} = _analyze_risk_neutral_multiple_asset(R, tickers, Δt = Δt, risk_free_rate = risk_free_rate)
+(m::RealWorldGeneralProbabilityMeasure)(R::Array{Float64,1}, n::Int64;  
+    Δt::Float64 = (1.0/252.0))::Tuple{Float64,Float64,Float64} = _analyze_real_world_single_asset_nary_tree(R, n, Δt=Δt);
 
 # """
 #     analyze(R::Array{Float64,1};  Δt::Float64 = (1.0/365.0)) -> Tuple{Float64,Float64,Float64}

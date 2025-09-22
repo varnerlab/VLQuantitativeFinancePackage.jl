@@ -26,7 +26,7 @@ module VLQuantitativeFinancePackage
     export MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem, MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
     export MyBiomialLatticeEquityNodeModel, MyBinomialEquityPriceTree
     export MySingleIndexModel, AbstractReturnModel
-    export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, AbstractProbabilityMeasure
+    export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, RealWorldGeneralProbabilityMeasure, AbstractProbabilityMeasure
     export MyOrnsteinUhlenbeckModel, MyHestonModel, EulerMaruyamaMethod
     export MySisoLegSHippoModel, estimate_hippo_parameters, prediction
     export MyGeneralAdjacencyRecombiningCommodityPriceTree

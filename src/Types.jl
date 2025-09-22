@@ -526,6 +526,17 @@ struct RealWorldBinomialProbabilityMeasure <: AbstractProbabilityMeasure
     RealWorldBinomialProbabilityMeasure() = new()
 end
 
+
+"""
+   struct RealWorldGeneralProbabilityMeasure <: AbstractProbabilityMeasure
+
+Immutable type that represents the real-world probability measure for a n-ary tree.
+This type is passed as an argument to various functions to indicate that the real-world probability measure should be used in calculations.   
+"""
+struct RealWorldGeneralProbabilityMeasure <: AbstractProbabilityMeasure
+    RealWorldGeneralProbabilityMeasure() = new()
+end
+
 """
     struct RiskNeutralBinomialProbabilityMeasure <: AbstractProbabilityMeasure
 
