@@ -54,4 +54,5 @@ module VLQuantitativeFinancePackage
 
     # data functions -
     export MyTrainingMarketDataSet;
+    export MyTestingMarketDataSet;
 end
