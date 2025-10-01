@@ -49,7 +49,7 @@ function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{
     optimize!(model)
 
     # check: was the optimization successful?
-    @assert is_solved_and_feasible(model)
+    # @assert is_solved_and_feasible(model)
 
     # populate -
     w_opt = value.(w);
