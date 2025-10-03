@@ -23,7 +23,7 @@ module VLQuantitativeFinancePackage
     export MyEuropeanCallContractModel, MyEuropeanPutContractModel, MyAmericanPutContractModel, MyAmericanCallContractModel, MyEquityModel
     export MyUSTreasuryZeroCouponBondModel, MyUSTreasuryCouponSecurityModel, DiscreteCompoundingModel, ContinuousCompoundingModel
     export MySymmetricBinaryInterestRateLatticeModel, MyBinaryInterestRateLatticeNodeModel
-    export MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem, MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
+    export MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem, MyMarkowitzRiskyRiskFreePortfolioChoiceProblem
     export MyBiomialLatticeEquityNodeModel, MyBinomialEquityPriceTree
     export MySingleIndexModel, AbstractReturnModel
     export RealWorldBinomialProbabilityMeasure, RiskNeutralBinomialProbabilityMeasure, RealWorldGeneralProbabilityMeasure, AbstractProbabilityMeasure

@@ -2,12 +2,12 @@
 Fill me in
 
 ```@docs
-VLQuantitativeFinancePackage.MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem
-VLQuantitativeFinancePackage.MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem
+VLQuantitativeFinancePackage.MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem
+VLQuantitativeFinancePackage.MyMarkowitzRiskyRiskFreePortfolioChoiceProblem
 VLQuantitativeFinancePackage.MySingleIndexModel
-VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem}, data::NamedTuple)
-VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem}, data::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem}, data::NamedTuple)
+VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyRiskFreePortfolioChoiceProblem}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MySingleIndexModel}, data::NamedTuple)
-VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)
+VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem)
 VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)
 ```

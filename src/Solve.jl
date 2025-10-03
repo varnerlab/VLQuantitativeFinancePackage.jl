@@ -1,13 +1,13 @@
 """
-    function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem) -> Dict{String,Any}
+    function solve(problem::MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem) -> Dict{String,Any}
 
-The `solve` function solves the Markowitz risky asset-only portfolio choice problem for a given instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) problem type.
+The `solve` function solves the Markowitz risky asset-only portfolio choice problem for a given instance of the [`MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem`](@ref) problem type.
 The `solve` method checks for the optimization's status using an assertion. Thus, the optimization must be successful for the function to return.
 Wrap the function call in a `try` block to handle exceptions.
 
 
 ### Arguments
-- `problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem`](@ref) that defines the problem parameters.
+- `problem::MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem`](@ref) that defines the problem parameters.
 
 ### Returns
 - `Dict{String, Any}`: A dictionary with optimization results.
@@ -18,7 +18,7 @@ The results dictionary has the following keys:
 - `"objective_value"`: The value of the objective function at the optimal solution.
 - `"status"`: The status of the optimization.
 """
-function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{String,Any}
+function solve(problem::MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem)::Dict{String,Any}
 
     # initialize -
     results = Dict{String,Any}()
@@ -63,14 +63,14 @@ function solve(problem::MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem)::Dict{
 end
 
 """
-    function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem) -> Dict{String,Any}
+    function solve(problem::MyMarkowitzRiskyRiskFreePortfolioChoiceProblem) -> Dict{String,Any}
 
-The `solve` function solves the Markowitz risky and risk-free portfolio choice problem for a given instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) problem type.
+The `solve` function solves the Markowitz risky and risk-free portfolio choice problem for a given instance of the [`MyMarkowitzRiskyRiskFreePortfolioChoiceProblem`](@ref) problem type.
 The `solve` method checks for the optimization's status using an assertion. Thus, the optimization must be successful for the function to return.
 Wrap the function call in a `try` block to handle exceptions.
 
 ### Arguments
-- `problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem`](@ref) that defines the problem parameters.
+- `problem::MyMarkowitzRiskyRiskFreePortfolioChoiceProblem`: An instance of the [`MyMarkowitzRiskyRiskFreePortfolioChoiceProblem`](@ref) that defines the problem parameters.
 
 ### Returns
 - `Dict{String, Any}`: A dictionary with optimization results. 
@@ -81,7 +81,7 @@ The results dictionary has the following keys:
 - `"objective_value"`: The value of the objective function at the optimal solution.
 - `"status"`: The status of the optimization.
 """
-function solve(problem::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)::Dict{String,Any}
+function solve(problem::MyMarkowitzRiskyRiskFreePortfolioChoiceProblem)::Dict{String,Any}
 
     # initialize -
     results = Dict{String,Any}()

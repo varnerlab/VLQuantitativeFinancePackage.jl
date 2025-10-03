@@ -619,7 +619,7 @@ The `MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem` mutable struct represents
 - `R::Float64`: The desired return of the portfolio
 - `initial::Array{Float64,1}`: The initial portfolio weights    
 """
-mutable struct MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+mutable struct MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem <: AbstractStochasticChoiceProblem
 
     # data -
     Σ::Array{Float64,2}
@@ -629,13 +629,13 @@ mutable struct MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem <: AbstractStoch
     initial::Array{Float64,1}
 
     # constructor
-    MyMarkowitzRiskyAssetOnlyPortfiolioChoiceProblem() = new();
+    MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem() = new();
 end
 
 """
-    mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+    mutable struct MyMarkowitzRiskyRiskFreePortfolioChoiceProblem <: AbstractStochasticChoiceProblem
 
-The `MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem` mutable struct represents a [Minimum Variance portfolio problem](https://en.wikipedia.org/wiki/Modern_portfolio_theory) with a combination of risky and risk-free assets. 
+The `MyMarkowitzRiskyRiskFreePortfolioChoiceProblem` mutable struct represents a [Minimum Variance portfolio problem](https://en.wikipedia.org/wiki/Modern_portfolio_theory) with a combination of risky and risk-free assets.
 
 ### Required fields
 - `Σ::Array{Float64,2}`: The covariance matrix of the risky asset returns
@@ -645,7 +645,7 @@ The `MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem` mutable struct represents 
 - `initial::Array{Float64,1}`: The initial portfolio weights
 - `risk_free_rate::Float64`: The risk-free rate of return
 """
-mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStochasticChoiceProblem
+mutable struct MyMarkowitzRiskyRiskFreePortfolioChoiceProblem <: AbstractStochasticChoiceProblem
 
     # data -
     Σ::Array{Float64,2}
@@ -656,7 +656,7 @@ mutable struct MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem <: AbstractStocha
     risk_free_rate::Float64
 
     # constructor -
-    MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem() = new();
+    MyMarkowitzRiskyRiskFreePortfolioChoiceProblem() = new();
 end
 
 """
