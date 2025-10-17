@@ -278,6 +278,24 @@ The `data::NamedTuple` must contain the following `keys`:
 """
 build(model::Type{MyMarkowitzRiskyRiskFreePortfolioChoiceProblem}, data::NamedTuple)::MyMarkowitzRiskyRiskFreePortfolioChoiceProblem = _build(model, data);
 
+"""
+    function build(model::Type{MySharpeRatioPortfolioChoiceProblem}, data::NamedTuple) -> MySharpeRatioPortfolioChoiceProblem
+
+This `build` method constructs an instance of the [`MySharpeRatioPortfolioChoiceProblem`](@ref) type using the data 
+in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `model::Type{MySharpeRatioPortfolioChoiceProblem}`: The type of model to build.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `μ::Array{Float64,1}`: The expected returns of the risky assets.
+- `bounds::Array{Float64,2}`: The bounds on the risky asset weights.
+- `R::Float64`: The desired return of the portfolio.
+- `initial::Array{Float64,1}`: The initial portfolio weights.
+- `risk_free_rate::Float64`: The risk-free rate of return.
+"""
+build(model::Type{MySharpeRatioPortfolioChoiceProblem}, data::NamedTuple)::MySharpeRatioPortfolioChoiceProblem = _build(model, data);
 
 """
     function build(model::Type{MyAdjacencyBasedCRREquityPriceTree}, data::NamedTuple) -> MyAdjacencyBasedCRREquityPriceTree

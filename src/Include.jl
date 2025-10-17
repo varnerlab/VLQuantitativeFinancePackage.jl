@@ -16,6 +16,7 @@ using Optim
 using DataStructures
 using StatsBase
 using FileIO
+using COSMO
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
@@ -34,3 +35,4 @@ include(joinpath(_PATH_TO_SRC, "Wolfram.jl"));
 include(joinpath(_PATH_TO_SRC, "RL.jl"));
 include(joinpath(_PATH_TO_SRC, "Files.jl"));
 include(joinpath(_PATH_TO_SRC, "Trees.jl"));
+include(joinpath(_PATH_TO_SRC, "Sharpe.jl"));

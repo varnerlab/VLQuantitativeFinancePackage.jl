@@ -660,6 +660,37 @@ mutable struct MyMarkowitzRiskyRiskFreePortfolioChoiceProblem <: AbstractStochas
 end
 
 """
+    mutable struct MySharpeRatioPortfolioChoiceProblem <: AbstractStochasticChoiceProblem
+
+The `MySharpeRatioPortfolioChoiceProblem` mutable struct represents a [Maximum Sharpe Ratio portfolio problem](https://en.wikipedia.org/wiki/Sharpe_ratio).
+
+### Required fields
+- `Σ::Array{Float64,2}`: The covariance matrix of the risky asset returns
+- `μ::Array{Float64,1}`: The expected returns of the risky assets
+- `bounds::Array{Float64,2}`: The bounds on the risky asset weights
+- `risk_free_rate::Float64`: The risk-free rate of return
+- `initial::Array{Float64,1}`: The initial portfolio weights
+- `α::Array{Float64,1}`: The firm specific unexplained returns
+- `β::Array{Float64,1}`: The relationship between the firm and the market
+- `gM::Float64`: The expected market return
+"""
+mutable struct MySharpeRatioPortfolioChoiceProblem <: AbstractStochasticChoiceProblem
+
+    # data -
+    Σ::Array{Float64,2}
+    μ::Array{Float64,1}
+    bounds::Array{Float64,2}
+    risk_free_rate::Float64
+    initial::Array{Float64,1}
+    α::Array{Float64,1}  # firm specific unexplained returns
+    β::Array{Float64,1}  # relationship between the firm and the market
+    gM::Float64        # expected market return
+
+    # constructor -
+    MySharpeRatioPortfolioChoiceProblem() = new();
+end
+
+"""
     mutable struct MySingleIndexModel <: AbstractReturnModel
 
 The `MySingleIndexModel` mutable struct represents a single index model of risky asset returns.
