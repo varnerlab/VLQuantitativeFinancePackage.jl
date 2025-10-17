@@ -9,7 +9,7 @@ VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyAssetOnlyPortfoli
 VLQuantitativeFinancePackage.build(model::Type{MyMarkowitzRiskyRiskFreePortfolioChoiceProblem}, data::NamedTuple)
 VLQuantitativeFinancePackage.build(model::Type{MySingleIndexModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyAssetOnlyPortfolioChoiceProblem)
-VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyRiskFreePortfiolioChoiceProblem)
+VLQuantitativeFinancePackage.solve(model::MyMarkowitzRiskyRiskFreePortfolioChoiceProblem)
 ```
 
 ## Maximizing the Sharpe ratio
