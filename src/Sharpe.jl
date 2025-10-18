@@ -23,8 +23,8 @@ function solve(model::MySharpeRatioPortfolioChoiceProblem)::Dict{String,Any}
     results = Dict{String,Any}()
     Σ = model.Σ;
     rfr = model.risk_free_rate;
-    α = model.alpha;
-    β = model.beta;
+    α = model.α;
+    β = model.β;
     gₘ = model.gₘ;
 
     # setup the problem -
