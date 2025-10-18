@@ -37,7 +37,7 @@ function solve(model::MySharpeRatioPortfolioChoiceProblem)::Dict{String,Any}
 
     # setup the optimization model -
     opt_model = Model(()->COSMO.Optimizer())
-    set_optimizer_attribute(opt_model, "max_iter", 5000)
+    set_optimizer_attribute(opt_model, "max_iter", 50000)
     set_optimizer_attribute(opt_model, "verbose", true)
     @variable(opt_model, w[1:d] >= 0.0)
     @constraint(opt_model, sum(w) == 1.0)
