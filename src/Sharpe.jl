@@ -36,8 +36,8 @@ function solve(model::MySharpeRatioPortfolioChoiceProblem)::Dict{String,Any}
 
     # setup the optimization model -
     opt_model = Model(()->COSMO.Optimizer(verbose=0, max_iter=500))
-    @variable(opt_model, w[1:d] >= 0)
-    @constraint(opt_model, sum(w) == 1)
+    @variable(opt_model, w[1:d] >= 0.0)
+    @constraint(opt_model, sum(w) == 1.0)
     
     # SOC: ||U*w||_2 ≤ 1
     @constraint(opt_model, [1.0; U * w] in SecondOrderCone())
