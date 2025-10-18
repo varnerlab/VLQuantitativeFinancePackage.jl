@@ -670,15 +670,17 @@ The `MySharpeRatioPortfolioChoiceProblem` mutable struct represents a [Maximum S
 - `α::Array{Float64,1}`: The firm specific unexplained returns
 - `β::Array{Float64,1}`: The relationship between the firm and the market
 - `gₘ::Float64`: The expected market return
+- `τ::Float64`: The growth parameter
 """
 mutable struct MySharpeRatioPortfolioChoiceProblem <: AbstractStochasticChoiceProblem
 
     # data -
-    Σ::Array{Float64,2}
-    risk_free_rate::Float64
-    α::Array{Float64,1}  # firm specific unexplained returns
-    β::Array{Float64,1}  # relationship between the firm and the market
-    gₘ::Float64        # expected market return
+    Σ::Array{Float64,2}     # covariance matrix of the risky asset returns
+    risk_free_rate::Float64 # risk free rate of return
+    α::Array{Float64,1}     # firm specific unexplained returns
+    β::Array{Float64,1}     # relationship between the firm and the market
+    gₘ::Float64             # expected market return
+    τ::Float64              # growth parameter
 
     # constructor -
     MySharpeRatioPortfolioChoiceProblem() = new();
