@@ -22,17 +22,14 @@ function solve(model::MySharpeRatioPortfolioChoiceProblem)::Dict{String,Any}
     # initialize -
     results = Dict{String,Any}()
     Σ = model.Σ;
-    μ = model.μ;
     rfr = model.risk_free_rate;
-    bounds = model.bounds;
-    initial = model.initial;
     α = model.alpha;
-    beta = model.beta;
-    gM = model.gM;
+    β = model.beta;
+    gₘ = model.gₘ;
 
     # setup the problem -
     d = length(α);
-    c = α .+ β .* gM .- rfr .* ones(d);
+    c = α .+ β .* gₘ .- rfr .* ones(d);
 
     # Cholesky: Sigma = U' * U  (Julia's cholesky gives Upper U)
     U = cholesky(Symmetric(Σ)).U;
