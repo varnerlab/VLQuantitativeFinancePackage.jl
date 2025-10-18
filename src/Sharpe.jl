@@ -35,7 +35,7 @@ function solve(model::MySharpeRatioPortfolioChoiceProblem)::Dict{String,Any}
     U = cholesky(Symmetric(Σ)).U;
 
     # setup the optimization model -
-    opt_model = Model(()->COSMO.Optimizer(verbose=0, max_iter=500))
+    opt_model = Model(()->COSMO.Optimizer())
     @variable(opt_model, w[1:d] >= 0.0)
     @constraint(opt_model, sum(w) == 1.0)
     
