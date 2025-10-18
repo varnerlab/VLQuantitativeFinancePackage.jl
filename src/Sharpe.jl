@@ -41,7 +41,7 @@ function solve(model::MySharpeRatioPortfolioChoiceProblem)::Dict{String,Any}
     @constraint(opt_model, sum(w) == 1.0)
     
     # SOC: ||U*w||_2 ≤ 1
-    @constraint(opt_model, [τ; U*w] in SecondOrderCone())
+    @constraint(opt_model, [dot(c,w)/τ; U*w] in SecondOrderCone())
     @objective(opt_model, Max, dot(c, w))
     optimize!(opt_model)
 
