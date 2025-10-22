@@ -1,6 +1,7 @@
 # setup my paths -
 const _PATH_TO_SRC = dirname(pathof(@__MODULE__));
 const _PATH_TO_DATA = joinpath(_PATH_TO_SRC, "data");
+const _PATH_TO_OPTIONS_DATA = joinpath(_PATH_TO_DATA, "options");
 
 # load external dependencies -
 using Distributions
@@ -17,6 +18,7 @@ using DataStructures
 using StatsBase
 using FileIO
 using COSMO
+using TOML
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
