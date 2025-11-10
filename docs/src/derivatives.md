@@ -133,3 +133,10 @@ VLQuantitativeFinancePackage.vega
 VLQuantitativeFinancePackage.rho
 VLQuantitativeFinancePackage.gamma
 ```
+
+## Hedging
+We can use the Greeks to construct hedging strategies to mitigate the risk associated with holding options contracts. A common hedging strategy is delta hedging, which involves taking a position in the underlying asset to offset the delta of the options contract. By continuously adjusting the position in the underlying asset, we can maintain a delta-neutral position, reducing the risk associated with changes in the underlying asset's price.
+
+```@docs
+VLQuantitativeFinancePackage.MyEquityModel
+```

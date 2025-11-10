@@ -415,6 +415,19 @@ mutable struct MyAmericanPutContractModel <: AbstractContractModel
     MyAmericanPutContractModel() = new()
 end
 
+"""
+    mutable struct MyEquityModel <: AbstractAssetModel
+
+Models a single equity asset. We use this model when thinking about equity as counter assets in hedging strategies.
+
+### Fields
+- `ticker::String`: The ticker symbol of the equity asset
+- `purchase_price::Float64`: The purchase price of the equity asset
+- `current_price::Float64`: The current price of the equity asset
+- `direction::Int64`: The direction of the position (1 for long, -1 for short)
+- `number_of_shares::Int64`: The number of shares held
+
+"""
 mutable struct MyEquityModel <: AbstractAssetModel
 
     # data -
