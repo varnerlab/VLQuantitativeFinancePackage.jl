@@ -32,7 +32,7 @@ module VLQuantitativeFinancePackage
     export MyGeneralAdjacencyRecombiningCommodityPriceTree
     
     # Markov models, MDPs, Bandits types and methods -
-    export MyHiddenMarkovModel,MyPeriodicRectangularGridWorldModel
+    export MyHiddenMarkovModel,MyHiddenMarkovModelWithJumps,MyPeriodicRectangularGridWorldModel
     export MyEpsilonSamplingBanditModel, MyTickerPickerWorldModel, MyTickerPickerRiskAwareWorldModel
     export preference
 
