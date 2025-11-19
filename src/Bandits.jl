@@ -22,7 +22,6 @@ function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::Abstrac
     α = samplingmodel.α
     β = samplingmodel.β
     K = samplingmodel.K
-    ϵ = samplingmodel.ϵ
     world = worldmodel.world
 
     # initialize -
@@ -39,6 +38,8 @@ function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::Abstrac
  
     # main sampling loop -
     for t ∈ 1:horizon
+
+        ϵₜ = (1.0/(t^(1/3)))*(log(K*t))^(1/3); # compute the epsilon value -
 
         # create a new parameter array -
         parameter_array = Array{Float64,2}(undef, K, 2);
@@ -63,7 +64,7 @@ function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::Abstrac
         time_sample_results_dict_Ts[t] = deepcopy(action_distribution);
 
         aₜ = nothing; # default to nothing 
-        if (rand() < ϵ)
+        if (rand() ≤ ϵₜ) # explore with probability epsilon
             aₜ = rand(dcat); # choose a random action uniformly
         else
 
