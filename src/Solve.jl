@@ -141,11 +141,12 @@ function _simulate(m::MyHiddenMarkovModel, start::Int64, steps::Int64)::Array{In
 end
 
 
-function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64)::Array{Int64,1}
+function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64)::Array{Int64,2}
 
     # initialize -
-    chain = Array{Int64,1}(undef, steps);
+    chain = Array{Int64,1}(undef, steps, 2); # two columns: state, jump indicator
     tmp_chain = Dict{Int64,Int64}();
+    tmp_jump = Dict{Int64,Int64}();
     tmp_chain[1] = start;
     counter = 2;
 
@@ -156,23 +157,25 @@ function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64):
         if (rand() < m.ϵ)
 
             # # jump: find the next state. It is lowest probability state from here
-            number_of_jumps = rand(m.jump_distribution);
+            number_of_jumps = rand(m.jump_distribution); # how many steps to take in jump state 
             number_of_states = length(m.states);
             bottom_states = [1,2,3]; # super bad
             top_states = [number_of_states-2,number_of_states-1,number_of_states]; # super good
 
-            @show number_of_jumps
 
             for _ ∈ 1:number_of_jumps
                 if (rand() < 0.52)
                     tmp_chain[counter] = rand(bottom_states) # a jump transition to bottom states
+                    tmp_jump[counter] = 1; # indicate a jump occurred
                 else
                     tmp_chain[counter] = rand(top_states) # a jump transition to top states
+                    tmp_jump[counter] = 1; # indicate a jump occurred
                 end
                 counter += 1;
             end
         else
             tmp_chain[counter] = rand(m.transition[jump_state]); # a normal transition
+            tmp_jump[counter] = 0; # indicate no jump occurred
             counter += 1; # increment counter
         end
 
@@ -181,7 +184,8 @@ function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64):
 
     # populate the chain from tmp_chain -
     for i ∈ 1:steps
-        chain[i] = tmp_chain[i];
+        chain[i,1] = tmp_chain[i];
+        chain[i,2] = tmp_jump[i];
     end
 
     # return -
