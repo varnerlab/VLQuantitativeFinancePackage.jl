@@ -162,8 +162,8 @@ function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64):
             # # jump: find the next state. It is lowest probability state from here
             number_of_jumps = rand(m.jump_distribution); # how many steps to take in jump state 
             number_of_states = length(m.states);
-            bottom_states = [1,2,3]; # super bad
-            top_states = [number_of_states-2,number_of_states-1,number_of_states]; # super good
+            bottom_states = [1,2,3,4,5]; # super bad
+            top_states = [number_of_states-4, number_of_states-3, number_of_states-2, number_of_states-1, number_of_states]; # super good
 
 
             for _ ∈ 1:number_of_jumps
