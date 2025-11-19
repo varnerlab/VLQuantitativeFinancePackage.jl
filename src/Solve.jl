@@ -126,15 +126,17 @@ function solve(problem::MyMarkowitzRiskyRiskFreePortfolioChoiceProblem)::Dict{St
 end
 
 # --- Markov models --------------------------------------------------------------------------- #
-function _simulate(m::MyHiddenMarkovModel, start::Int64, steps::Int64)::Array{Int64,1}
+function _simulate(m::MyHiddenMarkovModel, start::Int64, steps::Int64)::Array{Int64,2}
 
     # initialize -
-    chain = Array{Int64,1}(undef, steps);
-    chain[1] = start;
+    chain = Array{Int64,1}(undef, steps, 2);
+    chain[1,1] = start;
+    chain[1,2] = 0; # no jump indicator
 
     # main loop -
     for i ∈ 2:steps
-        chain[i] = rand(m.transition[chain[i-1]]);
+        chain[i,1] = rand(m.transition[chain[i-1]]);
+        chain[i,2] = 0; # no jump indicator
     end
 
     return chain;
