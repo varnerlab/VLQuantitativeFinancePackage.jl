@@ -150,6 +150,7 @@ function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64):
     tmp_chain = Dict{Int64,Int64}();
     tmp_jump = Dict{Int64,Int64}();
     tmp_chain[1] = start;
+    tmp_jump[1] = 0; # no jump indicator
     counter = 2;
 
     # main -
