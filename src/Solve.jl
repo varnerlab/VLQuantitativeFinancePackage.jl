@@ -129,7 +129,7 @@ end
 function _simulate(m::MyHiddenMarkovModel, start::Int64, steps::Int64)::Array{Int64,2}
 
     # initialize -
-    chain = Array{Int64,1}(undef, steps, 2);
+    chain = Array{Int64,2}(undef, steps, 2);
     chain[1,1] = start;
     chain[1,2] = 0; # no jump indicator
 
@@ -146,7 +146,7 @@ end
 function _simulate(m::MyHiddenMarkovModelWithJumps, start::Int64, steps::Int64)::Array{Int64,2}
 
     # initialize -
-    chain = Array{Int64,1}(undef, steps, 2); # two columns: state, jump indicator
+    chain = Array{Int64,2}(undef, steps, 2); # two columns: state, jump indicator
     tmp_chain = Dict{Int64,Int64}();
     tmp_jump = Dict{Int64,Int64}();
     tmp_chain[1] = start;
