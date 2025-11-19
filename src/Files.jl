@@ -23,7 +23,7 @@ Load the components of the SP500 Daily open, high, low, close (OHLC) dataset as 
 This data was provided by [Polygon.io](https://polygon.io/) and covers the period from January 3, 2025, to the current date (it is updated periodically).
 
 """
-MyTestingMarketDataSet() = _jld2(joinpath(_PATH_TO_DATA, "SP500-Daily-OHLC-1-3-2025-to-09-26-2025.jld2"));
+MyTestingMarketDataSet() = _jld2(joinpath(_PATH_TO_DATA, "SP500-Daily-OHLC-1-3-2025-to-11-18-2025.jld2"));
 
 """
     MyOptionsChainDataSet(ticker::String) -> NamedTuple
