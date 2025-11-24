@@ -768,6 +768,25 @@ The `data::NamedTuple` must contain the following `keys`:
 """
 build(modeltype::Type{MyTickerPickerWorldModel}, data::NamedTuple)::MyTickerPickerWorldModel = _build(modeltype, data);
 
+
+
+"""
+    function build(modeltype::Type{MyTickerPickerSIMRiskAwareWorldModel}, data::NamedTuple) -> MyTickerPickerSIMRiskAwareWorldModel
+
+This `build` method constructs an instance of the [`MyTickerPickerSIMRiskAwareWorldModel`](@ref) type using the data in a [NamedTuple](https://docs.julialang.org/en/v1/base/base/#Core.NamedTuple).
+
+### Arguments
+- `modeltype::Type{MyTickerPickerSIMRiskAwareWorldModel}`: The type of model to build, in this case, the [`MyTickerPickerSIMRiskAwareWorldModel`](@ref) type.
+- `data::NamedTuple`: The data to use to build the model.
+
+The `data::NamedTuple` must contain the following `keys`:
+- `tickers::Array{String,1}`: An array of ticker symbols that we explore
+- `data::Dict{String, DataFrame}`: A dictionary that holds the data for each ticker symbol
+- `horizon::Int64`: The number of days to look ahead for the ticker picker
+- `buffersize::Int64`: The size of the buffer for storing the data
+"""
+build(modeltype::Type{MyTickerPickerSIMRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerSIMRiskAwareWorldModel = _build(modeltype, data);
+
 """
     function build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple) -> MyTickerPickerRiskAwareWorldModel
 
