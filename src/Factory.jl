@@ -801,15 +801,15 @@ function build(modeltype::Type{MyTickerPickerSIMRiskAwareWorldModel}, data::Name
 
 
     # set the data on the object
-    # model.tickers = data.tickers;
-    # model.buffersize = data.buffersize;
-    # model.risk = data.risk;
-    # model.Ḡₘ = data.Ḡₘ;
-    # model.risk_free_rate = data.risk_free_rate;
-    # model.world = data.world;
-    # model.Δt = data.Δt;
-    # model.parameters = data.parameters;
-    # model.buffersize = data.buffersize;
+    model.tickers = data.tickers;
+    model.buffersize = data.buffersize;
+    model.risk = data.risk;
+    model.Ḡₘ = data.Ḡₘ;
+    model.risk_free_rate = data.risk_free_rate;
+    model.world = data.world;
+    model.Δt = data.Δt;
+    model.parameters = data.parameters;
+    model.buffersize = data.buffersize;
 
     # return
     return model;

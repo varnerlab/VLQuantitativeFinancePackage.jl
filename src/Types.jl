@@ -951,7 +951,7 @@ mutable struct MyTickerPickerSIMRiskAwareWorldModel <: AbstractWorldModel
     risk::Dict{String, Float64}
 
     # constructor -
-    MyTickerPickerRiskAwareWorldModel() = new();
+    MyTickerPickerSIMRiskAwareWorldModel() = new();
 end
 
 """
