@@ -785,7 +785,36 @@ The `data::NamedTuple` must contain the following `keys`:
 - `horizon::Int64`: The number of days to look ahead for the ticker picker
 - `buffersize::Int64`: The size of the buffer for storing the data
 """
-build(modeltype::Type{MyTickerPickerSIMRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerSIMRiskAwareWorldModel = _build(modeltype, data);
+function build(modeltype::Type{MyTickerPickerSIMRiskAwareWorldModel}, data::NamedTuple)::MyTickerPickerSIMRiskAwareWorldModel
+
+    # initialize -
+    model = modeltype(); # build an empty model
+
+    # tickers::Array{String,1}
+    # risk_free_rate::Float64
+    # world::Function
+    # Δt::Float64
+    # Ḡₘ::Float64 # expected excess market return (market factor)
+    # parameters::Dict{String, NamedTuple} # single index model parameters for each ticker
+    # buffersize::Int64 # how many days to use in the buffer
+    # risk::Dict{String, Float64}
+
+
+    # set the data on the object
+    model.tickers = data.tickers;
+    model.buffersize = data.buffersize;
+    model.risk = data.risk;
+    model.Ḡₘ = data.Ḡₘ;
+    model.risk_free_rate = data.risk_free_rate;
+    model.world = data.world;
+    model.Δt = data.Δt;
+    model.parameters = data.parameters;
+    model.buffersize = data.buffersize;
+
+    # return
+    return model;
+end
+
 
 """
     function build(modeltype::Type{MyTickerPickerRiskAwareWorldModel}, data::NamedTuple) -> MyTickerPickerRiskAwareWorldModel
