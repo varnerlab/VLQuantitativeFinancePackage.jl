@@ -923,6 +923,38 @@ mutable struct MyTickerPickerRiskAwareWorldModel <: AbstractWorldModel
 end
 
 """
+    mutable struct MyTickerPickerSIMRiskAwareWorldModel <: AbstractWorldModel
+
+The `MyTickerPickerSIMRiskAwareWorldModel` mutable struct represents a world model for a ticker picker problem 
+that is risk-aware and uses a single index model (SIM) for returns.
+
+### Required fields
+- `tickers::Array{String,1}`: An array of ticker symbols that we explore
+- `risk_free_rate::Float64`: The risk-free rate of return in the world (assumed constant)
+- `world::Function`: A function that represents the world model. The function takes an action `a`, data about the world, and returns the reward `r` for taking action `a`.
+- `Δt::Float64`: The time step size in the world model
+- `Ḡₘ::Float64`: The expected excess market return (market factor)
+- `parameters::Dict{String, NamedTuple}`: A dictionary that holds the single index model parameters for each ticker symbol
+- `buffersize::Int64`: The size of the buffer used in the world model
+- `risk::Dict{String, Float64}`: A dictionary that holds the risk measure for each ticker symbol
+"""
+mutable struct MyTickerPickerSIMRiskAwareWorldModel <: AbstractWorldModel
+
+    # data -
+    tickers::Array{String,1}
+    risk_free_rate::Float64
+    world::Function
+    Δt::Float64
+    Ḡₘ::Float64 # expected excess market return (market factor)
+    parameters::Dict{String, NamedTuple} # single index model parameters for each ticker
+    buffersize::Int64 # how many days to use in the buffer
+    risk::Dict{String, Float64}
+
+    # constructor -
+    MyTickerPickerRiskAwareWorldModel() = new();
+end
+
+"""
     mutable struct MyOneDimensionalElementarWolframRuleModel <: AbstractPolicyModel
 
 The `MyOneDimensionalElementarWolframRuleModel` mutable struct represents a one-dimensional elementary Wolfram rule model.
