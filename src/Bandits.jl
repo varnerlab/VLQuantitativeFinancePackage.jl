@@ -69,7 +69,7 @@ function sample(samplingmodel::MyEpsilonSamplingBanditModel, worldmodel::Abstrac
         else
 
             # for each arm, sample from the distribution -
-            foreach(k -> θ̂_vector[k] = mean(action_distribution[k]), 1:K); # choose the action with the highest mean
+            foreach(k -> θ̂_vector[k] = rand(action_distribution[k]), 1:K); # choose the action with the highest mean
 
             # ok: let's choose an action -
             aₜ = argmax(θ̂_vector);
