@@ -1106,4 +1106,48 @@ mutable struct MyWolframGridWorldModel <: AbstractWorldModel
     MyWolframGridWorldModel() = new();
 end
 
+""" 
+    mutable struct MyTwoDimensionalFixedBoundaryGridWorld <: AbstractWorldModel
+
+Model for the two-dimensional fixed boundary grid world of the Wolfram rules.
+
+### Required fields
+- `states::Dict{Int, Tuple{Int, Int}}`: A dictionary that holds the states of each cell in the grid where the `key` is the cell index and the `value` is a tuple of the row and column index
+- `coordinates::Dict{Tuple{Int, Int}, Int}`: A dictionary that holds the coordinates of each cell in the grid where the `key` is a tuple of the row and column index and the `value` is the cell index
+- `width::Int`: The width of the grid
+- `height::Int`: The height of the grid
+"""
+mutable struct MyTwoDimensionalFixedBoundaryGridWorld <: AbstractWorldModel
+    
+    # data -
+    states::Dict{Int, Tuple{Int, Int}}
+    coordinates::Dict{Tuple{Int, Int}, Int}
+    width::Int
+    height::Int
+
+    # constructor -
+    MyTwoDimensionalFixedBoundaryGridWorld() = new();
+end
+
+"""
+    mutable struct MySimpleTwoDimensionalAgentModel <: AbstractAgentModel
+
+The `MySimpleTwoDimensionalAgentModel` mutable struct represents a simple two-dimensional agent model for a Wolfram rule.
+
+### Required fields
+- `index::Int`: The index of the agent
+- `rule::Union{MyElementaryWolframRuleModel, MyTotalisticWolframRuleModel}`: The Wolfram rule model used by the agent
+- `connections::Array{Int,1}`: An array that holds the indices of the cells in the agent's neighborhood
+"""
+mutable struct MySimpleTwoDimensionalAgentModel <: AbstractAgentModel
+    
+    # data -
+    index::Int
+    rule::Union{MyElementaryWolframRuleModel, MyTotalisticWolframRuleModel}
+    connections::Array{Int,1} # which cells are in my neighborhood?
+
+    # constructor -
+    MySimpleTwoDimensionalAgentModel() = new();
+end
+
 # -------------------------------------------------------------------------------------------------------------- #
