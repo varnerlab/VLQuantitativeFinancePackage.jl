@@ -1015,6 +1015,7 @@ The `MyTwoDimensionalTotalisticWolframRuleModel` mutable struct represents a two
 - `number_of_colors::Int`: The number of colors in the rule, i.e., the number of states a cell can exist in
 - `rule::Dict{Int,Int}`: A dictionary that holds the rule where the `key` is index of the neighborhood state and the `value` is the next state
 - `neighborhoodstatesmap::Dict{Float64, Int64}`: A dictionary whose `keys` are the average of the neighborhood states and the `value` the neighborhood state index
+- `weights::Array{Float64,1}`: An array of weights associated with the neighborhood states
 """
 mutable struct MyTwoDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
     
@@ -1024,6 +1025,7 @@ mutable struct MyTwoDimensionalTotalisticWolframRuleModel <: AbstractPolicyModel
     number_of_colors::Int
     neighborhoodstatesmap::Dict{Float64, Int64}
     rule::Dict{Int,Int}
+    weights::Array{Float64,1}
 
     # constructor
     MyTwoDimensionalTotalisticWolframRuleModel() = new()

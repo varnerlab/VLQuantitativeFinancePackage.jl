@@ -970,6 +970,12 @@ function build(modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel},
     for i ∈ eachindex(values)
         Q[round(values[i], digits=2)] = (i - 1);
     end
+
+    # initialize the weights -
+    weights = Array{Float64,1}(undef, radius);
+    for i ∈ 1:radius
+        weights[i] = 1.0/radius; # uniform weights
+    end
     
     # set the data on the object
     model.index = index;
@@ -977,6 +983,7 @@ function build(modeltype::Type{MyTwoDimensionalTotalisticWolframRuleModel},
     model.radius = radius;
     model.number_of_colors = levels;
     model.neighborhoodstatesmap = Q;
+    model.weights = weights;
 
     # return
     return model;
