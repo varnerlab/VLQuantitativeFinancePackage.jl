@@ -16,6 +16,11 @@ VLQuantitativeFinancePackage.build(model::Type{MyOneDimensionalElementarWolframR
 VLQuantitativeFinancePackage.MyTwoDimensionalTotalisticWolframRuleModel
 VLQuantitativeFinancePackage.build(model::Type{MyTwoDimensionalTotalisticWolframRuleModel}, data::NamedTuple)
 VLQuantitativeFinancePackage.solve(rulemodel::MyTwoDimensionalTotalisticWolframRuleModel, initialstate::Array{Int64,2}; steps::Int64 = 100)
+VLQuantitativeFinancePackage.MySimpleTwoDimensionalAgentModel
+VLQuantitativeFinancePackage.MyTwoDimensionalFixedBoundaryGridWorld
+VLQuantitativeFinancePackage.solve(agents::Array{T,1}, world::AbstractWorldModel; initial::Array{Int,2}=Array{Int,2}(),
+    steps::Int = 100, verbose::Bool = false, exclude = nothing)::Dict{Int, Array{Int,2}} where T<:AbstractAgentModel
+
 ```
 
 ## Wolfram Q-learning
