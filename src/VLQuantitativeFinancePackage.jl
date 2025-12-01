@@ -16,7 +16,7 @@ module VLQuantitativeFinancePackage
     export AbstractWorldModel
     export AbstractPolicyModel
     export AbstractLearningModel
-
+    export AbstractAgentModel
 
     # export concrete types -
     export MyCRRLatticeNodeModel, MyGeometricBrownianMotionEquityModel, MyMultipleAssetGeometricBrownianMotionEquityModel, MyAdjacencyBasedCRREquityPriceTree, MyLongstaffSchwartzContractPricingModel, MyBlackScholesContractPricingModel
@@ -38,8 +38,8 @@ module VLQuantitativeFinancePackage
 
     # wolfram rules etc
     export MyOneDimensionalTotalisticWolframRuleModel, MyOneDimensionalElementarWolframRuleModel
-    export MyTwoDimensionalElementaryWolframRuleModel, MyTwoDimensionalTotalisticWolframRuleModel
-    export MyWolframRuleQLearningAgentModel, MyWolframGridWorldModel, MyTwoDimensionalFixedBoundaryGridWorld, MySimpleTwoDimensionalAgentModel
+    export MyTwoDimensionalElementaryWolframRuleModel, MyTwoDimensionalTotalisticWolframRuleModel, MyElementaryWolframRuleModel
+    export MyWolframRuleQLearningAgentModel, MyWolframGridWorldModel, MyTwoDimensionalFixedBoundaryGridWorld, MySimpleTwoDimensionalAgentModel, MyElementaryWolframRuleModel
     
     # Base functions -
     export log_growth_matrix

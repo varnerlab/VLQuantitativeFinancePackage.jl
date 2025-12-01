@@ -21,7 +21,7 @@ function _execute(agent::MySimpleTwoDimensionalAgentModel, frame::Array{Int,2},
     index = nothing;
     if rulemodel isa MyElementaryWolframRuleModel
         index = parse(Int, join(tmp), base = number_of_colors);
-    elseif rulemodel isa MyTotalisticWolframRuleModel
+    elseif rulemodel isa MyTwoDimensionalTotalisticWolframRuleModel
         Q = rulemodel.neighborhoodstatesmap;  
         μ = dot(w, tmp);
         index = Q[round(μ, digits=2)]

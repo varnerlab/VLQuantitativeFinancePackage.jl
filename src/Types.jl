@@ -13,6 +13,7 @@ abstract type AbstractSamplingModel end
 abstract type AbstractWorldModel end
 abstract type AbstractPolicyModel end
 abstract type AbstractLearningModel end
+abstract type AbstractAgentModel end
 
 # --- Equity models ------------------------------------------------------------------------ #
 struct MyLocalExpectationRegressionModel 
@@ -1130,6 +1131,29 @@ mutable struct MyTwoDimensionalFixedBoundaryGridWorld <: AbstractWorldModel
 end
 
 """
+    mutable struct MyElementaryWolframRuleModel <: AbstractPolicyModel
+
+The `MyElementaryWolframRuleModel` mutable struct represents an elementary Wolfram rule model.
+
+### Required fields
+- `index::Int`: The index of the rule
+- `radius::Int`: The radius, i.e, the number of cells that influence the next state for this rule
+- `colors::Int`: The number of colors in the rule, i.e., the number of states a cell can exist in
+- `rule::Dict{Int, Int}`: A dictionary that holds the rule where the `key` is the binary representation of the neighborhood and the `value` is the next state
+"""
+mutable struct MyElementaryWolframRuleModel <: AbstractPolicyModel
+    
+    # data -
+    index::Int
+    radius::Int
+    colors::Int
+    rule::Dict{Int, Int}
+
+    # constructor
+    MyElementaryWolframRuleModel() = new()
+end
+
+"""
     mutable struct MySimpleTwoDimensionalAgentModel <: AbstractAgentModel
 
 The `MySimpleTwoDimensionalAgentModel` mutable struct represents a simple two-dimensional agent model for a Wolfram rule.
@@ -1143,11 +1167,14 @@ mutable struct MySimpleTwoDimensionalAgentModel <: AbstractAgentModel
     
     # data -
     index::Int
-    rule::Union{MyElementaryWolframRuleModel, MyTotalisticWolframRuleModel}
+    rule::Union{MyElementaryWolframRuleModel, MyTwoDimensionalTotalisticWolframRuleModel}
     connections::Array{Int,1} # which cells are in my neighborhood?
 
     # constructor -
     MySimpleTwoDimensionalAgentModel() = new();
 end
+
+
+
 
 # -------------------------------------------------------------------------------------------------------------- #
