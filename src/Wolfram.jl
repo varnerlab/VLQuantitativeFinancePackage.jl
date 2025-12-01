@@ -6,7 +6,7 @@ function _execute(agent::MySimpleTwoDimensionalAgentModel, frame::Array{Int,2},
     rulemodel = agent.rule; # what is the rule model of the agent?
     w = rulemodel.weights; # what are the weights of the rule model?
     radius = rulemodel.radius; # what is the radius of the rule model?
-    number_of_colors = rulemodel.colors; # what is the number of colors in the rule model?
+    number_of_colors = rulemodel.number_of_colors; # what is the number of colors in the rule model?
     states = world.states; # states of the world
 
 
